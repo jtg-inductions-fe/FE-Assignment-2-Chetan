@@ -1,7 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
-    // mention all reducers here.
+    // temporary placeholder reducers .
+    _placeholder: (state = null) => state,
 });
 
 export default rootReducer;

@@ -4,7 +4,7 @@ export const API_ROUTES = {
         LOGOUT: '/logout',
     },
     USERS: {
-        CREATE: '/users/',
+        CREATE: '/users',
         GET: (userId: string) => `/users/${userId}`,
         UPDATE: (userId: string) => `/users/${userId}`,
     },

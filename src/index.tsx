@@ -7,9 +7,9 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { theme } from '@theme';
 
-const rootElement = document.getElementById('root') as HTMLElement;
-
 import store from './store/store';
+
+const rootElement = document.getElementById('root') as HTMLElement;
 
 createRoot(rootElement).render(
     <StrictMode>
