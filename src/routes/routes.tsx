@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
 
-import Home from '../components/Home';
+import Home from '../features/home/Home';
 
 const AppRoutes = () => (
     <Routes>
