@@ -4,7 +4,8 @@
         "paths": {
             "@assets/*": ["assets/*"],
             "@constants": ["constants/index"],
-            "@theme": ["theme/index"]
+            "@theme": ["theme/index"],
+            "@store": ["store/store"]
         }
     }
 }

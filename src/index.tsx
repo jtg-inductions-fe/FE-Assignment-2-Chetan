@@ -2,12 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from 'routes/routes';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
+import store from '@store';
 import { theme } from '@theme';
-
-import store from './store/store';
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
@@ -16,7 +17,9 @@ createRoot(rootElement).render(
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <h1>Hello World</h1>
+                <BrowserRouter>
+                    <AppRoutes />
+                </BrowserRouter>
             </ThemeProvider>
         </Provider>
     </StrictMode>,
