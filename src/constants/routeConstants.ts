@@ -11,16 +11,13 @@ export const ROUTES = {
 
         CART: '/dashboard/cart',
         PAST_ORDERS: '/dashboard/orders',
-        ORDER_DETAILS: (orderId: string) =>
-            `/dashboard/orders/${orderId}/order-details`,
+        ORDER_DETAILS: (orderId: string) => `/dashboard/orders/${orderId}/order-details`,
 
         RESTAURANTS: {
             ROOT: '/dashboard/restaurants',
-            MENU: (restaurantId: string) =>
-                `/dashboard/restaurants/${restaurantId}/menu`,
+            MENU: (restaurantId: string) => `/dashboard/restaurants/${restaurantId}/menu`,
             ANALYTICS: {
-                ROOT: (restaurantId: string) =>
-                    `/dashboard/restaurants/${restaurantId}/analytics`,
+                ROOT: (restaurantId: string) => `/dashboard/restaurants/${restaurantId}/analytics`,
                 MENU_STATS: (restaurantId: string) =>
                     `/dashboard/restaurants/${restaurantId}/analytics/menu-stats`,
                 TOP_CUSTOMERS: (restaurantId: string) =>

@@ -1,8 +1,5 @@
 import type { Theme } from '@mui/material/styles';
-import type {
-    TypographyOptions,
-    TypographyUtils,
-} from '@mui/material/styles/createTypography';
+import type { TypographyOptions, TypographyUtils } from '@mui/material/styles/createTypography';
 
 import { FONT_WEIGHT, HTML_FONT_SIZE } from '@constants';
 

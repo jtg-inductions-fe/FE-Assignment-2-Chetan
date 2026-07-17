@@ -17,10 +17,7 @@ export default tseslint.config(
     please refer to the ESLint recommended configuration:
     https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts
     */
-        extends: [
-            ...tseslint.configs.recommendedTypeChecked,
-            eslintConfigPrettier,
-        ],
+        extends: [...tseslint.configs.recommendedTypeChecked, eslintConfigPrettier],
         files: ['**/*.{ts,tsx}'],
         languageOptions: {
             ecmaVersion: 2020,
@@ -49,10 +46,7 @@ export default tseslint.config(
             'react/react-in-jsx-scope': 'off',
             'no-console': 'error',
             'no-shadow': 'error',
-            'react-refresh/only-export-components': [
-                'warn',
-                { allowConstantExport: true },
-            ],
+            'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
             'simple-import-sort/imports': [
                 'error',
                 {
@@ -61,9 +55,7 @@ export default tseslint.config(
                         ['^react$', '^react-dom'],
                         ['^\\w'],
                         ['^@mui'],
-                        [
-                            '^@(?:|assets|components|constant|layout|routes|theme)',
-                        ],
+                        ['^@(?:|assets|components|constant|layout|routes|theme)'],
                         ['^\\./', '^\\.\\./'],
                     ],
                 },

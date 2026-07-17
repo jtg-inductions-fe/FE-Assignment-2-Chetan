@@ -1,7 +1,4 @@
-import type {
-    CSSProperties,
-    MixinsOptions,
-} from '@mui/material/styles/createMixins';
+import type { CSSProperties, MixinsOptions } from '@mui/material/styles/createMixins';
 
 /**
  * Creates a CSS block for clamping text to a specified number of lines
