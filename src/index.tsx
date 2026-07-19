@@ -10,6 +10,7 @@ import { AppSnackbar, ErrorBoundary } from '@components';
 import { AppRoutes } from '@routes';
 import { store } from '@store';
 import { theme } from '@theme';
+// import Header from '@components/header/Header';
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
@@ -21,6 +22,7 @@ createRoot(rootElement).render(
                 <BrowserRouter>
                     <ErrorBoundary>
                         <AppRoutes />
+                        {/* <Header /> */}
                         <AppSnackbar />
                     </ErrorBoundary>
                 </BrowserRouter>
