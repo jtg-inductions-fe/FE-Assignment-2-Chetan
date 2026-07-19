@@ -1,6 +1,10 @@
+import { authApi } from '@api/authApi';
+import authReducer from '@features/auth/authSlice';
+import snackbarReducer from '@features/snackbar/snackbarSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 
 export const rootReducer = combineReducers({
-    // temporary placeholder reducers .
-    _placeholder: (state = null) => state,
+    auth: authReducer,
+    snackbar: snackbarReducer,
+    [authApi.reducerPath]: authApi.reducer,
 });

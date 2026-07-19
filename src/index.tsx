@@ -8,6 +8,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { AppRoutes } from '@routes';
 import store from '@store';
+import ErrorBoundary from '@components/errorBoundary/ErrorBoundary';
+import AppSnackbar from '@components/snackbar/AppSnackbar';
 import { theme } from '@theme';
 
 const rootElement = document.getElementById('root') as HTMLElement;
@@ -18,7 +20,10 @@ createRoot(rootElement).render(
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <BrowserRouter>
-                    <AppRoutes />
+                    <ErrorBoundary>
+                        <AppRoutes />
+                        <AppSnackbar />
+                    </ErrorBoundary>
                 </BrowserRouter>
             </ThemeProvider>
         </Provider>
