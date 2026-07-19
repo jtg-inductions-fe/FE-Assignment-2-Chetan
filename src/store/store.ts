@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { authApi } from 'services/authApi';
+import { authApi } from '@services';
 
 import { configureStore } from '@reduxjs/toolkit';
 
