@@ -22,7 +22,15 @@ const AppSnackbar = () => {
                 horizontal: 'center',
             }}
         >
-            <Alert onClose={handleClose} severity={severity} variant="filled">
+            <Alert
+                sx={{
+                    position: 'relative',
+                    top: '10vh',
+                }}
+                onClose={handleClose}
+                severity={severity}
+                variant="filled"
+            >
                 {message}
             </Alert>
         </Snackbar>
