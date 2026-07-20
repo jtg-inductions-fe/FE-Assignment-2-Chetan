@@ -1,20 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Form } from '@components/forms';
-import { showSnackbar } from '@components/snackbar';
-import { ROUTES } from '@constants';
+import { Form } from '@components';
+import { ROUTES, SUCCESS_MESSAGES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useLoginMutation } from '@services/auth-api';
-import { useAppDispatch } from '@store/hooks';
-import { getErrorMessage } from '@utils/error/get-error-messages';
+import { useLoginMutation } from '@services';
+import { showSnackbar } from '@slices';
+import { addAccessToken } from '@slices';
+import { useAppDispatch } from '@store';
+import { getErrorMessage } from '@utils';
 
-import { loginFields } from './auth.helper';
-import { addAccessToken } from './auth.slice';
-import { LoginCard, LoginContainer } from './auth.style';
-import type { FormData } from './auth.types';
+import { loginFields } from './login.helper';
+import { LoginCard } from './login.style';
+import type { FormData } from './login.types';
+import { AuthContainer } from '../auth.style';
 
-export const LoginContainerComponent = () => {
+export const LoginContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -27,15 +28,14 @@ export const LoginContainerComponent = () => {
                 password: data.password,
             }).unwrap();
 
-            dispatch(addAccessToken(response.access_token));
-            localStorage.setItem('token', response.access_token);
+            dispatch(addAccessToken(response.accessToken));
+            localStorage.setItem('accessToken', response.accessToken);
             dispatch(
                 showSnackbar({
-                    message: 'Login successful',
+                    message: SUCCESS_MESSAGES.LOGIN_SUCCESS,
                     severity: 'success',
                 }),
             );
-
             void navigate(ROUTES.DASHBOARD.ROOT);
         } catch (e) {
             dispatch(
@@ -48,7 +48,7 @@ export const LoginContainerComponent = () => {
     };
 
     return (
-        <LoginContainer>
+        <AuthContainer>
             <LoginCard elevation={3}>
                 <Form<FormData>
                     title="Login"
@@ -60,6 +60,6 @@ export const LoginContainerComponent = () => {
                     onSubmit={(data) => void handleLogin(data)}
                 />
             </LoginCard>
-        </LoginContainer>
+        </AuthContainer>
     );
 };
