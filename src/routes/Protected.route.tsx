@@ -2,9 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
 
-/**
- *
- */
+
 export const ProtectedRoute = () => {
     const token = localStorage.getItem('token');
 

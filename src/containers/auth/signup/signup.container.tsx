@@ -1,18 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { useSignupMutation } from 'services/auth-api';
+import { useSignupMutation } from 'services/authApi';
 
-import { Form } from '@components/forms/form.component';
-import { showSnackbar } from '@components/snackbar/snackbar.slice';
-import { ROUTES } from '@constants';
-import { signupFields } from '@containers/auth/auth.helper';
-import { SignCard, SignupContainer } from '@containers/auth/auth.style';
-import type { User } from '@containers/auth/auth.types';
+import { Form } from '@components';
+import { ROUTES, SUCCESS_MESSAGES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useAppDispatch } from '@store/hooks';
-import { getErrorMessage } from '@utils/error/get-error-messages';
+import { showSnackbar } from '@slices';
+import { useAppDispatch } from '@store';
+import { getErrorMessage } from '@utils';
 
-export const SignupContainerComponent = () => {
+import { signupFields } from './signup.helper';
+import { SignupCard } from './signup.style';
+import type { User } from './signup.types';
+import { AuthContainer } from '../auth.style';
+
+export const SignupContainer = () => {
     const navigate = useNavigate();
     const [signup] = useSignupMutation();
     const dispatch = useAppDispatch();
@@ -23,7 +25,7 @@ export const SignupContainerComponent = () => {
 
             dispatch(
                 showSnackbar({
-                    message: 'Signup successful',
+                    message: SUCCESS_MESSAGES.SIGNUP_SUCCESS,
                     severity: 'success',
                 }),
             );
@@ -40,8 +42,8 @@ export const SignupContainerComponent = () => {
     };
 
     return (
-        <SignupContainer>
-            <SignCard elevation={3}>
+        <AuthContainer>
+            <SignupCard elevation={3}>
                 <Form<User>
                     title="Signup"
                     fields={signupFields}
@@ -51,7 +53,7 @@ export const SignupContainerComponent = () => {
                     bottomLinkTo={ROUTES.AUTH.LOGIN}
                     onSubmit={(data) => void handleSignup(data)}
                 />
-            </SignCard>
-        </SignupContainer>
+            </SignupCard>
+        </AuthContainer>
     );
 };
