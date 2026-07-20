@@ -2,12 +2,11 @@ import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
 import { Home } from '@pages';
-import { Login } from '@pages/login/login.page';
-import { NotFound } from '@pages/not-found/Not-found.page';
-import { Signup } from '@pages/signup/signup.page';
-import GuestRoute from '@routes/guest.route';
+import { Login, NotFound, Signup } from '@pages';
 
-const AppRoutes = () => (
+import GuestRoute from './Guest.route';
+
+export const AppRoutes = () => (
     <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route element={<GuestRoute />}>
@@ -17,5 +16,3 @@ const AppRoutes = () => (
         <Route path="*" element={<NotFound />} />
     </Routes>
 );
-
-export default AppRoutes;
