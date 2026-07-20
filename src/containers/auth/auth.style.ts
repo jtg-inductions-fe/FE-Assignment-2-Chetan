@@ -1,13 +1,13 @@
 import { Box, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const AuthContainer = styled(Box)(({ theme }) => ({
+export const LoginContainer = styled(Box)(({ theme }) => ({
     minHeight: '100vh',
     ...theme.mixins.flexLayout(),
     backgroundColor: theme.palette.background.default,
 }));
 
-export const AuthCard = styled(Paper)(({ theme }) => ({
+export const LoginCard = styled(Paper)(({ theme }) => ({
     width: '100%',
     maxWidth: 400,
     paddingInline: theme.spacing(4),

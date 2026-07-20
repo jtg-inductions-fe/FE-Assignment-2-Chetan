@@ -1,8 +1,9 @@
 import { FieldValues, Path } from 'react-hook-form';
 
-import type { FormData, User } from '@app-types/authTypes';
-import type { FormField } from '@app-types/formTypes';
+import type { FormField } from '@components/forms';
 import { PREFERENCE, ROLE } from '@constants';
+
+import type { FormData, User } from './auth.types';
 
 export const getEmailFieldValidator = <T extends FieldValues>(): FormField<T> => ({
     name: 'email' as Path<T>,
