@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Stack } from '@mui/material';
 
 import { ROUTES } from '@constants';
-const NotFound = () => {
+export const NotFound = () => {
     const navigate = useNavigate();
 
     return (
@@ -24,5 +24,3 @@ const NotFound = () => {
         </Stack>
     );
 };
-
-export default NotFound;
