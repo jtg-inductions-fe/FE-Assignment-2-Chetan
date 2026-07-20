@@ -3,11 +3,11 @@ import { createRoot } from 'react-dom/client';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import AppRoutes from 'routes/routes';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import store from '@store';
+import { AppRoutes } from '@routes/appRoutes';
+import store from '@store/store';
 import { theme } from '@theme';
 
 const rootElement = document.getElementById('root') as HTMLElement;

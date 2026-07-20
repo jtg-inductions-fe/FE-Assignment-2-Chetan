@@ -5,7 +5,9 @@
             "@assets/*": ["assets/*"],
             "@constants": ["constants/index"],
             "@theme": ["theme/index"],
-            "@store": ["store/store"]
+            "@store/*": ["store/*"],
+            "@pages/*": ["pages/*"],
+            "@routes/*": ["routes/*"]
         }
     }
 }
