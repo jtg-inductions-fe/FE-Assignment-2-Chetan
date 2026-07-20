@@ -1,2 +1,3 @@
-export * from './errorBoundary.component';
-export * from './errorBoundary.types';
+export * from './ErrorBoundary.component';
+export * from './ErrorBoundary.types';
+export * from './ErrorImage.styles';
