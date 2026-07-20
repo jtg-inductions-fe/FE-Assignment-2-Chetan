@@ -1,16 +1,10 @@
-import { Component, ReactNode } from 'react';
+import { Component } from 'react';
 
 import { Box, Button, Stack } from '@mui/material';
 
-interface ErrorBoundaryProps {
-    children: ReactNode;
-}
+import { ErrorBoundaryProps, ErrorBoundaryState } from './error-boundary.types';
 
-interface ErrorBoundaryState {
-    hasError: boolean;
-}
-
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     state: ErrorBoundaryState = {
         hasError: false,
     };
@@ -45,5 +39,3 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         return this.props.children;
     }
 }
-
-export default ErrorBoundary;
