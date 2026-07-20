@@ -1,7 +1,3 @@
-import { authApi } from 'services/auth-api';
-
-import snackbarReducer from '@components/snackbar';
-import authReducer from '@containers/auth';
 import { combineReducers } from '@reduxjs/toolkit';
 import { authApi, menuItemsApi, restaurantsApi } from '@services';
 import { authReducer, cartReducer, snackbarReducer } from '@slices';
