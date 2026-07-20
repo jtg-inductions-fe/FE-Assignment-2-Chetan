@@ -4,7 +4,7 @@ import { ROUTES } from '@constants';
 import { Home } from '@pages';
 import { Login, NotFound, Signup } from '@pages';
 
-import GuestRoute from './Guest.route';
+import { GuestRoute } from './guest.route';
 
 export const AppRoutes = () => (
     <Routes>
