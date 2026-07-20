@@ -1,19 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useLoginMutation } from '@api/authApi';
-import type { FormData } from '@app-types/authTypes';
-import Form from '@components/forms/Form';
+import { Form } from '@components/forms';
+import { showSnackbar } from '@components/snackbar';
 import { ROUTES } from '@constants';
-import { addAccessToken } from '@features/auth/authSlice';
-import { AuthCard, AuthContainer } from '@features/auth/authStyle';
-import { loginFields } from '@features/auth/authValidation';
-import { showSnackbar } from '@features/snackbar/snackbarSlice';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useLoginMutation } from '@services/auth-api';
 import { useAppDispatch } from '@store/hooks';
-import { getErrorMessage } from '@utils/error/getErrorMessage';
+import { getErrorMessage } from '@utils/error/get-error-messages';
 
-const Login = () => {
+import { loginFields } from './auth.helper';
+import { addAccessToken } from './auth.slice';
+import { LoginCard, LoginContainer } from './auth.style';
+import type { FormData } from './auth.types';
+
+export const LoginContainerComponent = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -47,8 +48,8 @@ const Login = () => {
     };
 
     return (
-        <AuthContainer>
-            <AuthCard elevation={3}>
+        <LoginContainer>
+            <LoginCard elevation={3}>
                 <Form<FormData>
                     title="Login"
                     fields={loginFields}
@@ -58,9 +59,7 @@ const Login = () => {
                     bottomLinkTo={ROUTES.AUTH.SIGNUP}
                     onSubmit={(data) => void handleLogin(data)}
                 />
-            </AuthCard>
-        </AuthContainer>
+            </LoginCard>
+        </LoginContainer>
     );
 };
-
-export default Login;
