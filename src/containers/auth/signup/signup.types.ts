@@ -1,19 +1,5 @@
 import { ROLE } from '@constants';
 
-export interface FormData {
-    email: string;
-    password: string;
-}
-
-export interface LoginResponse {
-    access_token: string;
-    token_type: string;
-}
-
-export interface AuthState {
-    accessToken: string | null;
-}
-
 export interface BaseUser {
     name: string;
     email: string;
