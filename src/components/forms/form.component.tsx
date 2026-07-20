@@ -17,9 +17,9 @@ import {
     Typography,
 } from '@mui/material';
 
-import type { AuthFormProps } from '@app-types/formTypes';
+import type { AuthFormProps } from '@components/forms/form.types';
 
-const Form = <T extends FieldValues>({
+export const Form = <T extends FieldValues>({
     title,
     fields,
     buttonText,
@@ -105,5 +105,3 @@ const Form = <T extends FieldValues>({
         </Box>
     );
 };
-
-export default Form;

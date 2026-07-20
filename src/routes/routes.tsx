@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
-import NotFound from '@components/errorHandlingPages/NotFound';
 import { ROUTES } from '@constants';
-import Login from '@features/auth/pages/Login';
-import Signup from '@features/auth/pages/Signup';
-import Home from '@features/home/Home';
-import GuestRoute from '@routes/GuestRoute';
+import { Home } from '@pages';
+import { Login } from '@pages/login/login.page';
+import { NotFound } from '@pages/not-found/Not-found.page';
+import { Signup } from '@pages/signup/signup.page';
+import GuestRoute from '@routes/guest.route';
 
 const AppRoutes = () => (
     <Routes>

@@ -1,18 +1,18 @@
 import { useNavigate } from 'react-router-dom';
+import { useSignupMutation } from 'services/auth-api';
 
-import { useSignupMutation } from '@api/authApi';
-import type { User } from '@app-types/authTypes';
-import Form from '@components/forms/Form';
+import { Form } from '@components/forms/form.component';
+import { showSnackbar } from '@components/snackbar/snackbar.slice';
 import { ROUTES } from '@constants';
-import { SignCard, SignupContainer } from '@features/auth/authStyle';
-import { signupFields } from '@features/auth/authValidation';
-import { showSnackbar } from '@features/snackbar/snackbarSlice';
+import { signupFields } from '@containers/auth/auth.helper';
+import { SignCard, SignupContainer } from '@containers/auth/auth.style';
+import type { User } from '@containers/auth/auth.types';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useAppDispatch } from '@store/hooks';
-import { getErrorMessage } from '@utils/error/getErrorMessage';
+import { getErrorMessage } from '@utils/error/get-error-messages';
 
-const Signup = () => {
+export const SignupContainerComponent = () => {
     const navigate = useNavigate();
     const [signup] = useSignupMutation();
     const dispatch = useAppDispatch();
@@ -55,5 +55,3 @@ const Signup = () => {
         </SignupContainer>
     );
 };
-
-export default Signup;

@@ -1,5 +1,6 @@
-import type { AuthState } from '@app-types/authTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import type { AuthState } from './auth.types';
 
 const initialState: AuthState = {
     accessToken: localStorage.getItem('access_Token'),
