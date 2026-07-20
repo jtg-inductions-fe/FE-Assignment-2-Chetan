@@ -2,6 +2,8 @@ import { FieldValues, Path } from 'react-hook-form';
 
 import type { FormField } from '@components';
 
+import type { FormData } from './Login.types';
+
 export const getEmailFieldValidator = <T extends FieldValues>(): FormField<T> => ({
     name: 'email' as Path<T>,
     label: 'Email',
@@ -32,3 +34,8 @@ export const getPasswordFieldValidator = <T extends FieldValues>(): FormField<T>
         },
     },
 });
+
+export const loginFields: FormField<FormData>[] = [
+    getEmailFieldValidator<FormData>(),
+    getPasswordFieldValidator<FormData>(),
+];
