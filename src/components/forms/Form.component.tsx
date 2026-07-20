@@ -17,7 +17,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import type { AuthFormProps } from './form.types';
+import type { AuthFormProps } from './Form.types';
 
 export const Form = <T extends FieldValues>({
     title,

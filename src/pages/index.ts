@@ -1,4 +1,4 @@
-export * from './home.component';
+export * from './home';
 export * from './login';
 export * from './signup';
 export * from './notFound';

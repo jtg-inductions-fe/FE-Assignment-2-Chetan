@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Stack } from '@mui/material';
 
 import notFoundImage from '@assets/image/notFound.webp';
+import { ErrorImage } from '@components';
 import { ROUTES } from '@constants';
-import { ErrorImage } from '@styles';
 export const NotFound = () => {
     const navigate = useNavigate();
 

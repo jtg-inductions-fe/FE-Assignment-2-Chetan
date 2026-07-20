@@ -3,9 +3,9 @@ import { Component } from 'react';
 import { Button, Stack } from '@mui/material';
 
 import error500 from '@assets/image/error500.webp';
-import { ErrorImage } from '@styles';
 
-import { ErrorBoundaryProps, ErrorBoundaryState } from './errorBoundary.types';
+import { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types';
+import { ErrorImage } from './ErrorImage.styles';
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     state: ErrorBoundaryState = {

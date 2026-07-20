@@ -7,4 +7,4 @@ export { BREAKPOINTS } from './breakpoints.constants';
 export { ROLE } from './common/role.constants';
 export { PREFERENCE } from './common/preference.constants';
 export { ERROR_MESSAGES } from './errorMessages.constants';
-export { SUCCESS_MESSAGES } from './successMessage.constants';
+export { SUCCESS_MESSAGES } from './successMessages.constants';

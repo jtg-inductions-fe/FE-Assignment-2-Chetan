@@ -1,2 +1,2 @@
-export * from './form.component';
-export * from './form.types';
+export * from './Form.component';
+export * from './Form.types';

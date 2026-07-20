@@ -1,2 +1,2 @@
-export * from './snackbar.component';
-export * from './snackbar.types';
+export * from './Snackbar.component';
+export * from './Snackbar.types';

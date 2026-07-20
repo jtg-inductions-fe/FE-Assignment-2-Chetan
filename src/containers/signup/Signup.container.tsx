@@ -9,10 +9,10 @@ import { showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
 import { getErrorMessage } from '@utils';
 
-import { signupFields } from './signup.helper';
-import { SignupCard } from './signup.style';
-import type { User } from './signup.types';
-import { AuthContainer } from '../auth.style';
+import { signupFields } from './Signup.helper';
+import { SignupCard } from './Signup.style';
+import type { User } from './Signup.types';
+import { AuthContainer } from '../login';
 
 export const SignupContainer = () => {
     const navigate = useNavigate();

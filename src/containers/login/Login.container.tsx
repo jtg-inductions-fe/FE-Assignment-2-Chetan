@@ -10,10 +10,10 @@ import { addAccessToken } from '@slices';
 import { useAppDispatch } from '@store';
 import { getErrorMessage } from '@utils';
 
-import { loginFields } from './login.helper';
-import { LoginCard } from './login.style';
-import type { FormData } from './login.types';
-import { AuthContainer } from '../auth.style';
+import { loginFields } from './Login.helper';
+import { LoginCard } from './Login.style';
+import { AuthContainer } from './Login.style';
+import type { FormData } from './Login.types';
 
 export const LoginContainer = () => {
     const navigate = useNavigate();
