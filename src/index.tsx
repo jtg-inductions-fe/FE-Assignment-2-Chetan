@@ -6,8 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import { AppRoutes } from '@routes/routes';
-import store from '@store/store';
+import { AppRoutes } from '@routes';
+import store from '@store';
 import { theme } from '@theme';
 
 const rootElement = document.getElementById('root') as HTMLElement;

@@ -5,16 +5,16 @@
             "@assets/*": ["assets/*"],
             "@constants": ["constants/index"],
             "@theme": ["theme/index"],
-            "@store/*": ["store/*"],
-            "@pages/*": ["pages/*"],
-            "@routes/*": ["routes/*"],
-            "@containers/*": ["containers/*"],
-            "@hooks/*": ["hooks/*"],
-            "@layouts/*": ["layouts/*"],
-            "@services/*": ["services/*"],
-            "@slices/*": ["slices/*"],
-            "@styles/*": ["styles/*"],
-            "@app-types/*": ["types/*"]
+            "@store": ["store/index"],
+            "@pages": ["pages/index"],
+            "@routes": ["routes/index"],
+            "@containers": ["containers/index"],
+            "@hooks": ["hooks/index"],
+            "@layouts": ["layouts/index"],
+            "@services": ["services/index"],
+            "@slices": ["slices/index"],
+            "@styles": ["styles/index"],
+            "@app-types": ["types/index"]
         }
     }
 }

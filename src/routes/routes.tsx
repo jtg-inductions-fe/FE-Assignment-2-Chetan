@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
-import { Home } from '@pages/home';
+import { Home } from '@pages';
 
 export const AppRoutes = () => (
     <Routes>
