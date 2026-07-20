@@ -8,8 +8,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import { AppRoutes } from '@routes';
 import store from '@store';
-import ErrorBoundary from '@components/errorBoundary/ErrorBoundary';
-import AppSnackbar from '@components/snackbar/AppSnackbar';
+import { ErrorBoundary } from '@components/error-boundary/error-boundary.component';
+import { AppSnackbar } from '@components/snackbar/snackbar.component';
 import { theme } from '@theme';
 
 const rootElement = document.getElementById('root') as HTMLElement;

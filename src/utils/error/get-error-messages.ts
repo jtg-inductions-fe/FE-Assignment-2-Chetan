@@ -1,5 +1,4 @@
-import { ApiErrorResponse } from '@app-types/apiErrorsTypes';
-import {} from '@constants';
+import { ApiErrorResponse } from '@app-types/api-errors.types';
 import { ERROR_MESSAGES, HTTP_STATUS_CODES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
