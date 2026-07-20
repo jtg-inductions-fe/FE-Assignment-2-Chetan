@@ -7,7 +7,14 @@
             "@theme": ["theme/index"],
             "@store/*": ["store/*"],
             "@pages/*": ["pages/*"],
-            "@routes/*": ["routes/*"]
+            "@routes/*": ["routes/*"],
+            "@containers/*": ["containers/*"],
+            "@hooks/*": ["hooks/*"],
+            "@layouts/*": ["layouts/*"],
+            "@services/*": ["services/*"],
+            "@slices/*": ["slices/*"],
+            "@styles/*": ["styles/*"],
+            "@app-types/*": ["types/*"]
         }
     }
 }
