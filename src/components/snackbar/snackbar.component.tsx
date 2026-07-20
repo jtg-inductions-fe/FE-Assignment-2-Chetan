@@ -1,9 +1,10 @@
 import { Alert, Snackbar } from '@mui/material';
 
-import { hideSnackbar } from '@features/snackbar/snackbarSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
-const AppSnackbar = () => {
+import { hideSnackbar } from './snackbar.slice';
+
+export const AppSnackbar = () => {
     const dispatch = useAppDispatch();
 
     const { open, message, severity, autoHideDuration } = useAppSelector((state) => state.snackbar);
@@ -28,5 +29,3 @@ const AppSnackbar = () => {
         </Snackbar>
     );
 };
-
-export default AppSnackbar;
