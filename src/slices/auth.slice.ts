@@ -1,9 +1,8 @@
+import type { AuthState } from '@containers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { AuthState } from './auth.types';
-
 const initialState: AuthState = {
-    accessToken: localStorage.getItem('access_Token'),
+    accessToken: localStorage.getItem('accessToken'),
 };
 
 const authSlice = createSlice({

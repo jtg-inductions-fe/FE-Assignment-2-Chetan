@@ -1,4 +1,4 @@
-import { authApi } from 'services/auth-api';
+import { authApi } from 'services/authApi';
 
 import { configureStore } from '@reduxjs/toolkit';
 

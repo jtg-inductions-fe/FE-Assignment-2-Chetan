@@ -1,2 +1,2 @@
-export { AppSnackbar } from './snackbar.component';
-export { default, showSnackbar, hideSnackbar } from './snackbar.slice';
+export * from './snackbar.component';
+export * from './snackbar.types';

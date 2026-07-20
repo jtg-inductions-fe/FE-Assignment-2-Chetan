@@ -1,9 +1,7 @@
-import { authApi } from 'services/auth-api';
+import { authApi } from 'services/authApi';
 
-import snackbarReducer from '@components/snackbar';
-import authReducer from '@containers/auth';
 import { combineReducers } from '@reduxjs/toolkit';
-
+import { authReducer, snackbarReducer } from '@slices';
 export const rootReducer = combineReducers({
     auth: authReducer,
     snackbar: snackbarReducer,
