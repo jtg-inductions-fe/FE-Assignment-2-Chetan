@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import Header from '@components/header/Header';
-import Sidebar from '@components/sidebar/Sidebar';
+import { Header, Sidebar } from '@components';
 
-const MainLayout = () => {
+export const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
     const toggleSidebar = () => {
@@ -20,5 +19,3 @@ const MainLayout = () => {
         </>
     );
 };
-
-export default MainLayout;
