@@ -1,6 +1,6 @@
 import { AlertColor } from '@mui/material';
 
-import { SnackbarState } from '@app-types/snackbarTypes';
+import { SnackbarState } from '@components/snackbar/snackbar.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: SnackbarState = {
