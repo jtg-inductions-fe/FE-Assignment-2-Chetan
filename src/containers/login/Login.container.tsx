@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { decodeToken } from 'utils/jwt/jwt';
 
 import { Form } from '@components';
 import { ROUTES, SUCCESS_MESSAGES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useLoginMutation } from '@services';
-import { addAccessToken, showSnackbar } from '@slices';
+import { addAuth, showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
 import { getErrorMessage } from '@utils';
 
@@ -27,7 +28,14 @@ export const LoginContainer = () => {
                 password: data.password,
             }).unwrap();
 
-            dispatch(addAccessToken(response.accessToken));
+            const payload = decodeToken(response.accessToken);
+            dispatch(
+                addAuth({
+                    accessToken: response.accessToken,
+                    id: payload.id,
+                    role: payload.role,
+                }),
+            );
             localStorage.setItem('accessToken', response.accessToken);
             dispatch(
                 showSnackbar({
@@ -35,7 +43,7 @@ export const LoginContainer = () => {
                     severity: 'success',
                 }),
             );
-            void navigate(ROUTES.DASHBOARD.ROOT);
+            void navigate(ROUTES.HOME);
         } catch (error) {
             dispatch(
                 showSnackbar({

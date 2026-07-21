@@ -11,10 +11,14 @@ export const MainLayout = () => {
         setSidebarOpen((prev) => !prev);
     };
 
+    const handleCloseSidebar = () => {
+        setSidebarOpen(false);
+    };
+
     return (
         <>
             <Header onMenuClick={toggleSidebar} />
-            <Sidebar open={sidebarOpen} />
+            <Sidebar open={sidebarOpen} onClose={handleCloseSidebar} />
             <Outlet />
         </>
     );

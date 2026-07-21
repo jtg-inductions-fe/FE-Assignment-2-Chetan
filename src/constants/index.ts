@@ -9,4 +9,4 @@ export { PREFERENCE } from './preference.constants';
 export { ERROR_MESSAGES } from './errorMessages.constants';
 export { SUCCESS_MESSAGES } from './successMessages.constants';
 export { SETTINGS_OPTIONS } from './header.constants';
-export { SIDEBAR_LIST } from './sidebar.constants';
+export { SIDEBAR_ADMIN_LIST, SIDEBAR_USER_LIST } from './sidebar.constants';

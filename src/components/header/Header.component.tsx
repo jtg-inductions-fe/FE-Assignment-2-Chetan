@@ -3,11 +3,11 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Avatar, Container, Toolbar, Tooltip } from '@mui/material';
 
-import logo from '@assets/image/logo.svg';
+import logo from '@assets/images/logo.svg';
 import { ROUTES, SETTINGS_OPTIONS } from '@constants';
-import { removeAccessToken } from '@slices';
+import { removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
 import {
@@ -36,10 +36,10 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        dispatch(removeAccessToken());
+        localStorage.removeItem('accessToken');
+        dispatch(removeAuth());
 
-        void navigate(ROUTES.DASHBOARD.ROOT);
+        void navigate(ROUTES.HOME);
     };
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -49,18 +49,15 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
         <StyledAppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    {onMenuClick && (
+                        <MenuIconButton size="large" aria-label="menu" onClick={onMenuClick}>
+                            <MenuIcon />
+                        </MenuIconButton>
+                    )}
                     <LogoImage src={logo} />
                     <LogoText variant="h4" noWrap href={ROUTES.DASHBOARD.ROOT}>
                         SwiftBite
                     </LogoText>
-
-                    <MenuIconButton
-                        size="large"
-                        aria-label="account of current user"
-                        onClick={onMenuClick}
-                    >
-                        <MenuIcon />
-                    </MenuIconButton>
 
                     <Spacer />
 
@@ -94,15 +91,22 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
                                         horizontal: 'right',
                                     }}
                                 >
-                                    <StyledMenuItem
-                                        key={SETTINGS_OPTIONS[0]}
-                                        onClick={() => {
-                                            setAnchorElUser(null);
-                                            handleLogout();
-                                        }}
-                                    >
-                                        <Typography>{SETTINGS_OPTIONS[0]}</Typography>
-                                    </StyledMenuItem>
+                                    {SETTINGS_OPTIONS.map(({ label, onClick }) => (
+                                        <StyledMenuItem
+                                            key={label}
+                                            onClick={() => {
+                                                handleCloseUserMenu();
+
+                                                if (onClick === 'logout') {
+                                                    handleLogout();
+                                                } else {
+                                                    void navigate(onClick);
+                                                }
+                                            }}
+                                        >
+                                            {label}
+                                        </StyledMenuItem>
+                                    ))}
                                 </StyledMenu>
                             </>
                         )}

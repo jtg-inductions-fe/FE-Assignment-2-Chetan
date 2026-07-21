@@ -1,3 +1,3 @@
 export interface HeaderProps {
-    onMenuClick: () => void;
+    onMenuClick?: () => void;
 }

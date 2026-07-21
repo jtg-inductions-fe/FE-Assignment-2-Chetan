@@ -1,20 +1,23 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
-import { MainLayout } from '@layouts';
-import { Home } from '@pages';
-import { Login, NotFound, Signup } from '@pages';
+import { MainLayout, PublicLayout } from '@layouts';
+import { Dashboard, Home, Login, NotFound, Signup } from '@pages';
 
 import { GuestRoute } from './Guest.route';
 
 export const AppRoutes = () => (
     <Routes>
-        <Route element={<MainLayout />}>
+        <Route element={<PublicLayout />}>
+            <Route path={ROUTES.HOME} element={<Home />} />
             <Route element={<GuestRoute />}>
                 <Route path={ROUTES.AUTH.SIGNUP} element={<Signup />} />
                 <Route path={ROUTES.AUTH.LOGIN} element={<Login />} />
             </Route>
-            <Route path={ROUTES.HOME} element={<Home />} />
+        </Route>
+
+        <Route element={<MainLayout />}>
+            <Route path={ROUTES.DASHBOARD.ROOT} element={<Dashboard />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

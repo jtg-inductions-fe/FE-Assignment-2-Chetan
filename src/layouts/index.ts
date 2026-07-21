@@ -1,1 +1,2 @@
-export * from './MainLayout';
+export * from './mainLayout';
+export * from './publicLayout';

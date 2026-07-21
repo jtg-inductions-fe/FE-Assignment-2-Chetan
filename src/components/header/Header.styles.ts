@@ -1,5 +1,4 @@
-import { AppBar, Box, Button, IconButton, Link, Menu, MenuItem } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { AppBar, Box, Button, IconButton, Link, Menu, MenuItem, styled } from '@mui/material';
 
 import { COLORS } from '@constants';
 
@@ -10,7 +9,7 @@ export const StyledAppBar = styled(AppBar)({
 export const LogoImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: theme.typography.pxToRem(68),
-    display: 'none',
+    display: 'flex',
     [theme.breakpoints.up('md')]: {
         display: 'flex',
     },

@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     render() {
         if (this.state.hasError) {
             return (
-                <Stack justifyContent="center" alignItems="center" sx={{ minHeight: '80vh', p: 2 }}>
+                <Stack justifyContent="center" alignItems="center" minHeight="80vh" p="8px">
                     <ErrorImage src={error500} alt="Something went wrong" />
 
                     <Button variant="contained" onClick={() => this.setState({ hasError: false })}>
