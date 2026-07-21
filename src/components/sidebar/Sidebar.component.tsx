@@ -12,6 +12,7 @@ import { SidebarItem, SidebarProps } from './Sidebar.types';
 export const Sidebar = ({ open, onClose }: SidebarProps) => {
     const navigate = useNavigate();
     const role = useAppSelector((state) => state.auth.role);
+
     const sidebarList = role === ROLE.USER ? SIDEBAR_USER_LIST : SIDEBAR_ADMIN_LIST;
 
     function handleClick(path: string) {
