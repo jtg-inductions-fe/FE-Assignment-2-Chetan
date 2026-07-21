@@ -5,15 +5,14 @@ import { ROUTES, SUCCESS_MESSAGES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useLoginMutation } from '@services';
-import { showSnackbar } from '@slices';
-import { addAccessToken } from '@slices';
+import { addAccessToken, showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
 import { getErrorMessage } from '@utils';
 
-import { loginFields } from './Login.helper';
-import { LoginCard } from './Login.style';
-import { AuthContainer } from './Login.style';
+import { LoginCard } from './Login.styles';
+import { AuthContainer } from './Login.styles';
 import type { FormData } from './Login.types';
+import { loginFields } from './Login.validations';
 
 export const LoginContainer = () => {
     const navigate = useNavigate();
@@ -37,10 +36,10 @@ export const LoginContainer = () => {
                 }),
             );
             void navigate(ROUTES.DASHBOARD.ROOT);
-        } catch (e) {
+        } catch (error) {
             dispatch(
                 showSnackbar({
-                    message: getErrorMessage(e as FetchBaseQueryError | SerializedError),
+                    message: getErrorMessage(error as FetchBaseQueryError | SerializedError),
                     severity: 'error',
                 }),
             );

@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import { Button, Stack } from '@mui/material';
 
-import error500 from '@assets/image/error500.webp';
+import error500 from '@assets/images/error500.webp';
 
 import { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types';
 import { ErrorImage } from './ErrorImage.styles';

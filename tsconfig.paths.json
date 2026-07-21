@@ -14,7 +14,7 @@
             "@services": ["services/index"],
             "@slices": ["slices/index"],
             "@styles": ["styles/index"],
-            "@app-types": ["types/index"],
+            "@types": ["types/index"],
             "@utils": ["utils/index"],
             "@components": ["components/index"]
         }

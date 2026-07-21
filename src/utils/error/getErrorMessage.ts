@@ -1,7 +1,7 @@
-import { ApiErrorResponse } from '@app-types';
 import { ERROR_MESSAGES, HTTP_STATUS_CODES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ApiErrorResponse } from '@types';
 
 export const getErrorMessage = (error: FetchBaseQueryError | SerializedError): string => {
     if ('status' in error) {

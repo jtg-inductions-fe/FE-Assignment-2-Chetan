@@ -1,5 +1,4 @@
-import { Box, Paper } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Paper, styled } from '@mui/material';
 
 export const LoginCard = styled(Paper)(({ theme }) => ({
     width: '100%',

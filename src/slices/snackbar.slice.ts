@@ -1,19 +1,12 @@
-import { AlertColor } from '@mui/material';
-
 import { SnackbarState } from '@components';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { ShowSnackbarPayload } from '@types';
 
 const initialState: SnackbarState = {
     open: false,
     message: '',
     severity: 'success',
     autoHideDuration: 3000,
-};
-
-type ShowSnackbarPayload = {
-    message: string;
-    severity: AlertColor;
-    autoHideDuration?: number;
 };
 
 const snackbarSlice = createSlice({
@@ -35,4 +28,4 @@ const snackbarSlice = createSlice({
 
 export const { showSnackbar, hideSnackbar } = snackbarSlice.actions;
 
-export default snackbarSlice.reducer;
+export const snackbarReducer = snackbarSlice.reducer;

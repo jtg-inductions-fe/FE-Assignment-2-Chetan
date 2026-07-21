@@ -1,18 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { useSignupMutation } from 'services/authApi';
 
 import { Form } from '@components';
 import { ROUTES, SUCCESS_MESSAGES } from '@constants';
+import { AuthContainer } from '@containers';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useSignupMutation } from '@services';
 import { showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
 import { getErrorMessage } from '@utils';
 
-import { signupFields } from './Signup.helper';
-import { SignupCard } from './Signup.style';
+import { SignupCard } from './Signup.styles';
 import type { User } from './Signup.types';
-import { AuthContainer } from '../login';
+import { signupFields } from './Signup.validations';
 
 export const SignupContainer = () => {
     const navigate = useNavigate();
