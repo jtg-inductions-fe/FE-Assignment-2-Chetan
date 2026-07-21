@@ -3,13 +3,14 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Container, Toolbar, Tooltip } from '@mui/material';
+import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
-import { ROUTES, SETTINGS_OPTIONS } from '@constants';
+import { ROUTES } from '@constants';
 import { removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
+import { SETTINGS_OPTIONS } from './header.config';
 import {
     AvatarIconButton,
     LoginButton,
@@ -91,7 +92,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
                                         horizontal: 'right',
                                     }}
                                 >
-                                    {SETTINGS_OPTIONS.map(({ label, onClick }) => (
+                                    {SETTINGS_OPTIONS.map(({ label, onClick, icon }) => (
                                         <StyledMenuItem
                                             key={label}
                                             onClick={() => {
@@ -104,7 +105,10 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
                                                 }
                                             }}
                                         >
-                                            {label}
+                                            {icon}
+                                            <Typography variant="h6" paddingLeft={4}>
+                                                {label}
+                                            </Typography>
                                         </StyledMenuItem>
                                     ))}
                                 </StyledMenu>

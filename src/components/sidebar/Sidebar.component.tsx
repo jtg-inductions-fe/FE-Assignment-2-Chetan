@@ -1,16 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem } from '@mui/material';
 
-import { ROLE, SIDEBAR_ADMIN_LIST, SIDEBAR_USER_LIST } from '@constants';
+import { ROLE } from '@constants';
 import { useAppSelector } from '@store';
 
-import { ListContainer, StyledDrawer, StyledListItemButton } from './Sidebar.styles';
+import { SIDEBAR_ADMIN_LIST, SIDEBAR_USER_LIST } from './sidebar.config';
+import { ItemText, ListContainer, StyledDrawer, StyledListItemButton } from './Sidebar.styles';
 import { SidebarItem, SidebarProps } from './Sidebar.types';
 
 export const Sidebar = ({ open, onClose }: SidebarProps) => {
     const navigate = useNavigate();
     const role = useAppSelector((state) => state.auth.role);
+
     const sidebarList = role === ROLE.USER ? SIDEBAR_USER_LIST : SIDEBAR_ADMIN_LIST;
 
     function handleClick(path: string) {
@@ -20,14 +22,15 @@ export const Sidebar = ({ open, onClose }: SidebarProps) => {
     const list = (
         <ListContainer>
             <List>
-                {sidebarList.map(({ label, path }: SidebarItem) => (
+                {sidebarList.map(({ label, path, icon }: SidebarItem) => (
                     <ListItem key={label} disablePadding>
                         <StyledListItemButton
                             onClick={() => {
                                 handleClick(path);
                             }}
                         >
-                            <ListItemText primary={label} />
+                            {icon}
+                            <ItemText primary={label} />
                         </StyledListItemButton>
                     </ListItem>
                 ))}
@@ -38,12 +41,9 @@ export const Sidebar = ({ open, onClose }: SidebarProps) => {
     return (
         <>
             <StyledDrawer
-                variant="temporary"
+                variant="persistent"
                 open={open}
                 onClose={onClose}
-                ModalProps={{
-                    keepMounted: true,
-                }}
                 sx={{
                     display: {
                         xs: 'block',

@@ -5,6 +5,7 @@ import { MainLayout, PublicLayout } from '@layouts';
 import { Dashboard, Home, Login, NotFound, Signup } from '@pages';
 
 import { GuestRoute } from './Guest.route';
+import { ProtectedRoute } from './Protected.route';
 
 export const AppRoutes = () => (
     <Routes>
@@ -17,7 +18,9 @@ export const AppRoutes = () => (
         </Route>
 
         <Route element={<MainLayout />}>
-            <Route path={ROUTES.DASHBOARD.ROOT} element={<Dashboard />} />
+            <Route element={<ProtectedRoute />}>
+                <Route path={ROUTES.DASHBOARD.ROOT} element={<Dashboard />} />
+            </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
