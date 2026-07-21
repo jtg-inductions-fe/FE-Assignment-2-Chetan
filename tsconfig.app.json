@@ -20,6 +20,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "public/image"],
+    "include": ["src"],
     "extends": "./tsconfig.paths.json"
 }
