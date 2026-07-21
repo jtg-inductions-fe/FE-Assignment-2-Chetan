@@ -1,3 +1,2 @@
-export { default } from './store';
-export { useAppDispatch, useAppSelector } from './hooks';
-export { rootReducer } from './rootReducer';
+export * from './store';
+export * from './rootReducer';

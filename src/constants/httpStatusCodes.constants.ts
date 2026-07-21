@@ -1,4 +1,4 @@
-export const ERROR_CODES = {
+export const HTTP_STATUS_CODES = {
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
@@ -7,5 +7,5 @@ export const ERROR_CODES = {
     CONFLICT: 409,
 
     SERVER_ERROR: 500,
-    BAD_GATEWAY: 502,
+    GATEWAY_TIMEOUT: 504,
 } as const;
