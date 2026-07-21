@@ -1,6 +1,19 @@
+import { decodeToken } from 'utils/jwt/jwt';
+
 import type { AuthState } from '@containers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { decodeToken } from '@utils';
+
+const token = localStorage.getItem('accessToken');
+
+let id: string | null = null;
+let role: string | null = null;
+
+if (token) {
+    const payload = decodeToken(token);
+    id = payload.id;
+    role = payload.role;
+}
 
 const token = localStorage.getItem('accessToken');
 
