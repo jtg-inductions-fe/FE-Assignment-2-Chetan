@@ -8,4 +8,3 @@ export { ROLE } from './roles.constants';
 export { PREFERENCE } from './preferences.constants';
 export { ERROR_MESSAGES } from './errorMessages.constants';
 export { SUCCESS_MESSAGES } from './successMessages.constants';
-export { SETTINGS_OPTIONS } from './header.constants';
