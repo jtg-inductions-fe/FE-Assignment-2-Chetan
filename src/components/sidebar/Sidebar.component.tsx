@@ -1,18 +1,33 @@
+import { useNavigate } from 'react-router-dom';
+
 import { List, ListItem, ListItemText } from '@mui/material';
 
-import { SIDEBAR_LIST } from '@constants';
+import { ROLE, SIDEBAR_ADMIN_LIST, SIDEBAR_USER_LIST } from '@constants';
+import { useAppSelector } from '@store';
 
 import { ListContainer, StyledDrawer, StyledListItemButton } from './Sidebar.styles';
-import { SidebarProps } from './Sidebar.types';
+import { SidebarItem, SidebarProps } from './Sidebar.types';
 
-export const Sidebar = ({ open }: SidebarProps) => {
+export const Sidebar = ({ open, onClose }: SidebarProps) => {
+    const navigate = useNavigate();
+    const role = useAppSelector((state) => state.auth.role);
+    const sidebarList = role === ROLE.USER ? SIDEBAR_USER_LIST : SIDEBAR_ADMIN_LIST;
+
+    function handleClick(path: string) {
+        void navigate(path);
+    }
+
     const list = (
         <ListContainer>
             <List>
-                {SIDEBAR_LIST.map((text) => (
-                    <ListItem key={text}>
-                        <StyledListItemButton>
-                            <ListItemText primary={text} />
+                {sidebarList.map(({ label, path }: SidebarItem) => (
+                    <ListItem key={label} disablePadding>
+                        <StyledListItemButton
+                            onClick={() => {
+                                handleClick(path);
+                            }}
+                        >
+                            <ListItemText primary={label} />
                         </StyledListItemButton>
                     </ListItem>
                 ))}
@@ -21,13 +36,36 @@ export const Sidebar = ({ open }: SidebarProps) => {
     );
 
     return (
-        <StyledDrawer
-            sx={{
-                display: { xs: open ? 'block' : 'none', md: 'block' },
-            }}
-            variant="permanent"
-        >
-            {list}
-        </StyledDrawer>
+        <>
+            <StyledDrawer
+                variant="temporary"
+                open={open}
+                onClose={onClose}
+                ModalProps={{
+                    keepMounted: true,
+                }}
+                sx={{
+                    display: {
+                        xs: 'block',
+                        md: 'none',
+                    },
+                }}
+            >
+                {list}
+            </StyledDrawer>
+
+            <StyledDrawer
+                variant="permanent"
+                open
+                sx={{
+                    display: {
+                        xs: 'none',
+                        md: 'block',
+                    },
+                }}
+            >
+                {list}
+            </StyledDrawer>
+        </>
     );
 };
