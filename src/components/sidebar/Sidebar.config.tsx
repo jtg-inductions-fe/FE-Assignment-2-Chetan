@@ -18,7 +18,6 @@ export const SIDEBAR_ADMIN_LIST = [
         path: ROUTES.DASHBOARD.RESTAURANTS.ROOT,
         icon: <Restaurant />,
     },
-
     {
         label: 'Analytics',
         path: ROUTES.DASHBOARD.RESTAURANTS.ROOT,
