@@ -1,7 +1,6 @@
-import { decodeToken } from 'utils/jwt/jwt';
-
 import type { AuthState } from '@containers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { decodeToken } from '@utils';
 
 const token = localStorage.getItem('accessToken');
 

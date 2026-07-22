@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { decodeToken } from 'utils/jwt/jwt';
 
 import { Form } from '@components';
 import { ROUTES, SUCCESS_MESSAGES } from '@constants';
@@ -8,10 +7,9 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useLoginMutation } from '@services';
 import { addAuth, showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
-import { getErrorMessage } from '@utils';
+import { decodeToken, getErrorMessage } from '@utils';
 
-import { LoginCard } from './Login.styles';
-import { AuthContainer } from './Login.styles';
+import { AuthContainer, LoginCard } from './Login.styles';
 import type { FormData } from './Login.types';
 import { loginFields } from './Login.validations';
 

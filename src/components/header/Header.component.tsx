@@ -10,7 +10,7 @@ import { ROUTES } from '@constants';
 import { removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
-import { SETTINGS_OPTIONS } from './header.config';
+import { SETTINGS_OPTIONS } from './Header.config';
 import {
     AvatarIconButton,
     LoginButton,
