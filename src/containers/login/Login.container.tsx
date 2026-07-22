@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { decodeToken } from 'utils/jwt/jwt';
 
 import { Form } from '@components';
 import { ROUTES, SUCCESS_MESSAGES } from '@constants';
