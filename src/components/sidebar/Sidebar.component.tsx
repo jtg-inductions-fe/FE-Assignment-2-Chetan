@@ -5,7 +5,7 @@ import { List, ListItem } from '@mui/material';
 import { ROLE } from '@constants';
 import { useAppSelector } from '@store';
 
-import { SIDEBAR_ADMIN_LIST, SIDEBAR_USER_LIST } from './sidebar.config';
+import { SIDEBAR_ADMIN_LIST, SIDEBAR_USER_LIST } from './Sidebar.config';
 import { ItemText, ListContainer, StyledDrawer, StyledListItemButton } from './Sidebar.styles';
 import { SidebarItem, SidebarProps } from './Sidebar.types';
 

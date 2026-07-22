@@ -22,7 +22,7 @@ export const StyledListItemButton = styled(ListItemButton)(() => ({
 
     '&:hover': {
         '& .MuiTypography-root': {
-            fontWeight: FONT_WEIGHT.LIGHT,
+            fontWeight: FONT_WEIGHT.MEDIUM,
         },
     },
 
