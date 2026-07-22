@@ -1,6 +1,7 @@
-import { getEmailFieldValidator, getPasswordFieldValidator } from '@containers';
 import type { FormField } from '@components';
 import { PREFERENCE, ROLE } from '@constants';
+import { getEmailFieldValidator, getPasswordFieldValidator } from '@containers';
+
 import type { User } from './Signup.types';
 
 export const signupFields: FormField<User>[] = [
