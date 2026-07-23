@@ -1,18 +1,15 @@
 import { Box, Drawer, ListItemButton, ListItemText, styled } from '@mui/material';
 
 import { COLORS, FONT_WEIGHT } from '@constants';
-import { theme } from '@theme';
-
-export const DRAWER_WIDTH = theme.typography.pxToRem(250);
 
 export const ListContainer = styled(Box)({
-    width: DRAWER_WIDTH,
+    width: '100%',
 });
 
-export const ItemText = styled(ListItemText)({
+export const ItemText = styled(ListItemText)(({ theme }) => ({
     paddingLeft: theme.typography.pxToRem(8),
-});
-export const StyledListItemButton = styled(ListItemButton)(() => ({
+}));
+export const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
     color: COLORS.COMMON.LIGHT,
     padding: theme.spacing(1.5, 3),
     marginTop: theme.typography.pxToRem(22),
@@ -32,9 +29,9 @@ export const StyledListItemButton = styled(ListItemButton)(() => ({
     },
 }));
 
-export const StyledDrawer = styled(Drawer)(() => ({
+export const StyledDrawer = styled(Drawer)(({ theme }) => ({
     '& .MuiDrawer-paper': {
-        width: DRAWER_WIDTH,
+        width: theme.typography.pxToRem(250),
         top: theme.typography.pxToRem(68),
         backgroundColor: COLORS.PRIMARY.MAIN,
         color: COLORS.COMMON.LIGHT,

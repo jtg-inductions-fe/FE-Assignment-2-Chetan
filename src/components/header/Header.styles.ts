@@ -17,7 +17,7 @@ export const LogoImage = styled('img')(({ theme }) => ({
 
 export const LogoText = styled(Link)(({ theme }) => ({
     display: 'none',
-    color: 'black',
+    color: theme.palette.common.black,
     textDecoration: 'none',
     [theme.breakpoints.up('md')]: {
         display: 'flex',

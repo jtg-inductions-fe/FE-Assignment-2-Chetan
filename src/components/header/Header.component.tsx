@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import MenuIcon from '@mui/icons-material/Menu';
+import { Menu } from '@mui/icons-material';
 import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
@@ -52,7 +52,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
                 <Toolbar disableGutters>
                     {onMenuClick && (
                         <MenuIconButton size="large" aria-label="menu" onClick={onMenuClick}>
-                            <MenuIcon />
+                            <Menu />
                         </MenuIconButton>
                     )}
                     <LogoImage src={logo} />
