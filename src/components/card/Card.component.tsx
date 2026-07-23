@@ -1,45 +1,62 @@
-import { useNavigate } from 'react-router-dom';
-
 import { Typography } from '@mui/material';
 
 import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
-import { ROUTES } from '@constants';
 
 import {
     StyledCard,
     StyledCardButton,
     StyledCardMedia,
     StyledContent,
+    StyledImageContainer,
     StyledInfoBox,
 } from './Card.styles';
 import type { CardProps } from './Card.types';
 
-export const Card = ({ id, name, image, details }: CardProps) => {
-    const navigate = useNavigate();
+export const Card = ({
+    name,
+    image,
+    details,
+    action,
+    onClick,
+    orientation = 'vertical',
+}: CardProps) => {
+    const content = (
+        <StyledContent orientation={orientation}>
+            <Typography variant="h3">{name}</Typography>
 
-    const handlePath = (restaurantId: string) => {
-        void navigate(ROUTES.DASHBOARD.RESTAURANTS.MENU(restaurantId));
-    };
+            {details?.map((detail, index) => (
+                <StyledInfoBox key={index}>
+                    {detail.icon}
+                    <Typography variant="body2">{detail.value}</Typography>
+                </StyledInfoBox>
+            ))}
+        </StyledContent>
+    );
+
+    if (orientation === 'horizontal') {
+        return (
+            <StyledCard orientation={orientation}>
+                {content}
+
+                <StyledImageContainer>
+                    <StyledCardMedia
+                        orientation={orientation}
+                        src={image ?? restaurantPlaceholder}
+                    />
+                    {action}
+                </StyledImageContainer>
+            </StyledCard>
+        );
+    }
 
     return (
-        <StyledCard>
-            <StyledCardButton
-                onClick={() => {
-                    handlePath(id);
-                }}
-            >
-                <StyledCardMedia component="img" image={image ?? restaurantPlaceholder} />
+        <StyledCard orientation={orientation}>
+            <StyledCardButton onClick={onClick}>
+                <StyledCardMedia orientation={orientation} src={image ?? restaurantPlaceholder} />
 
-                <StyledContent>
-                    <Typography variant="h3">{name}</Typography>
+                {content}
 
-                    {details?.map((detail, index) => (
-                        <StyledInfoBox key={index}>
-                            {detail.icon}
-                            <Typography variant="body2">{detail.value}</Typography>
-                        </StyledInfoBox>
-                    ))}
-                </StyledContent>
+                {action}
             </StyledCardButton>
         </StyledCard>
     );

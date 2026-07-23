@@ -1,5 +1,8 @@
 export const ROUTES = {
     HOME: '/',
+    RESTAURANTS: {
+        MENU: (restaurantId: string) => `/restaurants/${restaurantId}/menu`,
+    },
     AUTH: {
         LOGIN: '/login',
         LOGOUT: '/logout',
@@ -16,7 +19,6 @@ export const ROUTES = {
         RESTAURANTS: {
             ROOT: '/dashboard/restaurants',
 
-            MENU: (restaurantId: string) => `/dashboard/restaurants/${restaurantId}/menu`,
             ANALYTICS: {
                 ROOT: (restaurantId: string) => `/dashboard/restaurants/${restaurantId}/analytics`,
                 MENU_STATS: (restaurantId: string) =>

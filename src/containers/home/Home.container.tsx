@@ -1,15 +1,32 @@
+import { useNavigate } from 'react-router-dom';
+
 import { LocationCity, LocationOn, PinDrop } from '@mui/icons-material';
 import { Grid2 as Grid } from '@mui/material';
 
 import { Card, EmptyState, Loading, SearchBar } from '@components';
+import { ROUTES } from '@constants';
 import { useGetRestaurantsQuery } from '@services';
+import { showSnackbar } from '@slices';
+import { useAppDispatch } from '@store';
+import { getErrorMessage } from '@utils';
 
 import { HeroSection, RestaurantGrid, StyledParaTypograpgy, StyledTypograpgy } from './Home.styles';
 
 export const HomeContainer = () => {
-    const { data, isLoading } = useGetRestaurantsQuery();
+    const { data, isLoading, error } = useGetRestaurantsQuery();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     if (isLoading) return <Loading />;
+
+    if (error) {
+        dispatch(
+            showSnackbar({
+                message: getErrorMessage(error),
+                severity: 'error',
+            }),
+        );
+    }
 
     const restaurants = data?.restaurants ?? [];
 
@@ -45,6 +62,10 @@ export const HomeContainer = () => {
                                     id={restaurant.id}
                                     name={restaurant.name}
                                     image={restaurant.image}
+                                    orientation="vertical"
+                                    onClick={() => {
+                                        void navigate(ROUTES.RESTAURANTS.MENU(restaurant.id));
+                                    }}
                                     details={[
                                         {
                                             icon: <LocationOn fontSize="small" />,

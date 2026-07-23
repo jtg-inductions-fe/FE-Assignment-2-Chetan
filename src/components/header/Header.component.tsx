@@ -7,7 +7,7 @@ import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
 import { ROUTES } from '@constants';
-import { removeAuth } from '@slices';
+import { clearCart, removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
 import { SETTINGS_OPTIONS } from './Header.config';
@@ -39,7 +39,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
     const handleLogout = () => {
         localStorage.removeItem('accessToken');
         dispatch(removeAuth());
-
+        dispatch(clearCart());
         void navigate(ROUTES.HOME);
     };
     const handleCloseUserMenu = () => {
