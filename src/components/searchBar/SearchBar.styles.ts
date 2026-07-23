@@ -6,7 +6,7 @@ export const SearchBarContainer = styled(Paper)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'center', 'center'),
     marginTop: theme.typography.pxToRem(60),
     backgroundColor: theme.palette.common.white,
-    borderRadius: theme.typography.pxToRem(50),
+    borderRadius: theme.shape.borderRadius * 8,
 
     [theme.breakpoints.up('md')]: {
         fontSize: theme.typography.pxToRem(88),

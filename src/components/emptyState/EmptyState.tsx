@@ -5,7 +5,11 @@ import emptyImage from '@assets/images/emptyState.webp';
 import { StyledContainer, StyledImage } from './EmptyState.styles';
 import { EmptyStateProps } from './EmptyState.types';
 
-export const EmptyState = ({ title, description, image = emptyImage }: EmptyStateProps) => (
+export const EmptyState = ({
+    title = 'Not Found',
+    description,
+    image = emptyImage,
+}: EmptyStateProps) => (
     <StyledContainer>
         <StyledImage component="img" image={image} />
 

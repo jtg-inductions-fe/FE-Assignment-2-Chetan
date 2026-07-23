@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
-import restaurantPlaceholder from '@assets/images/dummyRestaurant.jpg';
+import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
 import { ROUTES } from '@constants';
 
 import {

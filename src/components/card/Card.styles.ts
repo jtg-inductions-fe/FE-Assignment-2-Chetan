@@ -1,10 +1,8 @@
 import { Box, Card, CardMedia, ListItemButton, styled } from '@mui/material';
 
-import { theme } from '@theme';
-
-export const StyledCard = styled(Card)(() => ({
+export const StyledCard = styled(Card)(({ theme }) => ({
     maxWidth: theme.typography.pxToRem(340),
-    borderRadius: 16,
+    borderRadius: theme.shape.borderRadius * 4,
     transition: 'all 0.2s ease',
     width: '100%',
     backgroundColor: theme.palette.common.white,
@@ -19,17 +17,19 @@ export const StyledCardButton = styled(ListItemButton)({
     display: 'block',
 });
 
-export const StyledCardMedia = styled(CardMedia)<{ component?: React.ElementType }>({
-    height: theme.typography.pxToRem(180),
-    borderRadius: 16,
-    objectFit: 'cover',
-});
+export const StyledCardMedia = styled(CardMedia)<{ component?: React.ElementType }>(
+    ({ theme }) => ({
+        height: theme.typography.pxToRem(180),
+        borderRadius: theme.shape.borderRadius * 4,
+        objectFit: 'cover',
+    }),
+);
 
-export const StyledContent = styled(Box)(() => ({
+export const StyledContent = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
 }));
 
-export const StyledInfoBox = styled(Box)(() => ({
+export const StyledInfoBox = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'start', 'center'),
     gap: theme.spacing(1),
     marginTop: theme.spacing(0.5),

@@ -1,6 +1,5 @@
 import { LocationCity, LocationOn, PinDrop } from '@mui/icons-material';
 import { Grid2 as Grid } from '@mui/material';
-import { Container } from '@mui/system';
 
 import { Card, EmptyState, Loading, SearchBar } from '@components';
 import { useGetRestaurantsQuery } from '@services';
@@ -15,7 +14,7 @@ export const HomeContainer = () => {
     const restaurants = data?.restaurants ?? [];
 
     return (
-        <Container maxWidth="xl">
+        <>
             <HeroSection>
                 <StyledTypograpgy gutterBottom>Restaurants</StyledTypograpgy>
 
@@ -66,6 +65,6 @@ export const HomeContainer = () => {
                     </Grid>
                 </RestaurantGrid>
             )}
-        </Container>
+        </>
     );
 };
