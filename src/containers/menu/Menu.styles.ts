@@ -15,3 +15,10 @@ export const MicroIcon = styled(CurrencyRupee)(({ theme }) => ({
     width: theme.typography.pxToRem(14),
     height: theme.typography.pxToRem(14),
 }));
+
+export const StyledImage = styled('img')(({ theme }) => ({
+    marginBlock: theme.typography.pxToRem(5),
+    objectFit: 'cover',
+    width: '100%',
+    height: theme.typography.pxToRem(300),
+}));
