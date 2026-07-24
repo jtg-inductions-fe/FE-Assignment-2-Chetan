@@ -18,8 +18,5 @@ export const useAppDispatch = useDispatch.withTypes<typeof store.dispatch>();
 export const useAppSelector = useSelector.withTypes<ReturnType<typeof store.getState>>();
 
 store.subscribe(() => {
-    const state = store.getState();
-    const userId = state.auth.id;
-    const key = userId ? `cart_${userId}` : 'cart_guest';
-    localStorage.setItem(key, JSON.stringify(store.getState().cart.items));
+    localStorage.setItem('cart', JSON.stringify(store.getState().cart.items));
 });

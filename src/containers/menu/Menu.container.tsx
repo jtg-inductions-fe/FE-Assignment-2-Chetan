@@ -1,20 +1,26 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { Star } from '@mui/icons-material';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
-import img from '@assets/images/menu.webp';
+import img from '@assets/images/dummyRestaurant.webp';
 import { Card, EmptyState, Loading, QuantitySelector } from '@components';
+import { RestaurantBasicDetails } from '@containers';
 import { useGetMenuItemsQuery } from '@services';
 import { addItem, decrementItem, incrementItem, showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 import { getErrorMessage } from '@utils';
 
-import { MicroIcon, StyledImage, StyledItemCardButton } from './Menu.styles';
+import { CustomHeading, MicroIcon, StyledImage, StyledItemCardButton } from './Menu.styles';
 
 export const MenuContainer = () => {
     const dispatch = useAppDispatch();
+    const location = useLocation();
+    const token = localStorage.getItem('accessToken');
+
     const cartItems = useAppSelector((state) => state.cart.items);
+
+    const restaurant = location.state as RestaurantBasicDetails;
 
     const { restaurantId } = useParams();
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
@@ -34,8 +40,14 @@ export const MenuContainer = () => {
 
     return (
         <Container maxWidth="md">
-            <StyledImage src={img} alt="restaurant item" />
+            <Box>
+                <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
 
+                <StyledImage
+                    src={restaurant?.image || img}
+                    alt={restaurant?.name || 'Restaurant Image'}
+                />
+            </Box>
             {menuItems.length === 0 ? (
                 <EmptyState
                     title="No Menu Items Found"
@@ -68,7 +80,8 @@ export const MenuContainer = () => {
                                 },
                             ]}
                             action={
-                                quantity === 0 ? (
+                                token &&
+                                (quantity === 0 ? (
                                     <StyledItemCardButton
                                         variant="outlined"
                                         onClick={() =>
@@ -90,7 +103,7 @@ export const MenuContainer = () => {
                                         onIncrement={() => dispatch(incrementItem(item.id))}
                                         onDecrement={() => dispatch(decrementItem(item.id))}
                                     />
-                                )
+                                ))
                             }
                         />
                     );

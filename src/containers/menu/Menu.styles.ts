@@ -1,9 +1,11 @@
 import { CurrencyRupee } from '@mui/icons-material';
-import { Button, styled } from '@mui/material';
+import { Button, styled, Typography } from '@mui/material';
+
+import { FONT_WEIGHT } from '@constants';
 
 export const StyledItemCardButton = styled(Button)(({ theme }) => ({
     paddingInline: theme.typography.pxToRem(30),
-    fontWeight: theme.typography.pxToRem(700),
+    fontWeight: FONT_WEIGHT.BOLD,
     color: theme.palette.success.dark,
     border: `1px solid ${theme.palette.text.secondary}`,
     borderRadius: theme.shape.borderRadius * 2,
@@ -20,5 +22,13 @@ export const StyledImage = styled('img')(({ theme }) => ({
     marginBlock: theme.typography.pxToRem(5),
     objectFit: 'cover',
     width: '100%',
-    height: theme.typography.pxToRem(300),
+    height: theme.typography.pxToRem(250),
+    borderRadius: theme.shape.borderRadius * 2,
+}));
+
+export const CustomHeading = styled(Typography)(({ theme }) => ({
+    textAlign: 'start',
+    fontSize: theme.typography.pxToRem(44),
+    marginBlock: theme.typography.pxToRem(34),
+    fontWeight: FONT_WEIGHT.BOLD,
 }));

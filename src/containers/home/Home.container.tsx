@@ -64,7 +64,12 @@ export const HomeContainer = () => {
                                     image={restaurant.image}
                                     orientation="vertical"
                                     onClick={() => {
-                                        void navigate(ROUTES.RESTAURANTS.MENU(restaurant.id));
+                                        void navigate(ROUTES.RESTAURANTS.MENU(restaurant.id), {
+                                            state: {
+                                                name: restaurant.name,
+                                                image: restaurant.image,
+                                            },
+                                        });
                                     }}
                                     details={[
                                         {
