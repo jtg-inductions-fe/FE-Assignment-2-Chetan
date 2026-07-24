@@ -63,7 +63,6 @@ export const MenuContainer = () => {
                             key={item.id}
                             id={item.id}
                             name={item.name}
-                            image={item.image}
                             orientation="horizontal"
                             details={[
                                 {
