@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
