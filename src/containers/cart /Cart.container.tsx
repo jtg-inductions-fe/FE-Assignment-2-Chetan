@@ -30,8 +30,8 @@ export const CartContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const items = useAppSelector((state) => state.cart.items);
-    const { id, accessToken } = useAppSelector((state) => state.auth);
-    const [placeOrder, { isLoading, error }] = usePlaceOrderMutation();
+    const userId = useAppSelector((state) => state.auth.id);
+    const [placeOrder, { isLoading }] = usePlaceOrderMutation();
     const {
         data: user,
         isLoading: isUserLoading,

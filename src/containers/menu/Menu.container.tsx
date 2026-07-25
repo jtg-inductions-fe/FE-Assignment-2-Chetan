@@ -237,6 +237,7 @@ export const MenuContainer = () => {
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
             </Box>
+
             {menuItems.length === 0 ? (
                 <EmptyState
                     title="No Menu Items Found"
