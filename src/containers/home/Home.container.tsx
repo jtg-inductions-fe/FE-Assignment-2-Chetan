@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 import { LocationCity, LocationOn, PinDrop } from '@mui/icons-material';
@@ -17,16 +19,18 @@ export const HomeContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    if (isLoading) return <Loading />;
+    useEffect(() => {
+        if (error) {
+            dispatch(
+                showSnackbar({
+                    message: getErrorMessage(error),
+                    severity: 'error',
+                }),
+            );
+        }
+    }, [error, dispatch]);
 
-    if (error) {
-        dispatch(
-            showSnackbar({
-                message: getErrorMessage(error),
-                severity: 'error',
-            }),
-        );
-    }
+    if (isLoading) return <Loading />;
 
     const restaurants = data?.restaurants ?? [];
 

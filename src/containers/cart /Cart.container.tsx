@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
@@ -38,6 +40,18 @@ export const CartContainer = () => {
     } = useGetUserQuery(userId as string);
 
     const restaurant = location.state as RestaurantBasicDetails;
+
+    useEffect(() => {
+        if (userError) {
+            dispatch(
+                showSnackbar({
+                    message: getErrorMessage(userError),
+                    severity: 'error',
+                }),
+            );
+        }
+    }, [userError, dispatch]);
+
     if (isLoading || isUserLoading) return <Loading />;
 
     if (items.length == 0) {
@@ -46,15 +60,6 @@ export const CartContainer = () => {
                 title="Your Cart is Empty"
                 description="Looks like you haven't added anything to your cart yet."
             />
-        );
-    }
-
-    if (userError) {
-        dispatch(
-            showSnackbar({
-                message: getErrorMessage(userError),
-                severity: 'error',
-            }),
         );
     }
 
