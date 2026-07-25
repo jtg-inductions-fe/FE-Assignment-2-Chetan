@@ -1,25 +1,45 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useState } from 'react';
+
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Star } from '@mui/icons-material';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 
 import img from '@assets/images/dummyRestaurant.webp';
-import { Card, EmptyState, Loading, QuantitySelector } from '@components';
+import {
+    BottomActionBar,
+    Card,
+    ConfirmationDialog,
+    EmptyState,
+    Loading,
+    QuantitySelector,
+} from '@components';
+import { ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { useGetMenuItemsQuery } from '@services';
-import { addItem, decrementItem, incrementItem, showSnackbar } from '@slices';
+import { addItem, clearCart, decrementItem, incrementItem, showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 import { getErrorMessage } from '@utils';
 
-import { CustomHeading, MicroIcon, StyledImage, StyledItemCardButton } from './Menu.styles';
+import {
+    CustomHeading,
+    MicroIcon,
+    StyledContainer,
+    StyledImage,
+    StyledItemCardButton,
+} from './Menu.styles';
+import { ItemDetails } from './Menu.types';
 
 export const MenuContainer = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const [openDialog, setOpenDialog] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<ItemDetails | null>(null);
+
     const token = localStorage.getItem('accessToken');
-
     const cartItems = useAppSelector((state) => state.cart.items);
-
     const restaurant = location.state as RestaurantBasicDetails;
 
     const { restaurantId } = useParams();
@@ -37,9 +57,51 @@ export const MenuContainer = () => {
     }
 
     const menuItems = data?.items ?? [];
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+    const handleAddToCart = (item: ItemDetails) => {
+        if (cartItems.length === 0 || cartItems[0].restaurantId === restaurant.id) {
+            dispatch(
+                addItem({
+                    id: item.id,
+                    name: item.name,
+                    restaurantId: restaurant.id,
+                    price: item.price,
+                    quantity: 1,
+                }),
+            );
+            return;
+        }
+
+        setSelectedItem(item);
+        setOpenDialog(true);
+    };
+
+    const handleReplace = () => {
+        if (!selectedItem) return;
+
+        dispatch(clearCart());
+
+        dispatch(
+            addItem({
+                id: selectedItem.id,
+                name: selectedItem.name,
+                restaurantId: restaurant.id,
+                price: selectedItem.price,
+                quantity: 1,
+            }),
+        );
+
+        setOpenDialog(false);
+        setSelectedItem(null);
+    };
+
+    const handleCancel = () => {
+        setOpenDialog(false);
+        setSelectedItem(null);
+    };
     return (
-        <Container maxWidth="md">
+        <StyledContainer maxWidth="md">
             <Box>
                 <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
 
@@ -48,6 +110,7 @@ export const MenuContainer = () => {
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
             </Box>
+
             {menuItems.length === 0 ? (
                 <EmptyState
                     title="No Menu Items Found"
@@ -63,6 +126,7 @@ export const MenuContainer = () => {
                             key={item.id}
                             id={item.id}
                             name={item.name}
+                            image={item.image}
                             orientation="horizontal"
                             details={[
                                 {
@@ -84,16 +148,7 @@ export const MenuContainer = () => {
                                 (quantity === 0 ? (
                                     <StyledItemCardButton
                                         variant="outlined"
-                                        onClick={() =>
-                                            dispatch(
-                                                addItem({
-                                                    id: item.id,
-                                                    name: item.name,
-                                                    price: item.price,
-                                                    quantity: 1,
-                                                }),
-                                            )
-                                        }
+                                        onClick={() => handleAddToCart(item)}
                                     >
                                         ADD
                                     </StyledItemCardButton>
@@ -109,6 +164,23 @@ export const MenuContainer = () => {
                     );
                 })
             )}
-        </Container>
+
+            {totalItems > 0 && (
+                <BottomActionBar
+                    leftText={`${totalItems} Item${totalItems > 1 ? 's' : ''} Added`}
+                    buttonText="VIEW CART"
+                    onClick={() => void navigate(ROUTES.CART, { state: restaurant })}
+                />
+            )}
+
+            <ConfirmationDialog
+                open={openDialog}
+                title="Replace Cart?"
+                description="Your cart contains items from another restaurant. Do you want to clear your current cart and add this item?"
+                confirmText="Replace"
+                onConfirm={handleReplace}
+                onCancel={handleCancel}
+            />
+        </StyledContainer>
     );
 };

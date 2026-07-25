@@ -66,6 +66,7 @@ export const HomeContainer = () => {
                                     onClick={() => {
                                         void navigate(ROUTES.RESTAURANTS.MENU(restaurant.id), {
                                             state: {
+                                                id: restaurant.id,
                                                 name: restaurant.name,
                                                 image: restaurant.image,
                                             },

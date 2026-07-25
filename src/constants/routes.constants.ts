@@ -3,6 +3,7 @@ export const ROUTES = {
     RESTAURANTS: {
         MENU: (restaurantId: string) => `/restaurants/${restaurantId}/menu`,
     },
+    CART: '/cart',
     AUTH: {
         LOGIN: '/login',
         LOGOUT: '/logout',
@@ -12,7 +13,6 @@ export const ROUTES = {
         ROOT: '/dashboard',
         UPDATE_PROFILE: '/dashboard/profile',
 
-        CART: '/dashboard/cart',
         PAST_ORDERS: '/dashboard/orders',
         ORDER_DETAILS: (orderId: string) => `/dashboard/orders/${orderId}/order-details`,
 
