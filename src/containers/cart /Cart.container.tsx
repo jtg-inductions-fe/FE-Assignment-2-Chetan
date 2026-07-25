@@ -39,7 +39,7 @@ export const CartContainer = () => {
         error: userError,
     } = useGetUserQuery(userId as string);
 
-    const restaurant = location.state as RestaurantBasicDetails;
+    const restaurant = (location.state as RestaurantBasicDetails) ?? {};
 
     useEffect(() => {
         if (userError) {
