@@ -32,14 +32,7 @@ export const HomeContainer = () => {
 
     if (isLoading) return <Loading />;
 
-    if (error) {
-        dispatch(
-            showSnackbar({
-                message: getErrorMessage(error),
-                severity: 'error',
-            }),
-        );
-    }
+    if (isLoading) return <Loading />;
 
     const restaurants = data?.restaurants ?? [];
 
