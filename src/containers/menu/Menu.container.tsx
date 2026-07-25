@@ -233,7 +233,7 @@ export const MenuContainer = () => {
                     src={restaurant?.image || img}
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
-            </Box>
+
             {menuItems.length === 0 ? (
                 <EmptyState
                     title="No Menu Items Found"
@@ -249,6 +249,7 @@ export const MenuContainer = () => {
                             key={item.id}
                             id={item.id}
                             name={item.name}
+                            image={item.image}
                             orientation="horizontal"
                             details={[
                                 {
