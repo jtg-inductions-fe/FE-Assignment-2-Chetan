@@ -228,12 +228,6 @@ export const MenuContainer = () => {
                 />
             </Box>
 
-                <StyledImage
-                    src={restaurant?.image || img}
-                    alt={restaurant?.name || 'Restaurant Image'}
-                />
-            </Box>
-
             {menuItems.length === 0 ? (
                 <EmptyState
                     title="No Menu Items Found"
