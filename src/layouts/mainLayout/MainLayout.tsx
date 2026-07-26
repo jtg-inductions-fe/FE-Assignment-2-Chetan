@@ -24,10 +24,10 @@ export const MainLayout = () => {
             <Header onMenuClick={toggleSidebar} />
             <Sidebar open={sidebarOpen} onClose={handleCloseSidebar} />
 
-            <StyledLayoutContainer>
-                <Outlet />
-            </StyledLayoutContainer>
             <StyledBox>
+                <StyledLayoutContainer>
+                    <Outlet />
+                </StyledLayoutContainer>
                 <Footer />
             </StyledBox>
         </Box>

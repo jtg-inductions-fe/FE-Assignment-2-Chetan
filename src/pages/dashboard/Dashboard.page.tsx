@@ -1,1 +1,2 @@
-export const Dashboard = () => <h1> Dashboard</h1>;
+import { DashboardContainer } from '@containers';
+export const Dashboard = () => <DashboardContainer />;
