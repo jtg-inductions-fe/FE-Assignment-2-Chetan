@@ -4,3 +4,4 @@ export * from './home';
 export * from './menu';
 export * from './cart ';
 export * from './dashboard';
+export * from './pastOrders';

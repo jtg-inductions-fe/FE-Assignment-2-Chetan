@@ -5,3 +5,4 @@ export * from './notFound';
 export * from './dashboard';
 export * from './menu';
 export * from './cart';
+export * from './pastOrders';

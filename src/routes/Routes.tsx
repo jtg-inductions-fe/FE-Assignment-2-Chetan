@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
 import { MainLayout, PublicLayout } from '@layouts';
-import { Cart, Dashboard, Home, Login, Menu, NotFound, Signup } from '@pages';
+import { Cart, Dashboard, Home, Login, Menu, NotFound, PastOrders, Signup } from '@pages';
 
 import { GuestRoute } from './Guest.route';
 import { ProtectedRoute } from './Protected.route';
@@ -21,6 +21,7 @@ export const AppRoutes = () => (
         <Route element={<ProtectedRoute />}>
             <Route element={<PublicLayout />}>
                 <Route path={ROUTES.CART} element={<Cart />} />
+                <Route path={ROUTES.DASHBOARD.PAST_ORDERS} element={<PastOrders />} />
             </Route>
             <Route element={<MainLayout />}>
                 <Route path={ROUTES.DASHBOARD.ROOT} element={<Dashboard />} />
