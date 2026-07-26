@@ -6,7 +6,7 @@ import { AccountBalanceWallet, History } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 
 import { Loading } from '@components';
-import { ROLE, ROUTES } from '@constants';
+import { HTTP_STATUS_CODES, ROLE, ROUTES } from '@constants';
 import { useGetUserQuery } from '@services';
 import { showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
@@ -44,8 +44,15 @@ export const DashboardContainer = () => {
                     severity: 'error',
                 }),
             );
+
+            const isAuthError = 'status' in error && error.status === HTTP_STATUS_CODES.BAD_REQUEST;
+
+            if (isAuthError) {
+                localStorage.removeItem('accessToken');
+                void navigate(ROUTES.AUTH.LOGIN, { replace: true });
+            }
         }
-    }, [error, dispatch]);
+    }, [error, dispatch, navigate]);
 
     if (isLoading || !user) return <Loading />;
 
