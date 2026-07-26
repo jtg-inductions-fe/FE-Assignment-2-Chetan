@@ -28,7 +28,10 @@ export const COLORS = {
         SELECTED: '#FF52000d',
         DISABLED: '#02060C3D',
     },
-    DIVIDER: '#02060c14',
+    DIVIDER: {
+        MAIN: '#02060c14',
+        SECONDARY: '#E0E0E0',
+    },
     ERROR: '#E43E3E',
 } as const;
 

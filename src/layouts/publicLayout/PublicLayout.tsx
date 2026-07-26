@@ -1,14 +1,18 @@
 import { Outlet } from 'react-router-dom';
 
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 
-import { Header } from '@components';
+import { Footer, Header } from '@components';
+import { StyledLayoutContainer } from '@layouts';
 
 export const PublicLayout = () => (
     <>
-        <Header />
-        <Container maxWidth="xl">
-            <Outlet />
-        </Container>
+        <Box display={'flex'} flexDirection={'column'} minHeight={'100vh'}>
+            <Header />
+            <StyledLayoutContainer maxWidth="xl">
+                <Outlet />
+            </StyledLayoutContainer>
+            <Footer />
+        </Box>
     </>
 );

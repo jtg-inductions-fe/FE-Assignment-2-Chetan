@@ -9,14 +9,13 @@ import { ProtectedRoute } from './Protected.route';
 
 export const AppRoutes = () => (
     <Routes>
+        <Route element={<GuestRoute />}>
+            <Route path={ROUTES.AUTH.SIGNUP} element={<Signup />} />
+            <Route path={ROUTES.AUTH.LOGIN} element={<Login />} />
+        </Route>
         <Route element={<PublicLayout />}>
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path="restaurants/:restaurantId/menu" element={<Menu />} />
-
-            <Route element={<GuestRoute />}>
-                <Route path={ROUTES.AUTH.SIGNUP} element={<Signup />} />
-                <Route path={ROUTES.AUTH.LOGIN} element={<Login />} />
-            </Route>
         </Route>
 
         <Route element={<ProtectedRoute />}>

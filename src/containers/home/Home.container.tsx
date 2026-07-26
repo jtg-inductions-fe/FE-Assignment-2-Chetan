@@ -6,35 +6,44 @@ import { LocationCity, LocationOn, PinDrop } from '@mui/icons-material';
 import { Grid2 as Grid } from '@mui/material';
 
 import { Card, EmptyState, Loading, SearchBar } from '@components';
-import { ROUTES } from '@constants';
-import { useGetRestaurantsQuery } from '@services';
+import { ROLE, ROUTES } from '@constants';
+import { useGetRestaurantsQuery, useGetUserQuery } from '@services';
 import { showSnackbar } from '@slices';
-import { useAppDispatch } from '@store';
+import { useAppDispatch, useAppSelector } from '@store';
 import { getErrorMessage } from '@utils';
 
 import { HeroSection, RestaurantGrid, StyledParaTypograpgy, StyledTypograpgy } from './Home.styles';
 
 export const HomeContainer = () => {
-    const { data, isLoading, error } = useGetRestaurantsQuery();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { role, id } = useAppSelector((state) => state.auth);
+    const { data, isLoading, error } = useGetRestaurantsQuery(undefined, {
+        skip: role === ROLE.ADMIN,
+    });
+
+    const {
+        data: user,
+        isLoading: isFetching,
+        error: userError,
+    } = useGetUserQuery(id as string, {
+        skip: role !== ROLE.ADMIN,
+    });
+    const restaurants = role === ROLE.ADMIN ? (user?.restaurants ?? []) : (data?.restaurants ?? []);
 
     useEffect(() => {
-        if (error) {
+        const currentError = error || userError;
+        if (currentError) {
             dispatch(
                 showSnackbar({
-                    message: getErrorMessage(error),
+                    message: getErrorMessage(currentError),
                     severity: 'error',
                 }),
             );
         }
-    }, [error, dispatch]);
+    }, [error, userError, dispatch]);
 
-    if (isLoading) return <Loading />;
-
-    if (isLoading) return <Loading />;
-
-    const restaurants = data?.restaurants ?? [];
+    if (isLoading || isFetching) return <Loading />;
 
     return (
         <>
@@ -42,8 +51,9 @@ export const HomeContainer = () => {
                 <StyledTypograpgy gutterBottom>Restaurants</StyledTypograpgy>
 
                 <StyledParaTypograpgy variant="h6">
-                    Discover your favourite restaurants and enjoy delicious meals delivered to your
-                    doorstep.
+                    {
+                        'Discover your favourite restaurants and enjoy delicious meals delivered to yourdoorstep.'
+                    }
                 </StyledParaTypograpgy>
 
                 <SearchBar />

@@ -1,4 +1,4 @@
-import type { FieldValues, Path, RegisterOptions } from 'react-hook-form';
+import type { DefaultValues, FieldValues, Path, RegisterOptions } from 'react-hook-form';
 
 export interface SelectOption {
     value: string;
@@ -14,11 +14,16 @@ export interface FormField<T extends FieldValues> {
 }
 
 export interface AuthFormProps<T extends FieldValues> {
-    title: string;
+    title?: string;
     fields: FormField<T>[];
-    buttonText: string;
-    bottomText: string;
-    bottomLinkText: string;
-    bottomLinkTo: string;
+    buttonText?: string;
+    bottomText?: string;
+    bottomLinkText?: string;
+    bottomLinkTo?: string;
     onSubmit: (data: T) => void;
+}
+
+export interface FormProps<T extends FieldValues> extends AuthFormProps<T> {
+    defaultValues?: DefaultValues<T>;
+    formId?: string;
 }

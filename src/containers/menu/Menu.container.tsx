@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Star } from '@mui/icons-material';
-import { Box } from '@mui/material';
+import { Add as AddIcon, BarChart, Star } from '@mui/icons-material';
+import { Box, Button, Stack } from '@mui/material';
 
 import img from '@assets/images/dummyRestaurant.webp';
 import {
@@ -11,12 +11,21 @@ import {
     Card,
     ConfirmationDialog,
     EmptyState,
+    ItemDialog,
+    ItemFormData,
     Loading,
     QuantitySelector,
 } from '@components';
-import { ROUTES } from '@constants';
+import { ROLE, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
-import { useGetMenuItemsQuery } from '@services';
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import {
+    useCreateItemMutation,
+    useDeleteItemMutation,
+    useGetMenuItemsQuery,
+    useUpdateItemMutation,
+} from '@services';
 import { addItem, clearCart, decrementItem, incrementItem, showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 import { getErrorMessage } from '@utils';
@@ -34,27 +43,36 @@ export const MenuContainer = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
+    const [updateItem] = useUpdateItemMutation();
+    const role = useAppSelector((state) => state.auth.role);
+    const cartItems = useAppSelector((state) => state.cart.items);
+    const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
+    const [deleteItem] = useDeleteItemMutation();
 
-    const [openDialog, setOpenDialog] = useState(false);
+    const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
     const [selectedItem, setSelectedItem] = useState<ItemDetails | null>(null);
 
+    const [openItemDialog, setOpenItemDialog] = useState(false);
+    const [dialogMode, setDialogMode] = useState<'add' | 'edit'>('add');
+
     const token = localStorage.getItem('accessToken');
-    const cartItems = useAppSelector((state) => state.cart.items);
     const restaurant = location.state as RestaurantBasicDetails;
 
     const { restaurantId } = useParams();
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
 
-    if (isLoading) return <Loading />;
+    useEffect(() => {
+        if (error) {
+            dispatch(
+                showSnackbar({
+                    message: getErrorMessage(error),
+                    severity: 'error',
+                }),
+            );
+        }
+    }, [error, dispatch]);
 
-    if (error) {
-        dispatch(
-            showSnackbar({
-                message: getErrorMessage(error),
-                severity: 'error',
-            }),
-        );
-    }
+    if (isLoading || isCreating) return <Loading />;
 
     const menuItems = data?.items ?? [];
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -74,7 +92,7 @@ export const MenuContainer = () => {
         }
 
         setSelectedItem(item);
-        setOpenDialog(true);
+        setOpenConfirmationDialog(true);
     };
 
     const handleReplace = () => {
@@ -92,18 +110,115 @@ export const MenuContainer = () => {
             }),
         );
 
-        setOpenDialog(false);
+        setOpenConfirmationDialog(false);
         setSelectedItem(null);
     };
 
     const handleCancel = () => {
-        setOpenDialog(false);
+        setOpenConfirmationDialog(false);
         setSelectedItem(null);
     };
+
+    const handleEdit = (item: ItemDetails) => {
+        setSelectedItem(item);
+        setDialogMode('edit');
+        setOpenItemDialog(true);
+    };
+
+    const handleAddNewItem = () => {
+        setSelectedItem(null);
+        setDialogMode('add');
+        setOpenItemDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenItemDialog(false);
+        setSelectedItem(null);
+    };
+
+    const handleDelete = async (item: ItemDetails) => {
+        try {
+            await deleteItem({
+                restaurantId: restaurant.id,
+                itemId: item.id,
+            }).unwrap();
+
+            dispatch(
+                showSnackbar({
+                    message: 'Item deleted successfully',
+                    severity: 'success',
+                }),
+            );
+        } catch (err) {
+            dispatch(
+                showSnackbar({
+                    message: getErrorMessage(err as FetchBaseQueryError | SerializedError),
+                    severity: 'error',
+                }),
+            );
+        }
+    };
+
+    const handleSave = async (formData: ItemFormData) => {
+        try {
+            if (dialogMode === 'edit' && selectedItem) {
+                await updateItem({
+                    restaurantId: restaurant.id,
+                    itemId: selectedItem.id,
+                    formData,
+                }).unwrap();
+            } else {
+                await createItem({
+                    restaurantId: restaurant.id,
+                    formData,
+                }).unwrap();
+            }
+            handleCloseDialog();
+        } catch (err) {
+            dispatch(
+                showSnackbar({
+                    message: getErrorMessage(err as FetchBaseQueryError | SerializedError),
+                    severity: 'error',
+                }),
+            );
+        }
+    };
+
+    const handleNavigateToStats = () => {
+        void navigate(ROUTES.DASHBOARD.RESTAURANTS.ANALYTICS.ROOT(restaurant.id), {
+            state: restaurant,
+        });
+    };
+
     return (
         <StyledContainer maxWidth="md">
-            <Box>
-                <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
+            <Box mb={3}>
+                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                    <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
+
+                    {role === ROLE.ADMIN && (
+                        <Stack direction="row" spacing={1.5}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                startIcon={<BarChart />}
+                                onClick={handleNavigateToStats}
+                                size="small"
+                            >
+                                Stats
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                startIcon={<AddIcon />}
+                                onClick={handleAddNewItem}
+                                size="small"
+                            >
+                                Add Item
+                            </Button>
+                        </Stack>
+                    )}
+                </Box>
 
                 <StyledImage
                     src={restaurant?.image || img}
@@ -144,21 +259,40 @@ export const MenuContainer = () => {
                                 },
                             ]}
                             action={
-                                token &&
-                                (quantity === 0 ? (
-                                    <StyledItemCardButton
-                                        variant="outlined"
-                                        onClick={() => handleAddToCart(item)}
-                                    >
-                                        ADD
-                                    </StyledItemCardButton>
+                                role === ROLE.ADMIN ? (
+                                    <Stack direction="row" spacing={1}>
+                                        <StyledItemCardButton
+                                            variant="outlined"
+                                            onClick={() => handleEdit(item)}
+                                        >
+                                            Edit
+                                        </StyledItemCardButton>
+
+                                        <StyledItemCardButton
+                                            variant="outlined"
+                                            color="error"
+                                            onClick={() => void handleDelete(item)}
+                                        >
+                                            Delete
+                                        </StyledItemCardButton>
+                                    </Stack>
                                 ) : (
-                                    <QuantitySelector
-                                        quantity={quantity}
-                                        onIncrement={() => dispatch(incrementItem(item.id))}
-                                        onDecrement={() => dispatch(decrementItem(item.id))}
-                                    />
-                                ))
+                                    token &&
+                                    (quantity === 0 ? (
+                                        <StyledItemCardButton
+                                            variant="outlined"
+                                            onClick={() => handleAddToCart(item)}
+                                        >
+                                            ADD
+                                        </StyledItemCardButton>
+                                    ) : (
+                                        <QuantitySelector
+                                            quantity={quantity}
+                                            onIncrement={() => dispatch(incrementItem(item.id))}
+                                            onDecrement={() => dispatch(decrementItem(item.id))}
+                                        />
+                                    ))
+                                )
                             }
                         />
                     );
@@ -174,12 +308,20 @@ export const MenuContainer = () => {
             )}
 
             <ConfirmationDialog
-                open={openDialog}
+                open={openConfirmationDialog}
                 title="Replace Cart?"
                 description="Your cart contains items from another restaurant. Do you want to clear your current cart and add this item?"
                 confirmText="Replace"
                 onConfirm={handleReplace}
                 onCancel={handleCancel}
+            />
+
+            <ItemDialog
+                open={openItemDialog}
+                mode={dialogMode}
+                item={selectedItem}
+                onClose={handleCloseDialog}
+                onSave={(formData) => void handleSave(formData)}
             />
         </StyledContainer>
     );

@@ -10,3 +10,5 @@ export * from './searchBar';
 export * from './quantitySelector';
 export * from './bottomActionBar';
 export * from './confirmationDialog';
+export * from './itemDialog';
+export * from './footer';
