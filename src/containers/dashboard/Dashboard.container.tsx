@@ -33,7 +33,6 @@ export const DashboardContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { role, id } = useAppSelector((state) => state.auth);
-
     const { data: user, isLoading, error } = useGetUserQuery(id as string);
 
     useEffect(() => {
@@ -45,7 +44,8 @@ export const DashboardContainer = () => {
                 }),
             );
 
-            const isAuthError = 'status' in error && error.status === HTTP_STATUS_CODES.BAD_REQUEST;
+            const isAuthError =
+                'status' in error && error.status === HTTP_STATUS_CODES.UNAUTHORIZED;
 
             if (isAuthError) {
                 localStorage.removeItem('accessToken');
@@ -69,7 +69,7 @@ export const DashboardContainer = () => {
 
                         <Box>
                             <Typography variant="h3">{user.name}</Typography>
-                            <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5 }}>
+                            <Typography variant="body1" color="text.secondary" marginTop={0.5}>
                                 {user.email}
                             </Typography>
                             <RoleChip
