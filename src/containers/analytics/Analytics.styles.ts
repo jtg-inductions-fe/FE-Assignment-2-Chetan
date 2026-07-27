@@ -1,7 +1,5 @@
 import { Box, Card, Chip, styled, Typography } from '@mui/material';
 
-import { FONT_WEIGHT } from '@constants';
-
 export const PageWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -42,7 +40,6 @@ export const CustomerRow = styled(Box)(({ theme }) => ({
 
 export const CustomerName = styled(Typography)({
     flex: 1,
-    fontWeight: FONT_WEIGHT.REGULAR,
 });
 
 export const OrderCountText = styled(Typography)(({ theme }) => ({

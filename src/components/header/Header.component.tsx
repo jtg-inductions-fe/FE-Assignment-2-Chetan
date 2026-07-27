@@ -35,6 +35,7 @@ export const Header = () => {
     };
 
     const handleLogout = () => {
+        dispatch(analyticsApi.util.resetApiState());
         localStorage.removeItem('accessToken');
         dispatch(removeAuth());
         dispatch(clearCart());
@@ -42,7 +43,6 @@ export const Header = () => {
         dispatch(ordersApi.util.resetApiState());
         dispatch(restaurantsApi.util.resetApiState());
         dispatch(menuItemsApi.util.resetApiState());
-        dispatch(analyticsApi.util.resetApiState());
         void navigate(ROUTES.HOME);
     };
     const handleCloseUserMenu = () => {
