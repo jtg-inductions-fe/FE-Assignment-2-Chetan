@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
 import { EmptyState, Loading, OrderDetailsDialog } from '@components';
-import { HTTP_STATUS_CODES, ROUTES } from '@constants';
+import { useApiErrorHandler } from '@hooks';
 import { useGetOrderDetailsQuery, useGetPastOrdersQuery } from '@services';
-import { showSnackbar } from '@slices';
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppSelector } from '@store';
 import { OrderDetails } from '@types';
-import { getErrorMessage } from '@utils';
 
 import {
     CustomOrderHeading,
@@ -23,13 +19,10 @@ import {
     RestaurantImage,
     RestaurantLocation,
     RestaurantName,
-    TotalAmount,
     ViewDetailsButton,
 } from './PastOrders.styles';
 
 export const PastOrdersContainer = () => {
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const token = useAppSelector((state) => state.auth.accessToken);
     const { data, isLoading, error } = useGetPastOrdersQuery(undefined, { skip: !token });
     const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
@@ -37,27 +30,9 @@ export const PastOrdersContainer = () => {
         data: orderDetails,
         isLoading: isFetching,
         error: err,
-    } = useGetOrderDetailsQuery(selectedOrderId ?? '', { skip: !selectedOrderId });
+    } = useGetOrderDetailsQuery(selectedOrderId ?? '', { skip: !selectedOrderId || !token });
 
-    useEffect(() => {
-        const currentError = error || err;
-        if (currentError) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(currentError),
-                    severity: 'error',
-                }),
-            );
-
-            const isAuthError =
-                'status' in currentError && currentError.status === HTTP_STATUS_CODES.UNAUTHORIZED;
-
-            if (isAuthError) {
-                localStorage.removeItem('accessToken');
-                void navigate(ROUTES.AUTH.LOGIN, { replace: true });
-            }
-        }
-    }, [error, dispatch, err, navigate]);
+    useApiErrorHandler(error, err);
 
     if (isLoading) return <Loading />;
 
@@ -111,7 +86,7 @@ export const PastOrdersContainer = () => {
                                         </OrderMeta>
                                     </Box>
 
-                                    <TotalAmount>₹{order.totalPrice}</TotalAmount>
+                                    <Typography variant="h5">₹{order.totalPrice}</Typography>
                                 </OrderMetaRow>
 
                                 <ViewDetailsButton

@@ -1,7 +1,5 @@
 import { Box, Divider, styled, Typography } from '@mui/material';
 
-import { FONT_WEIGHT } from '@constants';
-
 export const RestaurantRow = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'start', 'center'),
     gap: theme.spacing(2),
@@ -30,27 +28,10 @@ export const ItemRow = styled(Box)(({ theme }) => ({
     padding: theme.spacing(1, 0),
 }));
 
-export const ItemName = styled(Typography)({
-    fontWeight: FONT_WEIGHT.REGULAR,
-});
-
-export const ItemPrice = styled(Typography)({
-    fontWeight: FONT_WEIGHT.MEDIUM,
-});
-
 export const StyledDivider = styled(Divider)(({ theme }) => ({
     margin: theme.spacing(2, 0),
 }));
 
 export const TotalRow = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
-}));
-
-export const TotalLabel = styled(Typography)({
-    fontWeight: FONT_WEIGHT.BOLD,
-});
-
-export const TotalAmount = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.BOLD,
-    fontSize: theme.typography.pxToRem(16),
 }));

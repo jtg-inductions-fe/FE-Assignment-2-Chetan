@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 
 import img from '@assets/images/dummyRestaurant.webp';
 import { EmptyState, Loading } from '@components';
-import { HTTP_STATUS_CODES, ROUTES } from '@constants';
+import { ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
+import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useGetUserQuery, usePlaceOrderMutation } from '@services';
@@ -41,25 +40,7 @@ export const CartContainer = () => {
 
     const restaurant = (location.state as RestaurantBasicDetails) ?? {};
 
-    useEffect(() => {
-        const currentError = error || userError;
-        if (currentError) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(currentError),
-                    severity: 'error',
-                }),
-            );
-
-            const isAuthError =
-                'status' in currentError && currentError.status === HTTP_STATUS_CODES.UNAUTHORIZED;
-
-            if (isAuthError) {
-                localStorage.removeItem('accessToken');
-                void navigate(ROUTES.AUTH.LOGIN, { replace: true });
-            }
-        }
-    }, [error, dispatch, userError, navigate]);
+    useApiErrorHandler(error, userError);
 
     if (isLoading || isUserLoading) return <Loading />;
 

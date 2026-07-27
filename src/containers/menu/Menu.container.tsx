@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -17,8 +17,9 @@ import {
     Loading,
     QuantitySelector,
 } from '@components';
-import { HTTP_STATUS_CODES, ROLE, ROUTES } from '@constants';
+import { ROLE, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
+import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import {
@@ -46,11 +47,12 @@ export const MenuContainer = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
-    const [updateItem] = useUpdateItemMutation();
+    const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
+    const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
+    const [deleteItem, { isLoading: isDeleting }] = useDeleteItemMutation();
+
     const role = useAppSelector((state) => state.auth.role);
     const cartItems = useAppSelector((state) => state.cart.items);
-    const [createItem, { isLoading: isCreating, error: createError }] = useCreateItemMutation();
-    const [deleteItem] = useDeleteItemMutation();
 
     const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
     const [selectedItem, setSelectedItem] = useState<ItemDetails | null>(null);
@@ -66,27 +68,9 @@ export const MenuContainer = () => {
     const { restaurantId } = useParams();
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
 
-    useEffect(() => {
-        const currentError = error || createError;
-        if (currentError) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(currentError),
-                    severity: 'error',
-                }),
-            );
+    useApiErrorHandler(error);
 
-            const isAuthError =
-                'status' in currentError && currentError.status === HTTP_STATUS_CODES.UNAUTHORIZED;
-
-            if (isAuthError) {
-                localStorage.removeItem('accessToken');
-                void navigate(ROUTES.AUTH.LOGIN, { replace: true });
-            }
-        }
-    }, [error, dispatch, createError, navigate]);
-
-    if (isLoading || isCreating) return <Loading />;
+    if (isLoading || isCreating || isDeleting || isUpdating) return <Loading />;
 
     const menuItems = data?.items ?? [];
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);

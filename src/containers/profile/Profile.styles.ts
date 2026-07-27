@@ -72,11 +72,6 @@ export const DetailLabel = styled(Typography)(({ theme }) => ({
     marginBottom: theme.typography.pxToRem(6),
 }));
 
-export const DetailValue = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.MEDIUM,
-    fontSize: theme.typography.pxToRem(12),
-}));
-
 export const BalanceCard = styled(Card)(({ theme }) => ({
     flex: 1,
     minWidth: theme.typography.pxToRem(320),
@@ -107,7 +102,7 @@ export const PastOrdersButton = styled(Button)(({ theme }) => ({
 
     '&:hover': {
         borderColor: COLORS.COMMON.LIGHT,
-        fontWeight: 700,
+        fontWeight: FONT_WEIGHT.BOLD,
         padding: theme.spacing(3, 4),
     },
 }));

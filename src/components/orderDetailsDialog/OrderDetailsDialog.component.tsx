@@ -4,16 +4,12 @@ import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
 import { Loading, OrderDetailsDialogProps, StyledDialog } from '@components';
 
 import {
-    ItemName,
-    ItemPrice,
     ItemRow,
     OrderDetailsRow,
     RestaurantImage,
     RestaurantRow,
     StyledDivider,
     StyledInfo,
-    TotalAmount,
-    TotalLabel,
     TotalRow,
 } from './OrderDetailsDialog.styles';
 
@@ -58,19 +54,19 @@ export const OrderDetailsDialog = ({
                     {order.orderItems.map((oi) => (
                         <ItemRow key={oi.id}>
                             <Box>
-                                <ItemName>{oi.item.name}</ItemName>
+                                <Typography variant="body1">{oi.item.name}</Typography>
                                 <StyledInfo>
                                     {oi.item.category} . Qty: {oi.quantity}
                                 </StyledInfo>
                             </Box>
-                            <ItemPrice>₹{oi.itemPrice * oi.quantity}</ItemPrice>
+                            <Typography variant="body1">₹{oi.itemPrice * oi.quantity}</Typography>
                         </ItemRow>
                     ))}
                     <StyledDivider />
 
                     <TotalRow>
-                        <TotalLabel>Total</TotalLabel>
-                        <TotalAmount>₹{order.totalPrice}</TotalAmount>
+                        <Typography variant="h6">Total</Typography>
+                        <Typography variant="h5">₹{order.totalPrice}</Typography>
                     </TotalRow>
                 </>
             )}

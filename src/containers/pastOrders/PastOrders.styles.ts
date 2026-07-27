@@ -53,11 +53,6 @@ export const OrderMeta = styled(Typography)(({ theme }) => ({
     lineHeight: 1.5,
 }));
 
-export const TotalAmount = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.BOLD,
-    fontSize: theme.typography.pxToRem(16),
-}));
-
 export const ViewDetailsButton = styled(Button)(({ theme }) => ({
     alignSelf: 'flex-end',
     marginTop: theme.typography.pxToRem(8),
