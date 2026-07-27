@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Add as AddIcon, BarChart, Star } from '@mui/icons-material';
+import { Add as AddIcon, BarChart, Delete, Edit, Star } from '@mui/icons-material';
 import { Box, Button, Stack } from '@mui/material';
 
-import img from '@assets/images/dummyRestaurant.webp';
+import dishImage from '@assets/images/dummyItems.webp';
+import restaurantImg from '@assets/images/dummyRestaurant.webp';
 import {
     BottomActionBar,
     Card,
@@ -16,7 +17,7 @@ import {
     Loading,
     QuantitySelector,
 } from '@components';
-import { ROLE, ROUTES } from '@constants';
+import { HTTP_STATUS_CODES, ROLE, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
@@ -33,9 +34,11 @@ import { getErrorMessage } from '@utils';
 import {
     CustomHeading,
     MicroIcon,
+    StyledCardIcon,
     StyledContainer,
     StyledImage,
     StyledItemCardButton,
+    StyledMenuTopBox,
 } from './Menu.styles';
 import { ItemDetails } from './Menu.types';
 
@@ -46,7 +49,7 @@ export const MenuContainer = () => {
     const [updateItem] = useUpdateItemMutation();
     const role = useAppSelector((state) => state.auth.role);
     const cartItems = useAppSelector((state) => state.cart.items);
-    const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
+    const [createItem, { isLoading: isCreating, error: createError }] = useCreateItemMutation();
     const [deleteItem] = useDeleteItemMutation();
 
     const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
@@ -64,15 +67,24 @@ export const MenuContainer = () => {
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
 
     useEffect(() => {
-        if (error) {
+        const currentError = error || createError;
+        if (currentError) {
             dispatch(
                 showSnackbar({
-                    message: getErrorMessage(error),
+                    message: getErrorMessage(currentError),
                     severity: 'error',
                 }),
             );
+
+            const isAuthError =
+                'status' in currentError && currentError.status === HTTP_STATUS_CODES.UNAUTHORIZED;
+
+            if (isAuthError) {
+                localStorage.removeItem('accessToken');
+                void navigate(ROUTES.AUTH.LOGIN, { replace: true });
+            }
         }
-    }, [error, dispatch]);
+    }, [error, dispatch, createError, navigate]);
 
     if (isLoading || isCreating) return <Loading />;
 
@@ -187,16 +199,25 @@ export const MenuContainer = () => {
     };
 
     const handleNavigateToStats = () => {
-        void navigate(ROUTES.DASHBOARD.RESTAURANTS.ANALYTICS.ROOT(restaurant.id), {
+        void navigate(ROUTES.RESTAURANTS.ANALYTICS.ROOT(restaurant.id), {
             state: restaurant,
         });
     };
 
-   
+    const handleMaxAvailaiblity = (item: ItemDetails, quantity: number) => {
+        if (quantity + 1 === item.quantity) {
+            dispatch(
+                showSnackbar({
+                    message: 'Maximum available quantity reached.',
+                    severity: 'warning',
+                }),
+            );
+        }
+    };
     return (
         <StyledContainer maxWidth="md">
             <Box mb={3}>
-                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <StyledMenuTopBox mb={2}>
                     <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
 
                     {role === ROLE.ADMIN && (
@@ -221,10 +242,10 @@ export const MenuContainer = () => {
                             </Button>
                         </Stack>
                     )}
-                </Box>
+                </StyledMenuTopBox>
 
                 <StyledImage
-                    src={restaurant?.image || img}
+                    src={restaurant?.image || restaurantImg}
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
             </Box>
@@ -249,7 +270,7 @@ export const MenuContainer = () => {
                             key={item.id}
                             id={item.id}
                             name={item.name}
-                            image={item.image}
+                            image={item.image ?? dishImage}
                             orientation="horizontal"
                             details={[
                                 {
@@ -269,34 +290,42 @@ export const MenuContainer = () => {
                             action={
                                 role === ROLE.ADMIN ? (
                                     <Stack direction="row" spacing={1}>
-                                        <StyledItemCardButton
+                                        <StyledCardIcon
                                             variant="outlined"
+                                            color="success"
                                             onClick={() => handleEdit(item)}
                                         >
-                                            Edit
-                                        </StyledItemCardButton>
+                                            <Edit />
+                                        </StyledCardIcon>
 
-                                        <StyledItemCardButton
+                                        <StyledCardIcon
                                             variant="outlined"
                                             color="error"
                                             onClick={() => void handleDelete(item)}
                                         >
-                                            Delete
-                                        </StyledItemCardButton>
+                                            <Delete />
+                                        </StyledCardIcon>
                                     </Stack>
                                 ) : (
                                     token &&
                                     (quantity === 0 ? (
                                         <StyledItemCardButton
                                             variant="outlined"
-                                            onClick={() => handleAddToCart(item)}
+                                            onClick={() => {
+                                                handleAddToCart(item);
+                                                handleMaxAvailaiblity(item, quantity);
+                                            }}
                                         >
                                             ADD
                                         </StyledItemCardButton>
                                     ) : (
                                         <QuantitySelector
                                             quantity={quantity}
-                                            onIncrement={() => dispatch(incrementItem(item.id))}
+                                            disableIncrement={quantity >= item.quantity}
+                                            onIncrement={() => {
+                                                dispatch(incrementItem(item.id));
+                                                handleMaxAvailaiblity(item, quantity);
+                                            }}
                                             onDecrement={() => dispatch(decrementItem(item.id))}
                                         />
                                     ))

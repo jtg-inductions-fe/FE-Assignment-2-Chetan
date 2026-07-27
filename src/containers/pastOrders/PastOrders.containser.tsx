@@ -9,7 +9,7 @@ import { EmptyState, Loading, OrderDetailsDialog } from '@components';
 import { HTTP_STATUS_CODES, ROUTES } from '@constants';
 import { useGetOrderDetailsQuery, useGetPastOrdersQuery } from '@services';
 import { showSnackbar } from '@slices';
-import { useAppDispatch } from '@store';
+import { useAppDispatch, useAppSelector } from '@store';
 import { OrderDetails } from '@types';
 import { getErrorMessage } from '@utils';
 
@@ -30,7 +30,8 @@ import {
 export const PastOrdersContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { data, isLoading, error } = useGetPastOrdersQuery();
+    const token = useAppSelector((state) => state.auth.accessToken);
+    const { data, isLoading, error } = useGetPastOrdersQuery(undefined, { skip: !token });
     const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
     const {
         data: orderDetails,

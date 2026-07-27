@@ -3,5 +3,5 @@ export * from './signup';
 export * from './home';
 export * from './menu';
 export * from './cart ';
-export * from './dashboard';
+export * from './profile';
 export * from './pastOrders';

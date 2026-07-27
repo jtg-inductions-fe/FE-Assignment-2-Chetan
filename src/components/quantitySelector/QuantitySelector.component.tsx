@@ -4,7 +4,12 @@ import { Typography } from '@mui/material';
 import { StyledQuantityButton, StyledQuantityContainer } from './QuantitySelector.styles';
 import { QuantitySelectorProps } from './QuantitySelector.types';
 
-export const QuantitySelector = ({ quantity, onIncrement, onDecrement }: QuantitySelectorProps) => (
+export const QuantitySelector = ({
+    quantity,
+    onIncrement,
+    onDecrement,
+    disableIncrement = false,
+}: QuantitySelectorProps) => (
     <StyledQuantityContainer>
         <StyledQuantityButton onClick={onDecrement}>
             <Remove fontSize="small" />
@@ -12,7 +17,7 @@ export const QuantitySelector = ({ quantity, onIncrement, onDecrement }: Quantit
 
         <Typography variant="subtitle1">{quantity}</Typography>
 
-        <StyledQuantityButton onClick={onIncrement}>
+        <StyledQuantityButton onClick={onIncrement} disabled={disableIncrement}>
             <Add fontSize="small" />
         </StyledQuantityButton>
     </StyledQuantityContainer>

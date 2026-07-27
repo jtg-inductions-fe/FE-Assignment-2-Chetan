@@ -19,7 +19,7 @@ export const AppSnackbar = () => {
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'center',
+                horizontal: 'right',
             }}
         >
             <Alert onClose={handleClose} severity={severity} variant="filled">

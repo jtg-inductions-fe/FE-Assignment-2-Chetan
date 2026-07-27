@@ -34,6 +34,7 @@ export const ColumnTitle = styled(Typography)(({ theme }) => ({
     fontWeight: FONT_WEIGHT.BOLD,
     color: theme.palette.common.black,
     marginBottom: 4,
+    fontSize: theme.typography.pxToRem(18),
 }));
 
 export const FooterLinkItem = styled(Link)(({ theme }) => ({
@@ -41,7 +42,7 @@ export const FooterLinkItem = styled(Link)(({ theme }) => ({
 
     opacity: 0.7,
     textDecoration: 'none',
-    fontSize: theme.typography.pxToRem(8),
+    fontSize: theme.typography.pxToRem(13),
     '&:hover': {
         opacity: 1,
     },
@@ -62,5 +63,5 @@ export const CopyrightBar = styled(Box)(({ theme }) => ({
 export const CopyrightText = styled(Typography)(({ theme }) => ({
     color: theme.palette.common.black,
     opacity: 0.6,
-    fontSize: theme.typography.pxToRem(7),
+    fontSize: theme.typography.pxToRem(11),
 }));

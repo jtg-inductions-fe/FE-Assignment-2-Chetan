@@ -3,18 +3,18 @@ import { Avatar, Box, Button, Card, Chip, Divider, styled, Typography } from '@m
 import { COLORS, FONT_WEIGHT } from '@constants';
 
 export const PageWrapper = styled(Box)(({ theme }) => ({
-    minHeight: `calc(100vh - ${theme.typography.pxToRem(200)})`,
+    minHeight: `calc(100vh - ${theme.typography.pxToRem(232)})`,
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
 }));
 
-export const DashboardGrid = styled(Box)(({ theme }) => ({
+export const ProfileGrid = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
-
     gap: theme.spacing(4),
     width: '100%',
     [theme.breakpoints.up('lg')]: {
         flexDirection: 'row',
+        height: 600,
     },
 }));
 

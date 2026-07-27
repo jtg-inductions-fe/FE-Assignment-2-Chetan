@@ -10,6 +10,7 @@ export const LogoImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: theme.typography.pxToRem(68),
     display: 'flex',
+    cursor: 'pointer',
 }));
 
 export const LogoText = styled(Link)(({ theme }) => ({
@@ -18,14 +19,6 @@ export const LogoText = styled(Link)(({ theme }) => ({
     textDecoration: 'none',
     [theme.breakpoints.up('md')]: {
         display: 'flex',
-    },
-}));
-
-export const MenuIconButton = styled(IconButton)(({ theme }) => ({
-    color: COLORS.COMMON.DARK,
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-        display: 'none',
     },
 }));
 

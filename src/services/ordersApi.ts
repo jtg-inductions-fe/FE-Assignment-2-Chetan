@@ -50,7 +50,7 @@ export const ordersApi = createApi({
             query: (orderId) => ({
                 url: API_ROUTES.ORDERS.GET_DETAILS(orderId),
             }),
-
+            providesTags: ['Orders'],
             transformResponse: (response: RawOrderDetails): OrderDetails => ({
                 id: response.id,
                 totalPrice: response.total_price,

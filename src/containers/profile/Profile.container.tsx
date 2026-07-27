@@ -16,7 +16,6 @@ import {
     BalanceAmount,
     BalanceCard,
     BalanceLabel,
-    DashboardGrid,
     DetailLabel,
     DetailsGrid,
     DetailValue,
@@ -24,16 +23,21 @@ import {
     PastOrdersButton,
     ProfileAvatar,
     ProfileCard,
+    ProfileGrid,
     ProfileHeader,
     RoleChip,
     StyledDivider,
-} from './Dashboard.styles';
+} from './Profile.styles';
 
-export const DashboardContainer = () => {
+export const ProfileContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { role, id } = useAppSelector((state) => state.auth);
-    const { data: user, isLoading, error } = useGetUserQuery(id as string);
+    const { role, id, accessToken } = useAppSelector((state) => state.auth);
+    const {
+        data: user,
+        isLoading,
+        error,
+    } = useGetUserQuery(id as string, { skip: !accessToken || !id });
 
     useEffect(() => {
         if (error) {
@@ -57,12 +61,12 @@ export const DashboardContainer = () => {
     if (isLoading || !user) return <Loading />;
 
     const handlePastOrders = () => {
-        void navigate(ROUTES.DASHBOARD.PAST_ORDERS);
+        void navigate(ROUTES.PAST_ORDERS);
     };
 
     return (
         <PageWrapper>
-            <DashboardGrid>
+            <ProfileGrid>
                 <ProfileCard>
                     <ProfileHeader>
                         <ProfileAvatar>{user.name.charAt(0).toUpperCase()}</ProfileAvatar>
@@ -122,7 +126,7 @@ export const DashboardContainer = () => {
                         View Past Orders
                     </PastOrdersButton>
                 </BalanceCard>
-            </DashboardGrid>
+            </ProfileGrid>
         </PageWrapper>
     );
 };
