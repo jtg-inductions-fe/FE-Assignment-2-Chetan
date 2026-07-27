@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
+import { AnalyticsContainer } from '@containers';
 import { MainLayout } from '@layouts';
 import { Cart, Home, Login, Menu, NotFound, PastOrders, Profile, Signup } from '@pages';
 
@@ -19,6 +20,10 @@ export const AppRoutes = () => (
             <Route path={ROUTES.RESTAURANTS.MENU_URL} element={<Menu />} />
 
             <Route element={<ProtectedRoute />}>
+                <Route
+                    path={ROUTES.RESTAURANTS.ANALYTICS.ROOT_URL}
+                    element={<AnalyticsContainer />}
+                />
                 <Route path={ROUTES.CART} element={<Cart />} />
                 <Route path={ROUTES.PAST_ORDERS} element={<PastOrders />} />
                 <Route path={ROUTES.PROFILE} element={<Profile />} />

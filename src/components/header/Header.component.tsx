@@ -6,7 +6,7 @@ import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
 import { ROUTES } from '@constants';
-import { authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
+import { analyticsApi, authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
 import { clearCart, removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
@@ -42,6 +42,7 @@ export const Header = () => {
         dispatch(ordersApi.util.resetApiState());
         dispatch(restaurantsApi.util.resetApiState());
         dispatch(menuItemsApi.util.resetApiState());
+        dispatch(analyticsApi.util.resetApiState());
         void navigate(ROUTES.HOME);
     };
     const handleCloseUserMenu = () => {

@@ -16,6 +16,7 @@ export const ROUTES = {
         MENU: (restaurantId: string) => `/restaurants/${restaurantId}/menu`,
         ANALYTICS: {
             ROOT: (restaurantId: string) => `/restaurants/${restaurantId}/analytics`,
+            ROOT_URL: '/restaurants/:restaurantId/analytics',
             MENU_STATS: (restaurantId: string) =>
                 `/restaurants/${restaurantId}/analytics/menu-stats`,
             TOP_CUSTOMERS: (restaurantId: string) =>

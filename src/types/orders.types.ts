@@ -72,3 +72,34 @@ interface RawOrderItemDetail {
 export interface RawOrderDetails extends RawOrder {
     order_items: RawOrderItemDetail[];
 }
+
+export interface OrderUser {
+    name: string;
+    email: string;
+    city: string;
+    state: string;
+}
+
+export interface RestaurantOrder {
+    id: string;
+    totalPrice: number;
+    createdAt: string;
+    user: OrderUser;
+    orderItems: OrderItemDetail[];
+}
+
+export interface OrdersResponse {
+    orders: RestaurantOrder[];
+}
+
+interface RawStatsOrder {
+    id: string;
+    total_price: number;
+    created_at: string;
+    user: OrderUser;
+    order_items: RawOrderItemDetail[];
+}
+
+export interface RawOrdersResponse {
+    orders: RawStatsOrder[];
+}
