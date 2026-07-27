@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 
 import img from '@assets/images/dummyRestaurant.webp';
 import { EmptyState, Loading } from '@components';
-import { HTTP_STATUS_CODES, ROUTES } from '@constants';
+import { ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ import {
     Loading,
     QuantitySelector,
 } from '@components';
-import { HTTP_STATUS_CODES, ROLE, ROUTES } from '@constants';
+import { ROLE, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
