@@ -6,7 +6,7 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 
 import img from '@assets/images/dummyRestaurant.webp';
 import { EmptyState, Loading } from '@components';
-import { ROUTES } from '@constants';
+import { HTTP_STATUS_CODES, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
@@ -32,8 +32,8 @@ export const CartContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const items = useAppSelector((state) => state.cart.items);
-    const userId = useAppSelector((state) => state.auth.id);
-    const [placeOrder, { isLoading }] = usePlaceOrderMutation();
+    const { id, accessToken } = useAppSelector((state) => state.auth);
+    const [placeOrder, { isLoading, error }] = usePlaceOrderMutation();
     const {
         data: user,
         isLoading: isUserLoading,

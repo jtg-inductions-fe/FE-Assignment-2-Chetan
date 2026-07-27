@@ -17,7 +17,7 @@ import {
     Loading,
     QuantitySelector,
 } from '@components';
-import { ROLE, ROUTES } from '@constants';
+import { HTTP_STATUS_CODES, ROLE, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
@@ -228,12 +228,6 @@ export const MenuContainer = () => {
 
                 <StyledImage
                     src={restaurant?.image || restaurantImg}
-                    alt={restaurant?.name || 'Restaurant Image'}
-                />
-            </Box>
-
-                <StyledImage
-                    src={restaurant?.image || img}
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
             </Box>
