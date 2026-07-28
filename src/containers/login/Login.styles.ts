@@ -9,7 +9,6 @@ export const LoginCard = styled(Paper)(({ theme }) => ({
 }));
 
 export const AuthContainer = styled(Box)(({ theme }) => ({
-    minHeight: '80vh',
     ...theme.mixins.flexLayout(),
     backgroundColor: theme.palette.background.default,
 }));
