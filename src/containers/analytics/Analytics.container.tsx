@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 import { EmptyState, Loading } from '@components';
-// import { CustomHeading } from '@containers';
 import { useApiErrorHandler } from '@hooks';
 import {
     useGetItemStatsQuery,
