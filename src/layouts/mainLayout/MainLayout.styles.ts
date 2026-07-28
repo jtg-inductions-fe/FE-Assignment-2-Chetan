@@ -1,9 +1,9 @@
 import { Container, styled } from '@mui/material';
 
-export const StyledLayoutContainer = styled(Container)({
+export const StyledLayoutContainer = styled(Container)(({ theme }) => ({
     flexGrow: 1,
-    paddingBlock: '2rem',
+    paddingBlock: theme.typography.pxToRem(2),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-});
+}));

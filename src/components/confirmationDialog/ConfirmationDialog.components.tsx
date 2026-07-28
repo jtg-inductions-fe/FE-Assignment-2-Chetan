@@ -1,9 +1,8 @@
-import { DialogContent } from '@mui/material';
+import { DialogContent, Typography } from '@mui/material';
 
 import {
     StyledCancelButton,
     StyledConfirmButton,
-    StyledDescription,
     StyledDialog,
     StyledDialogActions,
     StyledDialogTitle,
@@ -23,7 +22,7 @@ export const ConfirmationDialog = ({
         <StyledDialogTitle id="confirmation-dialog-title">{title}</StyledDialogTitle>
 
         <DialogContent>
-            <StyledDescription>{description}</StyledDescription>
+            <Typography color="text.secondary">{description}</Typography>
         </DialogContent>
 
         <StyledDialogActions>

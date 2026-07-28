@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
 
+import { Typography } from '@mui/material';
+
 import { EmptyState, Loading } from '@components';
-import { CustomHeading } from '@containers';
+// import { CustomHeading } from '@containers';
 import { useApiErrorHandler } from '@hooks';
 import {
     useGetItemStatsQuery,
@@ -10,10 +12,10 @@ import {
 } from '@services';
 import { useAppSelector } from '@store';
 
-import { PageWrapper, PanelsRow } from './Analytics.styles';
-import { ItemStatsChart } from './ItemStatsChart';
-import { OrderHistoryTable } from './OrderHistoryTable';
-import { TopCustomersList } from './TopCustomersList';
+import { AnalyticsPageWrapper, PanelsRow, StyledHeadingBox } from './Analytics.styles';
+import { ItemStatsChart } from './ItemStatsChart.container';
+import { OrderHistoryTable } from './OrderHistoryTable.container';
+import { TopCustomersList } from './TopCustomersList.container';
 
 export const AnalyticsContainer = () => {
     const { restaurantId } = useParams();
@@ -42,8 +44,10 @@ export const AnalyticsContainer = () => {
     const orders = ordersData?.orders ?? [];
 
     return (
-        <PageWrapper>
-            <CustomHeading>Analytics</CustomHeading>
+        <AnalyticsPageWrapper>
+            <StyledHeadingBox>
+                <Typography>Analytics</Typography>
+            </StyledHeadingBox>
 
             <PanelsRow>
                 {itemStats && itemStats.length > 0 ? (
@@ -64,6 +68,6 @@ export const AnalyticsContainer = () => {
             ) : (
                 <OrderHistoryTable orders={orders} />
             )}
-        </PageWrapper>
+        </AnalyticsPageWrapper>
     );
 };

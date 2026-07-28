@@ -1,6 +1,6 @@
-import { Box, Container, Link, styled, Typography } from '@mui/material';
+import { Box, Container, Link, styled } from '@mui/material';
 
-import { COLORS, FONT_WEIGHT } from '@constants';
+import { COLORS } from '@constants';
 
 export const StyledFooter = styled(Box)(({ theme }) => ({
     backgroundColor: COLORS.BACKGROUND.GRAY,
@@ -30,16 +30,8 @@ export const LinkColumn = styled(Box)(({ theme }) => ({
     gap: theme.spacing(3),
 }));
 
-export const ColumnTitle = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.BOLD,
-    color: theme.palette.common.black,
-    marginBottom: 4,
-    fontSize: theme.typography.pxToRem(18),
-}));
-
 export const FooterLinkItem = styled(Link)(({ theme }) => ({
     color: theme.palette.common.black,
-
     opacity: 0.7,
     textDecoration: 'none',
     fontSize: theme.typography.pxToRem(13),
@@ -58,10 +50,9 @@ export const CopyrightBar = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(2),
     borderTop: `1px solid ${COLORS.DIVIDER.SECONDARY}`,
     textAlign: 'center',
-}));
 
-export const CopyrightText = styled(Typography)(({ theme }) => ({
-    color: theme.palette.common.black,
-    opacity: 0.6,
-    fontSize: theme.typography.pxToRem(11),
+    '.MuiTypography-root ': {
+        opacity: 0.6,
+        fontSize: theme.typography.pxToRem(11),
+    },
 }));

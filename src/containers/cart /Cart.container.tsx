@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 
 import img from '@assets/images/dummyRestaurant.webp';
-import { EmptyState, Loading } from '@components';
+import { ClampedTypography, EmptyState, Loading } from '@components';
 import { ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
 import { useApiErrorHandler } from '@hooks';
@@ -12,13 +12,14 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useGetUserQuery, usePlaceOrderMutation } from '@services';
 import { clearCart, showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
+import { theme } from '@theme';
 import { getErrorMessage } from '@utils';
 
 import {
     StyledBillContainer,
+    StyledCart,
     StyledCartContainer,
     StyledCartItem,
-    StyledCartTypograghy,
     StyledPageContainer,
     StyledPlaceOrderButton,
     StyledPriceContainer,
@@ -107,17 +108,22 @@ export const CartContainer = () => {
     return (
         <Box marginBlock={5}>
             <StyledPageContainer>
-                <Box>
-                    <StyledCartTypograghy>{restaurant.name}</StyledCartTypograghy>
+                <StyledCart>
+                    <ClampedTypography title={restaurant.name}>{restaurant.name}</ClampedTypography>
                     <StyledRestaurantImage src={img} alt="Restaurant Display" />
-                </Box>
+                </StyledCart>
                 <StyledCartContainer>
                     {items?.map((item, index) => (
                         <Box key={item.id}>
                             <StyledCartItem>
                                 <StyledPriceContainer>
-                                    <Typography variant="h6">{item.name}</Typography>
-
+                                    <ClampedTypography
+                                        sx={{ ...theme.mixins.lineClamp(1) }}
+                                        variant="h6"
+                                        title={item.name}
+                                    >
+                                        {item.name}
+                                    </ClampedTypography>
                                     <Typography fontWeight={600}>
                                         ₹{item.price * item.quantity}
                                     </Typography>

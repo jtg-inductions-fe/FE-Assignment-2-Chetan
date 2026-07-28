@@ -1,4 +1,4 @@
-import { Box, Divider, styled, Typography } from '@mui/material';
+import { Box, styled } from '@mui/material';
 
 export const RestaurantRow = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'start', 'center'),
@@ -13,25 +13,23 @@ export const RestaurantImage = styled('img')(({ theme }) => ({
     objectFit: 'cover',
 }));
 
-export const StyledInfo = styled(Typography)(({ theme }) => ({
-    opacity: 0.6,
-    fontSize: theme.typography.pxToRem(8),
-}));
-
 export const OrderDetailsRow = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
     marginBottom: theme.spacing(2),
+
+    '.MuiTypography-root': {
+        opacity: 0.6,
+        fontSize: theme.typography.pxToRem(8),
+    },
 }));
 
 export const ItemRow = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
     padding: theme.spacing(1, 0),
-}));
-
-export const StyledDivider = styled(Divider)(({ theme }) => ({
-    margin: theme.spacing(2, 0),
+    marginBlock: 2,
 }));
 
 export const TotalRow = styled(Box)(({ theme }) => ({
+    marginBlock: 8,
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
 }));

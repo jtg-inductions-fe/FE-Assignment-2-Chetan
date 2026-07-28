@@ -10,6 +10,7 @@ import restaurantImg from '@assets/images/dummyRestaurant.webp';
 import {
     BottomActionBar,
     Card,
+    ClampedTypography,
     ConfirmationDialog,
     EmptyState,
     ItemDialog,
@@ -33,7 +34,6 @@ import { useAppDispatch, useAppSelector } from '@store';
 import { getErrorMessage } from '@utils';
 
 import {
-    CustomHeading,
     MicroIcon,
     StyledCardIcon,
     StyledContainer,
@@ -200,7 +200,9 @@ export const MenuContainer = () => {
         <StyledContainer maxWidth="md">
             <Box mb={3}>
                 <StyledMenuTopBox mb={2}>
-                    <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
+                    <ClampedTypography title={restaurant?.name}>
+                        {restaurant?.name || 'Restaurant Name'}
+                    </ClampedTypography>
 
                     {role === ROLE.ADMIN && (
                         <Stack direction="row" spacing={1.5}>
@@ -253,15 +255,19 @@ export const MenuContainer = () => {
                                 {
                                     icon: <MicroIcon />,
                                     value: item.price,
+                                    showTooltip: false,
                                 },
-                                { value: item.category },
-                                { value: item.cuisine },
+
+                                { value: item.category, showTooltip: true },
+                                { value: item.cuisine, showTooltip: true },
                                 {
                                     value: `Available: ${item.quantity}`,
+                                    showTooltip: false,
                                 },
                                 {
                                     icon: <Star color="success" />,
                                     value: `${item.rating}`,
+                                    showTooltip: false,
                                 },
                             ]}
                             action={

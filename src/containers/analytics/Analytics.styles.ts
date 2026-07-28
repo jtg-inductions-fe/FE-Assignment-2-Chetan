@@ -1,10 +1,22 @@
-import { Box, Card, Chip, styled, Typography } from '@mui/material';
+import { Box, Card, Chip, styled } from '@mui/material';
 
-export const PageWrapper = styled(Box)(({ theme }) => ({
+import { FONT_WEIGHT } from '@constants';
+
+export const AnalyticsPageWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(4),
     paddingBlock: theme.spacing(3, 4),
+}));
+
+export const StyledHeadingBox = styled(Box)(({ theme }) => ({
+    '.MuiTypography-root': {
+        textAlign: 'start',
+        fontSize: theme.typography.pxToRem(44),
+        marginBlock: theme.typography.pxToRem(34),
+        fontWeight: FONT_WEIGHT.BOLD,
+        lineHeight: 1,
+    },
 }));
 
 export const PanelsRow = styled(Box)(({ theme }) => ({
@@ -38,15 +50,6 @@ export const CustomerRow = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const CustomerName = styled(Typography)({
-    flex: 1,
-});
-
-export const OrderCountText = styled(Typography)(({ theme }) => ({
-    opacity: 0.7,
-    fontSize: theme.typography.pxToRem(13),
-}));
-
 export const TablePanel = styled(Card)(({ theme }) => ({
     padding: theme.spacing(3),
     borderRadius: theme.shape.borderRadius * 3,
@@ -57,6 +60,7 @@ export const StyledChip = styled(Chip)(({ theme }) => ({
     marginInline: theme.spacing(1),
     backgroundColor: theme.palette.divider,
     marginBlock: theme.typography.pxToRem(2),
+    ...theme.mixins.lineClamp(1),
 }));
 
 export const StyledChipBox = styled(Box)(({ theme }) => ({

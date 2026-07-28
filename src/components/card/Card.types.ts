@@ -6,7 +6,9 @@ export interface CardOrientation {
 
 export interface CardDetail {
     icon?: ReactNode;
-    value?: ReactNode;
+    value?: string | number;
+    showTooltip?: boolean;
+    applyLineClimping?: boolean;
 }
 
 export interface CardProps extends CardOrientation {

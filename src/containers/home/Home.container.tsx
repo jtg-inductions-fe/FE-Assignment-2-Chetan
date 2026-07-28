@@ -3,16 +3,17 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LocationCity, LocationOn, PinDrop } from '@mui/icons-material';
-import { Grid2 as Grid } from '@mui/material';
+import { Grid2 as Grid, Typography } from '@mui/material';
 
 import { Card, EmptyState, Loading, SearchBar } from '@components';
 import { ROLE, ROUTES } from '@constants';
 import { useGetRestaurantsQuery, useGetUserQuery } from '@services';
 import { showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
+import { theme } from '@theme';
 import { getErrorMessage } from '@utils';
 
-import { HeroSection, RestaurantGrid, StyledParaTypograpgy, StyledTypograpgy } from './Home.styles';
+import { HeroSection, RestaurantGrid, StyledTypographyBox } from './Home.styles';
 
 export const HomeContainer = () => {
     const navigate = useNavigate();
@@ -48,13 +49,19 @@ export const HomeContainer = () => {
     return (
         <>
             <HeroSection>
-                <StyledTypograpgy gutterBottom>Restaurants</StyledTypograpgy>
+                <StyledTypographyBox>
+                    <Typography gutterBottom>Restaurants</Typography>
+                </StyledTypographyBox>
 
-                <StyledParaTypograpgy variant="h6">
+                <Typography
+                    color={theme.palette.secondary.contrastText}
+                    marginTop={theme.typography.pxToRem(15)}
+                    variant="h6"
+                >
                     {
                         'Discover your favourite restaurants and enjoy delicious meals delivered to yourdoorstep.'
                     }
-                </StyledParaTypograpgy>
+                </Typography>
 
                 <SearchBar />
             </HeroSection>
@@ -92,14 +99,17 @@ export const HomeContainer = () => {
                                         {
                                             icon: <LocationOn fontSize="small" />,
                                             value: restaurant.location,
+                                            showTooltip: true,
                                         },
                                         {
                                             icon: <LocationCity fontSize="small" />,
                                             value: restaurant.city,
+                                            showTooltip: true,
                                         },
                                         {
                                             icon: <PinDrop fontSize="small" />,
                                             value: restaurant.pincode,
+                                            showTooltip: false,
                                         },
                                     ]}
                                 />

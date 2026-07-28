@@ -1,2 +1,2 @@
-export * from './PastOrders.containser';
+export * from './PastOrders.container';
 export * from './PastOrders.styles';

@@ -1,15 +1,22 @@
-import { Box, Button, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    Typography,
+} from '@mui/material';
 
 import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
-import { Loading, OrderDetailsDialogProps, StyledDialog } from '@components';
+import { ClampedTypography, Loading, OrderDetailsDialogProps, StyledDialog } from '@components';
+import { theme } from '@theme';
 
 import {
     ItemRow,
     OrderDetailsRow,
     RestaurantImage,
     RestaurantRow,
-    StyledDivider,
-    StyledInfo,
     TotalRow,
 } from './OrderDetailsDialog.styles';
 
@@ -33,36 +40,56 @@ export const OrderDetailsDialog = ({
                             alt={order.restaurant.name}
                         />
                         <Box>
-                            <Typography variant="h5">{order.restaurant.name}</Typography>
-                            <StyledInfo>{order.restaurant.location}</StyledInfo>
+                            <ClampedTypography title={order.restaurant.name} variant="h5">
+                                {order.restaurant.name}
+                            </ClampedTypography>
+                            <ClampedTypography
+                                color="text.secondary"
+                                variant="body2"
+                                title={order.restaurant.location}
+                            >
+                                {order.restaurant.location}
+                            </ClampedTypography>
                         </Box>
                     </RestaurantRow>
 
                     <OrderDetailsRow>
-                        <StyledInfo>Order #{order.id.slice(0, 8)}</StyledInfo>
-                        <StyledInfo>
+                        <Typography>Order #{order.id.slice(0, 8)}</Typography>
+                        <Typography>
                             {new Date(order.createdAt).toLocaleDateString('en-IN', {
                                 day: 'numeric',
                                 month: 'short',
                                 year: 'numeric',
                             })}
-                        </StyledInfo>
+                        </Typography>
                     </OrderDetailsRow>
 
-                    <StyledDivider />
+                    <Divider />
 
                     {order.orderItems.map((oi) => (
                         <ItemRow key={oi.id}>
                             <Box>
-                                <Typography variant="body1">{oi.item.name}</Typography>
-                                <StyledInfo>
+                                <ClampedTypography
+                                    title={oi.item.name}
+                                    color="text.secondary"
+                                    variant="body1"
+                                >
+                                    {oi.item.name}
+                                </ClampedTypography>
+                                <ClampedTypography
+                                    fontSize={theme.typography.pxToRem(8)}
+                                    title={oi.item.category}
+                                    color={theme.palette.text.secondary}
+                                >
                                     {oi.item.category} . Qty: {oi.quantity}
-                                </StyledInfo>
+                                </ClampedTypography>
                             </Box>
-                            <Typography variant="body1">₹{oi.itemPrice * oi.quantity}</Typography>
+                            <Typography variant="subtitle1">
+                                ₹{oi.itemPrice * oi.quantity}
+                            </Typography>
                         </ItemRow>
                     ))}
-                    <StyledDivider />
+                    <Divider />
 
                     <TotalRow>
                         <Typography variant="h6">Total</Typography>

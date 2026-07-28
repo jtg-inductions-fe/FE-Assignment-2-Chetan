@@ -1,8 +1,9 @@
 import { Typography } from '@mui/material';
 
+import { ClampedTypography } from '@components';
 import { FONT_WEIGHT } from '@constants';
 
-import { CustomerName, CustomerRow, OrderCountText, Panel } from './Analytics.styles';
+import { CustomerRow, Panel } from './Analytics.styles';
 import type { TopCustomersListProps } from './Analytics.types';
 
 export const TopCustomersList = ({ data }: TopCustomersListProps) => (
@@ -11,10 +12,15 @@ export const TopCustomersList = ({ data }: TopCustomersListProps) => (
 
         {data.map((customer, index) => (
             <CustomerRow key={index}>
-                <CustomerName fontWeight={FONT_WEIGHT.REGULAR} variant="h5">
+                <ClampedTypography
+                    flex={1}
+                    title={customer.customerName}
+                    fontWeight={FONT_WEIGHT.REGULAR}
+                    variant="h5"
+                >
                     {customer.customerName}
-                </CustomerName>
-                <OrderCountText>{customer.totalOrders} orders</OrderCountText>
+                </ClampedTypography>
+                <Typography color="text.secondary">{`${customer.totalOrders} orders`}</Typography>
             </CustomerRow>
         ))}
     </Panel>

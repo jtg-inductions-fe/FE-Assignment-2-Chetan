@@ -3,22 +3,21 @@ import { useState } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 
 import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
-import { EmptyState, Loading, OrderDetailsDialog } from '@components';
+import { ClampedTypography, EmptyState, Loading, OrderDetailsDialog } from '@components';
+import { FONT_WEIGHT } from '@constants';
 import { useApiErrorHandler } from '@hooks';
 import { useGetOrderDetailsQuery, useGetPastOrdersQuery } from '@services';
 import { useAppSelector } from '@store';
+import { theme } from '@theme';
 import { OrderDetails } from '@types';
 
 import {
-    CustomOrderHeading,
+    CustomOrderHeadingBox,
     OrderCard,
     OrderInfo,
-    OrderMeta,
     OrderMetaRow,
     PastOrdersWrapper,
     RestaurantImage,
-    RestaurantLocation,
-    RestaurantName,
     ViewDetailsButton,
 } from './PastOrders.styles';
 
@@ -49,7 +48,14 @@ export const PastOrdersContainer = () => {
     return (
         <Container maxWidth="md">
             <PastOrdersWrapper>
-                <CustomOrderHeading>{'Past Orders'}</CustomOrderHeading>
+                <CustomOrderHeadingBox>
+                    <Typography
+                        fontSize={theme.typography.pxToRem(44)}
+                        fontWeight={FONT_WEIGHT.BOLD}
+                    >
+                        {'Past Orders'}
+                    </Typography>
+                </CustomOrderHeadingBox>
 
                 {orders.length === 0 ? (
                     <EmptyState
@@ -66,24 +72,42 @@ export const PastOrdersContainer = () => {
 
                             <OrderInfo>
                                 <Box>
-                                    <RestaurantName variant="h4">
+                                    <ClampedTypography
+                                        title={order.restaurant.name}
+                                        marginBottom={theme.typography.pxToRem(6)}
+                                        variant="h4"
+                                    >
                                         {order.restaurant.name}
-                                    </RestaurantName>
-                                    <RestaurantLocation>
+                                    </ClampedTypography>
+                                    <ClampedTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        title={order.restaurant.location}
+                                    >
                                         {order.restaurant.location}
-                                    </RestaurantLocation>
+                                    </ClampedTypography>
                                 </Box>
 
                                 <OrderMetaRow>
                                     <Box>
-                                        <OrderMeta>Order #{order.id.slice(0, 8)}</OrderMeta>
-                                        <OrderMeta>
+                                        <Typography
+                                            color="text.secondary"
+                                            lineHeight={1.5}
+                                            fontSize={theme.typography.pxToRem(10)}
+                                        >
+                                            Order #{order.id.slice(0, 8)}
+                                        </Typography>
+                                        <Typography
+                                            color="text.secondary"
+                                            lineHeight={1.5}
+                                            fontSize={theme.typography.pxToRem(10)}
+                                        >
                                             {new Date(order.createdAt).toLocaleDateString('en-IN', {
                                                 day: 'numeric',
                                                 month: 'short',
                                                 year: 'numeric',
                                             })}
-                                        </OrderMeta>
+                                        </Typography>
                                     </Box>
 
                                     <Typography variant="h5">₹{order.totalPrice}</Typography>

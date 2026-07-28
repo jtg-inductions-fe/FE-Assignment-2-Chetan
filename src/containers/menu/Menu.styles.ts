@@ -1,5 +1,5 @@
 import { CurrencyRupee } from '@mui/icons-material';
-import { Box, Button, Container, styled, Typography } from '@mui/material';
+import { Box, Button, Container, styled } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constants';
 
@@ -32,14 +32,6 @@ export const StyledImage = styled('img')(({ theme }) => ({
     borderRadius: theme.shape.borderRadius * 2,
 }));
 
-export const CustomHeading = styled(Typography)(({ theme }) => ({
-    textAlign: 'start',
-    fontSize: theme.typography.pxToRem(44),
-    marginBlock: theme.typography.pxToRem(34),
-    fontWeight: FONT_WEIGHT.BOLD,
-    lineHeight: 1,
-}));
-
 export const StyledContainer = styled(Container)(({ theme }) => ({
     paddingBottom: theme.spacing(12),
 }));
@@ -49,5 +41,12 @@ export const StyledMenuTopBox = styled(Box)(({ theme }) => ({
 
     [theme.breakpoints.up('sm')]: {
         ...theme.mixins.flexLayout('row', 'space-between', 'center'),
+    },
+    '.MuiTypography-root': {
+        textAlign: 'start',
+        fontSize: theme.typography.pxToRem(44),
+        marginBlock: theme.typography.pxToRem(34),
+        fontWeight: FONT_WEIGHT.BOLD,
+        lineHeight: 1,
     },
 }));

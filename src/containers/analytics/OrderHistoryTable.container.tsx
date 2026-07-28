@@ -5,8 +5,11 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    Tooltip,
     Typography,
 } from '@mui/material';
+
+import { ClampedTypography } from '@components';
 
 import { StyledChip, StyledChipBox, TablePanel } from './Analytics.styles';
 import type { OrderHistoryTableProps } from './Analytics.types';
@@ -32,15 +35,18 @@ export const OrderHistoryTable = ({ orders }: OrderHistoryTableProps) => (
                         <TableRow key={order.id}>
                             <TableCell>{order.id.slice(0, 8)}</TableCell>
 
-                            <TableCell>{order.user.name}</TableCell>
+                            <TableCell>
+                                <ClampedTypography title={order.user.name}>
+                                    {order.user.name}
+                                </ClampedTypography>
+                            </TableCell>
 
                             <TableCell style={{}}>
                                 <StyledChipBox>
                                     {order.orderItems.map((oi) => (
-                                        <StyledChip
-                                            key={oi.id}
-                                            label={`${oi.item.name} x${oi.quantity}`}
-                                        />
+                                        <Tooltip key={oi.id} title={oi.item.name}>
+                                            <StyledChip label={`${oi.item.name} x${oi.quantity}`} />
+                                        </Tooltip>
                                     ))}
                                 </StyledChipBox>
                             </TableCell>
