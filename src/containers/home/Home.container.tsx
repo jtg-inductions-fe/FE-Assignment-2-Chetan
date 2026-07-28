@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,9 @@ export const HomeContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { role, id } = useAppSelector((state) => state.auth);
-    const { data, isLoading, error } = useGetRestaurantsQuery(undefined, {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const { data, isLoading, error } = useGetRestaurantsQuery(searchTerm, {
         skip: role === ROLE.ADMIN,
     });
 
@@ -30,6 +32,7 @@ export const HomeContainer = () => {
     } = useGetUserQuery(id as string, {
         skip: role !== ROLE.ADMIN,
     });
+
     const restaurants = role === ROLE.ADMIN ? (user?.restaurants ?? []) : (data?.restaurants ?? []);
 
     useEffect(() => {
@@ -45,6 +48,10 @@ export const HomeContainer = () => {
     }, [error, userError, dispatch]);
 
     if (isLoading || isFetching) return <Loading />;
+
+    const handleSearch = (term: string) => {
+        setSearchTerm(term);
+    };
 
     return (
         <>
@@ -62,8 +69,7 @@ export const HomeContainer = () => {
                         'Discover your favourite restaurants and enjoy delicious meals delivered to yourdoorstep.'
                     }
                 </Typography>
-
-                <SearchBar />
+                {role !== ROLE.ADMIN && <SearchBar onSearch={handleSearch} />}
             </HeroSection>
 
             {restaurants.length === 0 ? (

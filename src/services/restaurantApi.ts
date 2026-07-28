@@ -8,9 +8,12 @@ export const restaurantsApi = createApi({
     reducerPath: 'restaurantsApi',
     baseQuery,
     endpoints: (builder) => ({
-        getRestaurants: builder.query<RestaurantsResponse, void>({
-            query: () => ({
+        getRestaurants: builder.query<RestaurantsResponse, string>({
+            query: (search = '') => ({
                 url: API_ROUTES.RESTAURANTS.ROOT,
+                params: {
+                    search,
+                },
             }),
         }),
     }),
