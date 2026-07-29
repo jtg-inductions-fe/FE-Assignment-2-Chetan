@@ -5,12 +5,11 @@ import { ROUTES, SUCCESS_MESSAGES } from '@constants';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useLoginMutation } from '@services';
-import { addAccessToken, showSnackbar } from '@slices';
+import { addAuth, showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
-import { getErrorMessage } from '@utils';
+import { decodeToken, getErrorMessage } from '@utils';
 
-import { LoginCard } from './Login.styles';
-import { AuthContainer } from './Login.styles';
+import { AuthContainer, LoginCard } from './Login.styles';
 import type { FormData } from './Login.types';
 import { loginFields } from './Login.validations';
 
@@ -27,7 +26,14 @@ export const LoginContainer = () => {
                 password: data.password,
             }).unwrap();
 
-            dispatch(addAccessToken(response.accessToken));
+            const payload = decodeToken(response.accessToken);
+            dispatch(
+                addAuth({
+                    accessToken: response.accessToken,
+                    id: payload.id,
+                    role: payload.role,
+                }),
+            );
             localStorage.setItem('accessToken', response.accessToken);
             dispatch(
                 showSnackbar({
@@ -35,7 +41,7 @@ export const LoginContainer = () => {
                     severity: 'success',
                 }),
             );
-            void navigate(ROUTES.DASHBOARD.ROOT);
+            void navigate(ROUTES.HOME);
         } catch (error) {
             dispatch(
                 showSnackbar({
@@ -45,7 +51,6 @@ export const LoginContainer = () => {
             );
         }
     };
-
     return (
         <AuthContainer>
             <LoginCard elevation={3}>

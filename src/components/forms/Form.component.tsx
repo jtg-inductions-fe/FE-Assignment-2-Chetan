@@ -41,7 +41,7 @@ export const Form = <T extends FieldValues>({
 
     return (
         <Box component="form" onSubmit={(e) => void handleFormSubmit(e)}>
-            <Stack spacing={5}>
+            <Stack spacing={2}>
                 <Typography variant="h2">{title}</Typography>
 
                 {fields.map((field) => {

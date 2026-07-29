@@ -10,4 +10,6 @@ export interface LoginResponse {
 
 export interface AuthState {
     accessToken: string | null;
+    id: string | null;
+    role: string | null;
 }

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { authApi } from 'services/authApi';
 
 import { configureStore } from '@reduxjs/toolkit';
+import { authApi } from '@services';
 
 import { rootReducer } from './rootReducer';
 
