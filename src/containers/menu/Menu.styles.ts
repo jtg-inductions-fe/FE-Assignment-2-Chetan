@@ -45,8 +45,8 @@ export const StyledMenuTopBox = styled(Box)(({ theme }) => ({
     '.MuiTypography-root': {
         textAlign: 'start',
         fontSize: theme.typography.pxToRem(44),
-        marginBlock: theme.typography.pxToRem(34),
+        marginBlock: theme.typography.pxToRem(35),
         fontWeight: FONT_WEIGHT.BOLD,
-        lineHeight: 1,
+        lineHeight: 1.2,
     },
 }));

@@ -1,6 +1,7 @@
 import { Box, Paper, styled } from '@mui/material';
 
 export const LoginCard = styled(Paper)(({ theme }) => ({
+    marginTop: '20vh',
     width: '100%',
     maxWidth: theme.typography.pxToRem(400),
     paddingInline: theme.spacing(4),

@@ -9,6 +9,7 @@ import { useApiErrorHandler } from '@hooks';
 import { useGetUserQuery } from '@services';
 import { useAppSelector } from '@store';
 import { theme } from '@theme';
+import { formatCurrency } from '@utils';
 
 import {
     BalanceCard,
@@ -105,7 +106,7 @@ export const ProfileContainer = () => {
                                 fontWeight={FONT_WEIGHT.BOLD}
                                 fontSize={theme.typography.pxToRem(32)}
                             >
-                                ₹{user.balance}
+                                {formatCurrency(parseFloat(user.balance))}
                             </Typography>
                         </Box>
                     </Box>

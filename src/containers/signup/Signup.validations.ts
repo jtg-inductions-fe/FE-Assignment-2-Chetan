@@ -93,6 +93,10 @@ export const signupFields: FormField<User>[] = [
                 }
                 return true;
             },
+            maxLength: {
+                value: 7,
+                message: 'amount must be at most 7 digit',
+            },
         },
     },
 
