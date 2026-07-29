@@ -3,8 +3,8 @@ import { BarChart } from '@mui/x-charts/BarChart';
 
 import { COLORS } from '@constants';
 
-import { Panel } from './Analytics.styles';
-import type { ItemStatsChartProps } from './Analytics.types';
+import { Panel } from './ItemStatsChart.styles';
+import type { ItemStatsChartProps } from './itemStatsChart.types';
 
 export const ItemStatsChart = ({ data }: ItemStatsChartProps) => {
     const itemNames = data.map((stat) => stat.itemName);

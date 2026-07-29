@@ -19,6 +19,7 @@ export const LoginContainer = () => {
 
     const [login] = useLoginMutation();
 
+    /** Logs the user in, stores auth data, and redirects to home. */
     const handleLogin = async (data: FormData) => {
         try {
             const response = await login({

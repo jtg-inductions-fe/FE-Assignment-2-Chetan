@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -7,17 +7,15 @@ import { Grid2 as Grid, Typography } from '@mui/material';
 
 import { Card, EmptyState, Loading, SearchBar } from '@components';
 import { ROLE, ROUTES } from '@constants';
+import { useApiErrorHandler } from '@hooks';
 import { useGetRestaurantsQuery, useGetUserQuery } from '@services';
-import { showSnackbar } from '@slices';
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppSelector } from '@store';
 import { theme } from '@theme';
-import { getErrorMessage } from '@utils';
 
 import { HeroSection, RestaurantGrid, StyledTypographyBox } from './Home.styles';
 
 export const HomeContainer = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const { role, id } = useAppSelector((state) => state.auth);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -35,17 +33,7 @@ export const HomeContainer = () => {
 
     const restaurants = role === ROLE.ADMIN ? (user?.restaurants ?? []) : (data?.restaurants ?? []);
 
-    useEffect(() => {
-        const currentError = error || userError;
-        if (currentError) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(currentError),
-                    severity: 'error',
-                }),
-            );
-        }
-    }, [error, userError, dispatch]);
+    useApiErrorHandler(userError, error);
 
     if (isLoading || isFetching) return <Loading />;
 

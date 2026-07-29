@@ -2,9 +2,10 @@ import { Typography } from '@mui/material';
 
 import { ClampedTypography } from '@components';
 import { FONT_WEIGHT } from '@constants';
+import { Panel } from '@containers';
 
-import { CustomerRow, Panel } from './Analytics.styles';
-import type { TopCustomersListProps } from './Analytics.types';
+import { CustomerRow } from './topCustomer.styles';
+import type { TopCustomersListProps } from './topCustomerList.types';
 
 export const TopCustomersList = ({ data }: TopCustomersListProps) => (
     <Panel>

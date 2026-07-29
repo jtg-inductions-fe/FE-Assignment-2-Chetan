@@ -60,6 +60,7 @@ export const CartContainer = () => {
         0,
     );
 
+    /** Validates balance, places the order, clears the cart, and redirects to past orders. **/
     const handlePlaceOrder = async () => {
         if (!user) return;
 

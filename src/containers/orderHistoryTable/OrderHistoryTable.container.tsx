@@ -11,8 +11,8 @@ import {
 
 import { ClampedTypography } from '@components';
 
-import { StyledChip, StyledChipBox, TablePanel } from './Analytics.styles';
-import type { OrderHistoryTableProps } from './Analytics.types';
+import { StyledChip, StyledChipBox, TablePanel } from './OrderHistoryTable.styles';
+import type { OrderHistoryTableProps } from './OrderHistoryTable.types';
 
 export const OrderHistoryTable = ({ orders }: OrderHistoryTableProps) => (
     <TablePanel>
