@@ -28,6 +28,7 @@ export const API_ROUTES = {
         },
     },
     ORDERS: {
+        ROOT: '/orders',
         GET_DETAILS: (orderId: string) => `/orders/${orderId}`,
     },
 } as const;

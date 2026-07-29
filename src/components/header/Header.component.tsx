@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { Menu } from '@mui/icons-material';
 import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
 import { ROUTES } from '@constants';
+import { authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
 import { clearCart, removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
@@ -16,16 +16,14 @@ import {
     LoginButton,
     LogoImage,
     LogoText,
-    MenuIconButton,
     RightSection,
     Spacer,
     StyledAppBar,
     StyledMenu,
     StyledMenuItem,
 } from './Header.styles';
-import { HeaderProps } from './Header.types';
 
-export const Header = ({ onMenuClick }: HeaderProps) => {
+export const Header = () => {
     const token = useAppSelector((state) => state.auth.accessToken);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -40,6 +38,10 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
         localStorage.removeItem('accessToken');
         dispatch(removeAuth());
         dispatch(clearCart());
+        dispatch(authApi.util.resetApiState());
+        dispatch(ordersApi.util.resetApiState());
+        dispatch(restaurantsApi.util.resetApiState());
+        dispatch(menuItemsApi.util.resetApiState());
         void navigate(ROUTES.HOME);
     };
     const handleCloseUserMenu = () => {
@@ -50,12 +52,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
         <StyledAppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    {onMenuClick && (
-                        <MenuIconButton size="large" aria-label="menu" onClick={onMenuClick}>
-                            <Menu />
-                        </MenuIconButton>
-                    )}
-                    <LogoImage src={logo} />
+                    <LogoImage src={logo} onClick={() => void navigate(ROUTES.HOME)} />
                     <LogoText variant="h4" noWrap href={ROUTES.HOME}>
                         SwiftBite
                     </LogoText>

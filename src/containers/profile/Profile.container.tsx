@@ -1,68 +1,50 @@
-import { useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import { AccountBalanceWallet, History } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 
 import { Loading } from '@components';
-import { HTTP_STATUS_CODES, ROLE, ROUTES } from '@constants';
+import { ROLE, ROUTES } from '@constants';
+import { useApiErrorHandler } from '@hooks';
 import { useGetUserQuery } from '@services';
-import { showSnackbar } from '@slices';
-import { useAppDispatch, useAppSelector } from '@store';
-import { getErrorMessage } from '@utils';
+import { useAppSelector } from '@store';
 
 import {
     BalanceAmount,
     BalanceCard,
     BalanceLabel,
-    DashboardGrid,
     DetailLabel,
     DetailsGrid,
-    DetailValue,
     PageWrapper,
     PastOrdersButton,
     ProfileAvatar,
     ProfileCard,
+    ProfileGrid,
     ProfileHeader,
     RoleChip,
     StyledDivider,
-} from './Dashboard.styles';
+} from './Profile.styles';
 
-export const DashboardContainer = () => {
+export const ProfileContainer = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-    const { role, id } = useAppSelector((state) => state.auth);
-    const { data: user, isLoading, error } = useGetUserQuery(id as string);
+    const { role, id, accessToken } = useAppSelector((state) => state.auth);
+    const {
+        data: user,
+        isLoading,
+        error,
+    } = useGetUserQuery(id as string, { skip: !accessToken || !id });
 
-    useEffect(() => {
-        if (error) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(error),
-                    severity: 'error',
-                }),
-            );
-
-            const isAuthError =
-                'status' in error && error.status === HTTP_STATUS_CODES.UNAUTHORIZED;
-
-            if (isAuthError) {
-                localStorage.removeItem('accessToken');
-                void navigate(ROUTES.AUTH.LOGIN, { replace: true });
-            }
-        }
-    }, [error, dispatch, navigate]);
+    useApiErrorHandler(error);
 
     if (isLoading || !user) return <Loading />;
 
     const handlePastOrders = () => {
-        void navigate(ROUTES.DASHBOARD.PAST_ORDERS);
+        void navigate(ROUTES.PAST_ORDERS);
     };
 
     return (
         <PageWrapper>
-            <DashboardGrid>
+            <ProfileGrid>
                 <ProfileCard>
                     <ProfileHeader>
                         <ProfileAvatar>{user.name.charAt(0).toUpperCase()}</ProfileAvatar>
@@ -84,22 +66,22 @@ export const DashboardContainer = () => {
                     <DetailsGrid>
                         <Box>
                             <DetailLabel>City</DetailLabel>
-                            <DetailValue>{user.city}</DetailValue>
+                            <Typography variant="body1">{user.city}</Typography>
                         </Box>
 
                         <Box>
                             <DetailLabel>State</DetailLabel>
-                            <DetailValue>{user.state}</DetailValue>
+                            <Typography variant="body1">{user.state}</Typography>
                         </Box>
 
                         <Box>
                             <DetailLabel>Zip Code</DetailLabel>
-                            <DetailValue>{user.zipcode}</DetailValue>
+                            <Typography variant="body1">{user.zipcode}</Typography>
                         </Box>
 
                         <Box>
                             <DetailLabel>Preference</DetailLabel>
-                            <DetailValue>{user.preference}</DetailValue>
+                            <Typography variant="body1">{user.preference}</Typography>
                         </Box>
                     </DetailsGrid>
                 </ProfileCard>
@@ -122,7 +104,7 @@ export const DashboardContainer = () => {
                         View Past Orders
                     </PastOrdersButton>
                 </BalanceCard>
-            </DashboardGrid>
+            </ProfileGrid>
         </PageWrapper>
     );
 };

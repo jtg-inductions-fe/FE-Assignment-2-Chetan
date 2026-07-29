@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Add as AddIcon, BarChart, Star } from '@mui/icons-material';
+import { Add as AddIcon, BarChart, Delete, Edit, Star } from '@mui/icons-material';
 import { Box, Button, Stack } from '@mui/material';
 
-import img from '@assets/images/dummyRestaurant.webp';
+import dishImage from '@assets/images/dummyItems.webp';
+import restaurantImg from '@assets/images/dummyRestaurant.webp';
 import {
     BottomActionBar,
     Card,
@@ -18,6 +19,7 @@ import {
 } from '@components';
 import { ROLE, ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
+import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import {
@@ -33,9 +35,11 @@ import { getErrorMessage } from '@utils';
 import {
     CustomHeading,
     MicroIcon,
+    StyledCardIcon,
     StyledContainer,
     StyledImage,
     StyledItemCardButton,
+    StyledMenuTopBox,
 } from './Menu.styles';
 import { ItemDetails } from './Menu.types';
 
@@ -43,11 +47,12 @@ export const MenuContainer = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
-    const [updateItem] = useUpdateItemMutation();
+    const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
+    const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
+    const [deleteItem, { isLoading: isDeleting }] = useDeleteItemMutation();
+
     const role = useAppSelector((state) => state.auth.role);
     const cartItems = useAppSelector((state) => state.cart.items);
-    const [createItem, { isLoading: isCreating }] = useCreateItemMutation();
-    const [deleteItem] = useDeleteItemMutation();
 
     const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
     const [selectedItem, setSelectedItem] = useState<ItemDetails | null>(null);
@@ -58,22 +63,12 @@ export const MenuContainer = () => {
     const token = localStorage.getItem('accessToken');
     const restaurant = location.state as RestaurantBasicDetails;
 
-
     const { restaurantId } = useParams();
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
 
-    useEffect(() => {
-        if (error) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(error),
-                    severity: 'error',
-                }),
-            );
-        }
-    }, [error, dispatch]);
+    useApiErrorHandler(error);
 
-    if (isLoading || isCreating) return <Loading />;
+    if (isLoading || isCreating || isDeleting || isUpdating) return <Loading />;
 
     const menuItems = data?.items ?? [];
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -186,16 +181,25 @@ export const MenuContainer = () => {
     };
 
     const handleNavigateToStats = () => {
-        void navigate(ROUTES.DASHBOARD.RESTAURANTS.ANALYTICS.ROOT(restaurant.id), {
+        void navigate(ROUTES.RESTAURANTS.ANALYTICS.ROOT(restaurant.id), {
             state: restaurant,
         });
     };
 
-   
+    const handleMaxAvailaiblity = (item: ItemDetails, quantity: number) => {
+        if (quantity + 1 === item.quantity) {
+            dispatch(
+                showSnackbar({
+                    message: 'Maximum available quantity reached.',
+                    severity: 'warning',
+                }),
+            );
+        }
+    };
     return (
         <StyledContainer maxWidth="md">
             <Box mb={3}>
-                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <StyledMenuTopBox mb={2}>
                     <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
 
                     {role === ROLE.ADMIN && (
@@ -220,10 +224,10 @@ export const MenuContainer = () => {
                             </Button>
                         </Stack>
                     )}
-                </Box>
+                </StyledMenuTopBox>
 
                 <StyledImage
-                    src={restaurant?.image || img}
+                    src={restaurant?.image || restaurantImg}
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
             </Box>
@@ -243,7 +247,7 @@ export const MenuContainer = () => {
                             key={item.id}
                             id={item.id}
                             name={item.name}
-                            image={item.image}
+                            image={item.image ?? dishImage}
                             orientation="horizontal"
                             details={[
                                 {
@@ -263,34 +267,42 @@ export const MenuContainer = () => {
                             action={
                                 role === ROLE.ADMIN ? (
                                     <Stack direction="row" spacing={1}>
-                                        <StyledItemCardButton
+                                        <StyledCardIcon
                                             variant="outlined"
+                                            color="success"
                                             onClick={() => handleEdit(item)}
                                         >
-                                            Edit
-                                        </StyledItemCardButton>
+                                            <Edit />
+                                        </StyledCardIcon>
 
-                                        <StyledItemCardButton
+                                        <StyledCardIcon
                                             variant="outlined"
                                             color="error"
                                             onClick={() => void handleDelete(item)}
                                         >
-                                            Delete
-                                        </StyledItemCardButton>
+                                            <Delete />
+                                        </StyledCardIcon>
                                     </Stack>
                                 ) : (
                                     token &&
                                     (quantity === 0 ? (
                                         <StyledItemCardButton
                                             variant="outlined"
-                                            onClick={() => handleAddToCart(item)}
+                                            onClick={() => {
+                                                handleAddToCart(item);
+                                                handleMaxAvailaiblity(item, quantity);
+                                            }}
                                         >
                                             ADD
                                         </StyledItemCardButton>
                                     ) : (
                                         <QuantitySelector
                                             quantity={quantity}
-                                            onIncrement={() => dispatch(incrementItem(item.id))}
+                                            disableIncrement={quantity >= item.quantity}
+                                            onIncrement={() => {
+                                                dispatch(incrementItem(item.id));
+                                                handleMaxAvailaiblity(item, quantity);
+                                            }}
                                             onDecrement={() => dispatch(decrementItem(item.id))}
                                         />
                                     ))

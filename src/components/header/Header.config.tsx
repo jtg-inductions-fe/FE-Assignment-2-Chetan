@@ -1,12 +1,12 @@
-import { Dashboard, Logout } from '@mui/icons-material';
+import { AccountBox, Logout } from '@mui/icons-material';
 
 import { ROUTES } from '@constants';
 
 export const SETTINGS_OPTIONS = [
     {
-        label: 'Dashboard',
-        onClick: ROUTES.DASHBOARD.ROOT,
-        icon: <Dashboard />,
+        label: 'Profile',
+        onClick: ROUTES.PROFILE,
+        icon: <AccountBox />,
     },
     {
         label: 'Logout',

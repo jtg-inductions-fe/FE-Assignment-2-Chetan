@@ -3,18 +3,18 @@ import { Avatar, Box, Button, Card, Chip, Divider, styled, Typography } from '@m
 import { COLORS, FONT_WEIGHT } from '@constants';
 
 export const PageWrapper = styled(Box)(({ theme }) => ({
-    minHeight: `calc(100vh - ${theme.typography.pxToRem(200)})`,
+    minHeight: `calc(100vh - ${theme.typography.pxToRem(232)})`,
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
 }));
 
-export const DashboardGrid = styled(Box)(({ theme }) => ({
+export const ProfileGrid = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
-
     gap: theme.spacing(4),
     width: '100%',
     [theme.breakpoints.up('lg')]: {
         flexDirection: 'row',
+        height: 600,
     },
 }));
 
@@ -72,11 +72,6 @@ export const DetailLabel = styled(Typography)(({ theme }) => ({
     marginBottom: theme.typography.pxToRem(6),
 }));
 
-export const DetailValue = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.MEDIUM,
-    fontSize: theme.typography.pxToRem(12),
-}));
-
 export const BalanceCard = styled(Card)(({ theme }) => ({
     flex: 1,
     minWidth: theme.typography.pxToRem(320),
@@ -107,7 +102,7 @@ export const PastOrdersButton = styled(Button)(({ theme }) => ({
 
     '&:hover': {
         borderColor: COLORS.COMMON.LIGHT,
-        fontWeight: 700,
+        fontWeight: FONT_WEIGHT.BOLD,
         padding: theme.spacing(3, 4),
     },
 }));

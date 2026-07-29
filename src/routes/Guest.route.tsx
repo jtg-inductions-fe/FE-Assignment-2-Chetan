@@ -8,7 +8,7 @@ import { ROUTES } from '@constants';
 export const GuestRoute = () => {
     const token = localStorage.getItem('accessToken');
     if (token) {
-        return <Navigate to={ROUTES.DASHBOARD.ROOT} />;
+        return <Navigate to={ROUTES.HOME} />;
     }
 
     return <Outlet />;

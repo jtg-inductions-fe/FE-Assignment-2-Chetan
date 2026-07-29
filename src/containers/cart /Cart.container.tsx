@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
@@ -8,6 +6,7 @@ import img from '@assets/images/dummyRestaurant.webp';
 import { EmptyState, Loading } from '@components';
 import { ROUTES } from '@constants';
 import { RestaurantBasicDetails } from '@containers';
+import { useApiErrorHandler } from '@hooks';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useGetUserQuery, usePlaceOrderMutation } from '@services';
@@ -31,26 +30,17 @@ export const CartContainer = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const items = useAppSelector((state) => state.cart.items);
-    const userId = useAppSelector((state) => state.auth.id);
-    const [placeOrder, { isLoading }] = usePlaceOrderMutation();
+    const { id, accessToken } = useAppSelector((state) => state.auth);
+    const [placeOrder, { isLoading, error }] = usePlaceOrderMutation();
     const {
         data: user,
         isLoading: isUserLoading,
         error: userError,
-    } = useGetUserQuery(userId as string);
+    } = useGetUserQuery(id as string, { skip: !accessToken });
 
     const restaurant = (location.state as RestaurantBasicDetails) ?? {};
 
-    useEffect(() => {
-        if (userError) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(userError),
-                    severity: 'error',
-                }),
-            );
-        }
-    }, [userError, dispatch]);
+    useApiErrorHandler(error, userError);
 
     if (isLoading || isUserLoading) return <Loading />;
 
@@ -103,11 +93,11 @@ export const CartContainer = () => {
                 }),
             );
 
-            void navigate(ROUTES.DASHBOARD.PAST_ORDERS);
-        } catch (error) {
+            void navigate(ROUTES.PAST_ORDERS);
+        } catch (err) {
             dispatch(
                 showSnackbar({
-                    message: getErrorMessage(error as FetchBaseQueryError | SerializedError),
+                    message: getErrorMessage(err as FetchBaseQueryError | SerializedError),
                     severity: 'error',
                 }),
             );
@@ -115,7 +105,7 @@ export const CartContainer = () => {
     };
 
     return (
-        <Box>
+        <Box marginBlock={5}>
             <StyledPageContainer>
                 <Box>
                     <StyledCartTypograghy>{restaurant.name}</StyledCartTypograghy>

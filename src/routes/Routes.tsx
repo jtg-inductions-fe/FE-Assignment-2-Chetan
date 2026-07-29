@@ -1,32 +1,30 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
-import { MainLayout, PublicLayout } from '@layouts';
-import { Cart, Dashboard, Home, Login, Menu, NotFound, Signup } from '@pages';
+import { MainLayout } from '@layouts';
+import { Cart, Home, Login, Menu, NotFound, PastOrders, Profile, Signup } from '@pages';
 
 import { GuestRoute } from './Guest.route';
 import { ProtectedRoute } from './Protected.route';
 
 export const AppRoutes = () => (
     <Routes>
-        <Route element={<GuestRoute />}>
-            <Route path={ROUTES.AUTH.SIGNUP} element={<Signup />} />
-            <Route path={ROUTES.AUTH.LOGIN} element={<Login />} />
-        </Route>
-        <Route element={<PublicLayout />}>
+        <Route element={<MainLayout />}>
+            <Route element={<GuestRoute />}>
+                <Route path={ROUTES.AUTH.SIGNUP} element={<Signup />} />
+                <Route path={ROUTES.AUTH.LOGIN} element={<Login />} />
+            </Route>
+
             <Route path={ROUTES.HOME} element={<Home />} />
-            <Route path="restaurants/:restaurantId/menu" element={<Menu />} />
-        </Route>
+            <Route path={ROUTES.RESTAURANTS.MENU_URL} element={<Menu />} />
 
-        <Route element={<ProtectedRoute />}>
-            <Route element={<PublicLayout />}>
+            <Route element={<ProtectedRoute />}>
                 <Route path={ROUTES.CART} element={<Cart />} />
+                <Route path={ROUTES.PAST_ORDERS} element={<PastOrders />} />
+                <Route path={ROUTES.PROFILE} element={<Profile />} />
             </Route>
-            <Route element={<MainLayout />}>
-                <Route path={ROUTES.DASHBOARD.ROOT} element={<Dashboard />} />
-            </Route>
-        </Route>
 
-        <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
+        </Route>
     </Routes>
 );

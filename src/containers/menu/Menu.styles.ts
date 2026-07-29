@@ -1,5 +1,5 @@
 import { CurrencyRupee } from '@mui/icons-material';
-import { Button, Container, styled, Typography } from '@mui/material';
+import { Box, Button, Container, styled, Typography } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constants';
 
@@ -10,6 +10,12 @@ export const StyledItemCardButton = styled(Button)(({ theme }) => ({
     border: `1px solid ${theme.palette.text.secondary}`,
     borderRadius: theme.shape.borderRadius * 2,
     width: '80%',
+    height: theme.typography.pxToRem(36),
+}));
+
+export const StyledCardIcon = styled(Button)(({ theme }) => ({
+    border: `1px solid ${theme.palette.text.secondary}`,
+    borderRadius: theme.shape.borderRadius * 2,
     height: theme.typography.pxToRem(36),
 }));
 
@@ -36,4 +42,12 @@ export const CustomHeading = styled(Typography)(({ theme }) => ({
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
     paddingBottom: theme.spacing(12),
+}));
+
+export const StyledMenuTopBox = styled(Box)(({ theme }) => ({
+    ...theme.mixins.flexLayout('column', 'space-between', 'center'),
+
+    [theme.breakpoints.up('sm')]: {
+        ...theme.mixins.flexLayout('row', 'space-between', 'center'),
+    },
 }));
