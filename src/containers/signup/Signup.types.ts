@@ -7,7 +7,7 @@ export interface BaseUser {
     state: string;
     zipcode: string;
     balance: string;
-    prefrence: string;
+    preference: string;
 }
 
 export interface User extends BaseUser {

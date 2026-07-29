@@ -1,5 +1,5 @@
 import { CurrencyRupee } from '@mui/icons-material';
-import { Button, styled, Typography } from '@mui/material';
+import { Button, Container, styled, Typography } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constants';
 
@@ -31,4 +31,9 @@ export const CustomHeading = styled(Typography)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(44),
     marginBlock: theme.typography.pxToRem(34),
     fontWeight: FONT_WEIGHT.BOLD,
+    lineHeight: 1,
+}));
+
+export const StyledContainer = styled(Container)(({ theme }) => ({
+    paddingBottom: theme.spacing(12),
 }));

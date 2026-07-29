@@ -1,10 +1,10 @@
 export interface RestaurantBasicDetails {
+    id: string;
     name: string;
     image?: string;
 }
 
 export interface RestaurantDetails extends RestaurantBasicDetails {
-    id: string;
     location: string;
     city: string;
     pincode: string;

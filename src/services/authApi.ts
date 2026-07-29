@@ -44,7 +44,14 @@ export const authApi = createApi({
                 body: Credential,
             }),
         }),
+
+        getUser: builder.query<UserResponse, string>({
+            query: (userId) => ({
+                url: API_ROUTES.USERS.GET(userId),
+                method: HTTP_METHODS.GET,
+            }),
+        }),
     }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useSignupMutation } = authApi;
+export const { useLoginMutation, useLogoutMutation, useSignupMutation, useGetUserQuery } = authApi;

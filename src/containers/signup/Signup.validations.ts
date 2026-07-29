@@ -5,9 +5,6 @@ import { getEmailFieldValidator, getPasswordFieldValidator } from '@containers';
 import type { User } from './Signup.types';
 
 export const signupFields: FormField<User>[] = [
-    getEmailFieldValidator<User>(),
-    getPasswordFieldValidator<User>(),
-
     {
         name: 'name',
         label: 'Name',
@@ -15,7 +12,7 @@ export const signupFields: FormField<User>[] = [
             required: 'name is required',
 
             minLength: {
-                value: 5,
+                value: 2,
                 message: 'name must be at least 5 character',
             },
             maxLength: {
@@ -29,6 +26,8 @@ export const signupFields: FormField<User>[] = [
         },
     },
 
+    getEmailFieldValidator<User>(),
+    getPasswordFieldValidator<User>(),
     {
         name: 'city',
         label: 'City',
@@ -98,7 +97,7 @@ export const signupFields: FormField<User>[] = [
     },
 
     {
-        name: 'prefrence',
+        name: 'preference',
         label: 'Preference',
         type: 'radio',
         options: [

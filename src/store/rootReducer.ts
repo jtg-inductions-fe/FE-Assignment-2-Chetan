@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { authApi, menuItemsApi, restaurantsApi } from '@services';
+import { authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
 import { authReducer, cartReducer, snackbarReducer } from '@slices';
 
 export const rootReducer = combineReducers({
@@ -9,4 +9,5 @@ export const rootReducer = combineReducers({
     [authApi.reducerPath]: authApi.reducer,
     [restaurantsApi.reducerPath]: restaurantsApi.reducer,
     [menuItemsApi.reducerPath]: menuItemsApi.reducer,
+    [ordersApi.reducerPath]: ordersApi.reducer,
 });

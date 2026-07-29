@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { configureStore } from '@reduxjs/toolkit';
-import { authApi, menuItemsApi, restaurantsApi } from '@services';
+import { authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
 
 import { rootReducer } from './rootReducer';
 
@@ -11,7 +11,8 @@ export const store = configureStore({
         getDefaultMiddleware()
             .concat(authApi.middleware)
             .concat(restaurantsApi.middleware)
-            .concat(menuItemsApi.middleware),
+            .concat(menuItemsApi.middleware)
+            .concat(ordersApi.middleware),
 });
 
 export const useAppDispatch = useDispatch.withTypes<typeof store.dispatch>();

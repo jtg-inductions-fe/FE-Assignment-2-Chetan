@@ -17,6 +17,7 @@ export const COLORS = {
     BACKGROUND: {
         DEFAULT: '#FFFFFF',
         PAPER: '#37718e',
+        GRAY: '#e9ecee',
     },
     COMMON: {
         LIGHT: '#FFFFFF',
