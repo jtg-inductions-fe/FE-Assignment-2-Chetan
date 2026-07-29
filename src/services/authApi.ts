@@ -7,6 +7,7 @@ import { baseQuery } from './baseQuery';
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery,
+    tagTypes: ['User'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, FormData>({
             query: (Credentials) => {
@@ -50,6 +51,7 @@ export const authApi = createApi({
                 url: API_ROUTES.USERS.GET(userId),
                 method: HTTP_METHODS.GET,
             }),
+            providesTags: ['User'],
         }),
     }),
 });

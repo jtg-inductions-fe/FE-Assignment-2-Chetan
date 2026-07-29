@@ -1,24 +1,25 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import { LocationCity, LocationOn, PinDrop } from '@mui/icons-material';
-import { Grid2 as Grid } from '@mui/material';
+import { Grid2 as Grid, Typography } from '@mui/material';
 
 import { Card, EmptyState, Loading, SearchBar } from '@components';
 import { ROLE, ROUTES } from '@constants';
+import { useApiErrorHandler } from '@hooks';
 import { useGetRestaurantsQuery, useGetUserQuery } from '@services';
-import { showSnackbar } from '@slices';
-import { useAppDispatch, useAppSelector } from '@store';
-import { getErrorMessage } from '@utils';
+import { useAppSelector } from '@store';
+import { theme } from '@theme';
 
-import { HeroSection, RestaurantGrid, StyledParaTypograpgy, StyledTypograpgy } from './Home.styles';
+import { HeroSection, RestaurantGrid, StyledTypographyBox } from './Home.styles';
 
 export const HomeContainer = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const { role, id } = useAppSelector((state) => state.auth);
-    const { data, isLoading, error } = useGetRestaurantsQuery(undefined, {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const { data, isLoading, error } = useGetRestaurantsQuery(searchTerm, {
         skip: role === ROLE.ADMIN,
     });
 
@@ -29,34 +30,34 @@ export const HomeContainer = () => {
     } = useGetUserQuery(id as string, {
         skip: role !== ROLE.ADMIN,
     });
+
     const restaurants = role === ROLE.ADMIN ? (user?.restaurants ?? []) : (data?.restaurants ?? []);
 
-    useEffect(() => {
-        const currentError = error || userError;
-        if (currentError) {
-            dispatch(
-                showSnackbar({
-                    message: getErrorMessage(currentError),
-                    severity: 'error',
-                }),
-            );
-        }
-    }, [error, userError, dispatch]);
+    useApiErrorHandler(userError, error);
 
     if (isLoading || isFetching) return <Loading />;
+
+    const handleSearch = (term: string) => {
+        setSearchTerm(term);
+    };
 
     return (
         <>
             <HeroSection>
-                <StyledTypograpgy gutterBottom>Restaurants</StyledTypograpgy>
+                <StyledTypographyBox>
+                    <Typography gutterBottom>Restaurants</Typography>
+                </StyledTypographyBox>
 
-                <StyledParaTypograpgy variant="h6">
+                <Typography
+                    color={theme.palette.secondary.contrastText}
+                    marginTop={theme.typography.pxToRem(15)}
+                    variant="h6"
+                >
                     {
                         'Discover your favourite restaurants and enjoy delicious meals delivered to yourdoorstep.'
                     }
-                </StyledParaTypograpgy>
-
-                <SearchBar />
+                </Typography>
+                {role !== ROLE.ADMIN && <SearchBar onSearch={handleSearch} />}
             </HeroSection>
 
             {restaurants.length === 0 ? (
@@ -92,14 +93,17 @@ export const HomeContainer = () => {
                                         {
                                             icon: <LocationOn fontSize="small" />,
                                             value: restaurant.location,
+                                            showTooltip: true,
                                         },
                                         {
                                             icon: <LocationCity fontSize="small" />,
                                             value: restaurant.city,
+                                            showTooltip: true,
                                         },
                                         {
                                             icon: <PinDrop fontSize="small" />,
                                             value: restaurant.pincode,
+                                            showTooltip: false,
                                         },
                                     ]}
                                 />

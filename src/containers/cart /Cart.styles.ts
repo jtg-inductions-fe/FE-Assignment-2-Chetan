@@ -1,4 +1,4 @@
-import { Box, Paper, styled, Typography } from '@mui/material';
+import { Box, Paper, styled } from '@mui/material';
 
 import { COLORS, FONT_WEIGHT } from '@constants';
 
@@ -13,13 +13,15 @@ export const StyledPageContainer = styled(Box)(({ theme }) => ({
     height: '100%',
 }));
 
-export const StyledCartTypograghy = styled(Typography)(({ theme }) => ({
-    fontSize: theme.typography.pxToRem(36),
-    fontWeight: FONT_WEIGHT.BOLD,
-    lineHeight: 1,
-    marginBlock: theme.spacing(1.25),
-    [theme.breakpoints.up('md')]: {
-        marginBlock: theme.spacing(4, 8),
+export const StyledCart = styled(Box)(({ theme }) => ({
+    '.MuiTypography-root': {
+        fontSize: theme.typography.pxToRem(36),
+        fontWeight: FONT_WEIGHT.BOLD,
+        lineHeight: 1,
+        marginBlock: theme.spacing(1.25),
+        [theme.breakpoints.up('md')]: {
+            marginBlock: theme.spacing(4, 8),
+        },
     },
 }));
 

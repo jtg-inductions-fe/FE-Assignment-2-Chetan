@@ -1,6 +1,4 @@
-import { Box, Button, Card, styled, Typography } from '@mui/material';
-
-import { FONT_WEIGHT } from '@constants';
+import { Box, Button, Card, styled } from '@mui/material';
 
 export const PastOrdersWrapper = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(3),
@@ -31,26 +29,9 @@ export const OrderInfo = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('column', 'space-between', ''),
 }));
 
-export const RestaurantName = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.BOLD,
-    fonstSize: theme.typography.pxToRem(44),
-    marginBottom: theme.typography.pxToRem(6),
-}));
-
-export const RestaurantLocation = styled(Typography)(({ theme }) => ({
-    opacity: 0.6,
-    fontSize: theme.typography.pxToRem(12),
-}));
-
 export const OrderMetaRow = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'space-between', 'center'),
     marginTop: theme.spacing(1.5),
-}));
-
-export const OrderMeta = styled(Typography)(({ theme }) => ({
-    opacity: 0.55,
-    fontSize: theme.typography.pxToRem(10),
-    lineHeight: 1.5,
 }));
 
 export const ViewDetailsButton = styled(Button)(({ theme }) => ({
@@ -58,10 +39,7 @@ export const ViewDetailsButton = styled(Button)(({ theme }) => ({
     marginTop: theme.typography.pxToRem(8),
 }));
 
-export const CustomOrderHeading = styled(Typography)(({ theme }) => ({
-    fontSize: theme.typography.pxToRem(44),
+export const CustomOrderHeadingBox = styled(Box)(({ theme }) => ({
     marginBlock: theme.typography.pxToRem(34),
     marginLeft: theme.typography.pxToRem(25),
-    fontWeight: FONT_WEIGHT.BOLD,
-    lineHeight: 1,
 }));

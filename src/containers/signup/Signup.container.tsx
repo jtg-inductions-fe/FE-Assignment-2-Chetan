@@ -19,6 +19,7 @@ export const SignupContainer = () => {
     const [signup] = useSignupMutation();
     const dispatch = useAppDispatch();
 
+    /** Signs the user up and redirects to login on success. */
     const handleSignup = async (data: User) => {
         try {
             await signup(data).unwrap();

@@ -2,17 +2,19 @@ import * as React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
-import { ROUTES } from '@constants';
-import { authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
+import { ROLE, ROUTES } from '@constants';
+import { analyticsApi, authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
 import { clearCart, removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 
 import { SETTINGS_OPTIONS } from './Header.config';
 import {
     AvatarIconButton,
+    CartIconButton,
     LoginButton,
     LogoImage,
     LogoText,
@@ -24,7 +26,7 @@ import {
 } from './Header.styles';
 
 export const Header = () => {
-    const token = useAppSelector((state) => state.auth.accessToken);
+    const { accessToken, role } = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -35,6 +37,7 @@ export const Header = () => {
     };
 
     const handleLogout = () => {
+        dispatch(analyticsApi.util.resetApiState());
         localStorage.removeItem('accessToken');
         dispatch(removeAuth());
         dispatch(clearCart());
@@ -44,6 +47,7 @@ export const Header = () => {
         dispatch(menuItemsApi.util.resetApiState());
         void navigate(ROUTES.HOME);
     };
+
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
@@ -60,7 +64,7 @@ export const Header = () => {
                     <Spacer />
 
                     <RightSection>
-                        {!token ? (
+                        {!accessToken ? (
                             <LoginButton
                                 onClick={() => {
                                     void navigate(ROUTES.AUTH.LOGIN);
@@ -70,6 +74,14 @@ export const Header = () => {
                             </LoginButton>
                         ) : (
                             <>
+                                {role === ROLE.USER && (
+                                    <Tooltip title="View Cart">
+                                        <CartIconButton onClick={() => void navigate(ROUTES.CART)}>
+                                            <ShoppingCartIcon />
+                                        </CartIconButton>
+                                    </Tooltip>
+                                )}
+
                                 <Tooltip title="Open settings">
                                     <AvatarIconButton onClick={handleOpenUserMenu}>
                                         <Avatar alt="User" />

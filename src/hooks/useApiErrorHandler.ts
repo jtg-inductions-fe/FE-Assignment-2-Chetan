@@ -11,6 +11,11 @@ import { getErrorMessage } from '@utils';
 
 type ApiError = FetchBaseQueryError | SerializedError | undefined;
 
+/**
+ * Shows a snackbar for the first truthy API error, and redirects to
+ * login (clearing the token) if it's a 401 Unauthorized.
+ */
+
 export const useApiErrorHandler = (...errors: ApiError[]) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();

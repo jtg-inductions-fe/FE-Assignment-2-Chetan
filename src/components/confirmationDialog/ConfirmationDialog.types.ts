@@ -1,3 +1,4 @@
+/** Props for a generic confirm/cancel dialog. */
 export interface ConfirmationDialogProps {
     open: boolean;
     title: string;

@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
 import { MainLayout } from '@layouts';
-import { Cart, Home, Login, Menu, NotFound, PastOrders, Profile, Signup } from '@pages';
+import { Analytics, Cart, Home, Login, Menu, NotFound, PastOrders, Profile, Signup } from '@pages';
 
 import { GuestRoute } from './Guest.route';
 import { ProtectedRoute } from './Protected.route';
@@ -19,6 +19,7 @@ export const AppRoutes = () => (
             <Route path={ROUTES.RESTAURANTS.MENU_URL} element={<Menu />} />
 
             <Route element={<ProtectedRoute />}>
+                <Route path={ROUTES.RESTAURANTS.ANALYTICS.ROOT_URL} element={<Analytics />} />
                 <Route path={ROUTES.CART} element={<Cart />} />
                 <Route path={ROUTES.PAST_ORDERS} element={<PastOrders />} />
                 <Route path={ROUTES.PROFILE} element={<Profile />} />

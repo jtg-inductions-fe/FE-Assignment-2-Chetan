@@ -1,0 +1,69 @@
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Tooltip,
+    Typography,
+} from '@mui/material';
+
+import { ClampedTypography } from '@components';
+
+import { StyledChip, StyledChipBox, TablePanel } from './OrderHistoryTable.styles';
+import type { OrderHistoryTableProps } from './OrderHistoryTable.types';
+
+export const OrderHistoryTable = ({ orders }: OrderHistoryTableProps) => (
+    <TablePanel>
+        <Typography variant="h4">Order History</Typography>
+
+        <TableContainer>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Order ID</TableCell>
+                        <TableCell>Customer</TableCell>
+                        <TableCell>Items</TableCell>
+                        <TableCell align="right">Total</TableCell>
+                        <TableCell>Date</TableCell>
+                    </TableRow>
+                </TableHead>
+
+                <TableBody>
+                    {orders.map((order) => (
+                        <TableRow key={order.id}>
+                            <TableCell>{order.id.slice(0, 8)}</TableCell>
+
+                            <TableCell>
+                                <ClampedTypography title={order.user.name}>
+                                    {order.user.name}
+                                </ClampedTypography>
+                            </TableCell>
+
+                            <TableCell style={{}}>
+                                <StyledChipBox>
+                                    {order.orderItems.map((oi) => (
+                                        <Tooltip key={oi.id} title={oi.item.name}>
+                                            <StyledChip label={`${oi.item.name} x${oi.quantity}`} />
+                                        </Tooltip>
+                                    ))}
+                                </StyledChipBox>
+                            </TableCell>
+
+                            <TableCell align="right">₹{order.totalPrice}</TableCell>
+
+                            <TableCell>
+                                {new Date(order.createdAt).toLocaleDateString('en-IN', {
+                                    day: 'numeric',
+                                    month: 'short',
+                                    year: 'numeric',
+                                })}
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    </TablePanel>
+);

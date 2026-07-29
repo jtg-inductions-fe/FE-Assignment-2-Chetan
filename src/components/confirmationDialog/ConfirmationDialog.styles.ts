@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogTitle, styled, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle, styled } from '@mui/material';
 
 import { FONT_WEIGHT } from '@constants';
 
@@ -15,10 +15,6 @@ export const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
     fontWeight: FONT_WEIGHT.MEDIUM,
     textAlign: 'center',
     paddingBottom: theme.spacing(1),
-}));
-
-export const StyledDescription = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
 }));
 
 export const StyledDialogActions = styled(DialogActions)(({ theme }) => ({

@@ -3,6 +3,7 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { ApiErrorResponse } from '@types';
 
+/** get all error message awake from backend */
 export const getErrorMessage = (error: FetchBaseQueryError | SerializedError): string => {
     if ('status' in error) {
         if (error.data && typeof error.data === 'object' && 'detail' in error.data) {

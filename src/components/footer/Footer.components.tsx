@@ -1,9 +1,8 @@
 import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 
 import {
-    ColumnTitle,
     CopyrightBar,
-    CopyrightText,
     FooterContainer,
     FooterGrid,
     FooterLinkItem,
@@ -20,27 +19,44 @@ export const Footer = () => {
             <FooterContainer maxWidth="xl">
                 <FooterGrid>
                     <LinkColumn>
-                        <ColumnTitle variant="subtitle2">Company</ColumnTitle>
+                        <Typography variant="h4">Company</Typography>
                         <FooterLinkItem href="#">About Us</FooterLinkItem>
                         <FooterLinkItem href="#">Contact Us</FooterLinkItem>
                     </LinkColumn>
 
                     <LinkColumn>
-                        <ColumnTitle variant="subtitle2">Legal</ColumnTitle>
+                        <Typography variant="h4">Legal</Typography>
                         <FooterLinkItem href="#">Terms & Conditions</FooterLinkItem>
                         <FooterLinkItem href="#">Privacy Policy</FooterLinkItem>
                     </LinkColumn>
 
                     <LinkColumn>
-                        <ColumnTitle variant="subtitle2">Follow Us</ColumnTitle>
+                        <Typography variant="h4">Follow Us</Typography>
                         <SocialRow>
-                            <FooterLinkItem href="#" aria-label="Facebook">
+                            <FooterLinkItem
+                                href="https://facebook.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Facebook"
+                            >
                                 <Facebook fontSize="small" />
                             </FooterLinkItem>
-                            <FooterLinkItem href="#" aria-label="Instagram">
+
+                            <FooterLinkItem
+                                href="https://instagram.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                            >
                                 <Instagram fontSize="small" />
                             </FooterLinkItem>
-                            <FooterLinkItem href="#" aria-label="Twitter">
+
+                            <FooterLinkItem
+                                href="https://twitter.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Twitter"
+                            >
                                 <Twitter fontSize="small" />
                             </FooterLinkItem>
                         </SocialRow>
@@ -48,7 +64,7 @@ export const Footer = () => {
                 </FooterGrid>
 
                 <CopyrightBar>
-                    <CopyrightText>© {currentYear} SwiftBite. All rights reserved.</CopyrightText>
+                    <Typography>© {currentYear} SwiftBite. All rights reserved.</Typography>
                 </CopyrightBar>
             </FooterContainer>
         </StyledFooter>

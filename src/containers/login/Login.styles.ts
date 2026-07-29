@@ -1,6 +1,7 @@
 import { Box, Paper, styled } from '@mui/material';
 
 export const LoginCard = styled(Paper)(({ theme }) => ({
+    marginTop: '20vh',
     width: '100%',
     maxWidth: theme.typography.pxToRem(400),
     paddingInline: theme.spacing(4),
@@ -9,7 +10,6 @@ export const LoginCard = styled(Paper)(({ theme }) => ({
 }));
 
 export const AuthContainer = styled(Box)(({ theme }) => ({
-    minHeight: '80vh',
     ...theme.mixins.flexLayout(),
     backgroundColor: theme.palette.background.default,
 }));

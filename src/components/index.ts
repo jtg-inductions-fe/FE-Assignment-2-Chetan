@@ -12,3 +12,4 @@ export * from './confirmationDialog';
 export * from './itemDialog';
 export * from './footer';
 export * from './orderDetailsDialog';
+export * from './typography';

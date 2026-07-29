@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, Chip, Divider, styled, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, Chip, styled } from '@mui/material';
 
 import { COLORS, FONT_WEIGHT } from '@constants';
 
@@ -32,6 +32,7 @@ export const ProfileCard = styled(Card)(({ theme }) => ({
 export const ProfileHeader = styled(Box)(({ theme }) => ({
     ...theme.mixins.flexLayout('row', 'start', 'center'),
     gap: theme.spacing(3),
+    marginBottom: theme.spacing(1),
 }));
 
 export const ProfileAvatar = styled(Avatar)(({ theme }) => ({
@@ -49,10 +50,6 @@ export const RoleChip = styled(Chip)(({ theme }) => ({
     marginTop: theme.typography.pxToRem(4),
 }));
 
-export const StyledDivider = styled(Divider)(({ theme }) => ({
-    marginTop: theme.spacing(1),
-}));
-
 export const DetailsGrid = styled(Box)(({ theme }) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(2,1fr)',
@@ -63,13 +60,14 @@ export const DetailsGrid = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const DetailLabel = styled(Typography)(({ theme }) => ({
-    backgroundColor: theme.palette.common.white,
-    opacity: 0.55,
-    fontSize: theme.typography.pxToRem(8),
-    textTransform: 'uppercase',
-    letterSpacing: theme.typography.pxToRem(1),
-    marginBottom: theme.typography.pxToRem(6),
+export const DetailLabel = styled(Box)(({ theme }) => ({
+    '.MuiTypography-root': {
+        backgroundColor: theme.palette.common.white,
+        opacity: 0.55,
+        fontSize: theme.typography.pxToRem(8),
+        textTransform: 'uppercase',
+        marginBottom: theme.typography.pxToRem(6),
+    },
 }));
 
 export const BalanceCard = styled(Card)(({ theme }) => ({
@@ -83,15 +81,12 @@ export const BalanceCard = styled(Card)(({ theme }) => ({
     borderRadius: theme.shape.borderRadius * 3,
 }));
 
-export const BalanceLabel = styled(Typography)(({ theme }) => ({
-    opacity: 0.9,
-    fontSize: theme.typography.pxToRem(16),
-    marginBottom: 10,
-}));
-
-export const BalanceAmount = styled(Typography)(({ theme }) => ({
-    fontWeight: FONT_WEIGHT.BOLD,
-    fontSize: theme.typography.pxToRem(32),
+export const BalanceLabel = styled(Box)(({ theme }) => ({
+    '.MuiTypography-root': {
+        opacity: 0.9,
+        fontSize: theme.typography.pxToRem(16),
+        marginBottom: 10,
+    },
 }));
 
 export const PastOrdersButton = styled(Button)(({ theme }) => ({

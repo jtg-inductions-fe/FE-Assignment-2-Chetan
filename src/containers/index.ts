@@ -5,3 +5,6 @@ export * from './menu';
 export * from './cart ';
 export * from './profile';
 export * from './pastOrders';
+export * from './topCustomerList';
+export * from './itemStatsChart';
+export * from './orderHistoryTable';

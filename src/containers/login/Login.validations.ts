@@ -4,6 +4,10 @@ import type { FormField } from '@components';
 
 import type { FormData } from './Login.types';
 
+/**
+ * Builds the email field config for a login/signup form, including
+ * required and format validation.
+ */
 export const getEmailFieldValidator = <T extends FieldValues>(): FormField<T> => ({
     name: 'email' as Path<T>,
     label: 'Email',
@@ -17,6 +21,10 @@ export const getEmailFieldValidator = <T extends FieldValues>(): FormField<T> =>
     },
 });
 
+/**
+ * Builds the password field config for a login/signup form, including
+ * required, length, and complexity validation.
+ */
 export const getPasswordFieldValidator = <T extends FieldValues>(): FormField<T> => ({
     name: 'password' as Path<T>,
     label: 'Password',

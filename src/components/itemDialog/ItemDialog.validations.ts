@@ -35,13 +35,41 @@ export const addItemFields: FormField<ItemFormData>[] = [
         name: 'category',
         label: 'Category',
         type: 'text',
-        validation: { required: 'Category is required' },
+        validation: {
+            required: 'Category is required',
+            minLength: {
+                value: 2,
+                message: 'Category must be at least 2 characters',
+            },
+            maxLength: {
+                value: 50,
+                message: 'Category must be at most 50 characters',
+            },
+            pattern: {
+                value: /^[a-zA-Z\s]+$/,
+                message: 'Category cannot contain numbers or special characters',
+            },
+        },
     },
     {
         name: 'cuisine',
         label: 'Cuisine',
         type: 'text',
-        validation: { required: 'Cuisine is required' },
+        validation: {
+            required: 'Cuisine is required',
+            minLength: {
+                value: 2,
+                message: 'Cuisine must be at least 2 characters',
+            },
+            maxLength: {
+                value: 50,
+                message: 'Cuisine must be at most 50 characters',
+            },
+            pattern: {
+                value: /^[a-zA-Z\s]+$/,
+                message: 'Cuisine cannot contain numbers or special characters',
+            },
+        },
     },
     priceField,
     quantityField,

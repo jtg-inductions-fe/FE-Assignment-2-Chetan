@@ -65,3 +65,7 @@ export const StyledMenu = styled(Menu)(({ theme }) => ({
 export const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     minHeight: theme.typography.pxToRem(48),
 }));
+
+export const CartIconButton = styled(IconButton)(({ theme }) => ({
+    marginRight: theme.spacing(2),
+}));

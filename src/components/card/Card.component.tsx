@@ -1,4 +1,6 @@
-import { Typography } from '@mui/material';
+import { ClampedTypography } from 'components/typography';
+
+import { Tooltip, Typography } from '@mui/material';
 
 import restaurantPlaceholder from '@assets/images/dummyRestaurant.webp';
 
@@ -22,12 +24,21 @@ export const Card = ({
 }: CardProps) => {
     const content = (
         <StyledContent orientation={orientation}>
-            <Typography variant="h3">{name}</Typography>
+            <ClampedTypography variant="h3" title={name}>
+                {name}
+            </ClampedTypography>
 
             {details?.map((detail, index) => (
                 <StyledInfoBox key={index}>
                     {detail.icon}
-                    <Typography variant="body2">{detail.value}</Typography>
+
+                    {detail.showTooltip ? (
+                        <Tooltip title={detail.value} arrow>
+                            <ClampedTypography variant="body2">{detail.value}</ClampedTypography>
+                        </Tooltip>
+                    ) : (
+                        <Typography variant="body2">{detail.value}</Typography>
+                    )}
                 </StyledInfoBox>
             ))}
         </StyledContent>

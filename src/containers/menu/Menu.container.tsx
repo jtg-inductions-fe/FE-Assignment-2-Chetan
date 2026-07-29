@@ -10,6 +10,7 @@ import restaurantImg from '@assets/images/dummyRestaurant.webp';
 import {
     BottomActionBar,
     Card,
+    ClampedTypography,
     ConfirmationDialog,
     EmptyState,
     ItemDialog,
@@ -33,7 +34,6 @@ import { useAppDispatch, useAppSelector } from '@store';
 import { getErrorMessage } from '@utils';
 
 import {
-    CustomHeading,
     MicroIcon,
     StyledCardIcon,
     StyledContainer,
@@ -73,6 +73,9 @@ export const MenuContainer = () => {
     const menuItems = data?.items ?? [];
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+    /**
+     * Adds an item directly to the cart. and item must be belong to same restaurant.
+     */
     const handleAddToCart = (item: ItemDetails) => {
         if (cartItems.length === 0 || cartItems[0].restaurantId === restaurant.id) {
             dispatch(
@@ -155,6 +158,10 @@ export const MenuContainer = () => {
         }
     };
 
+    /**
+     * Saves the item dialog form — creates a new item if in "add" mode,
+     * or updates the currently selected item if in "edit" mode.
+     */
     const handleSave = async (formData: ItemFormData) => {
         try {
             if (dialogMode === 'edit' && selectedItem) {
@@ -186,6 +193,10 @@ export const MenuContainer = () => {
         });
     };
 
+    /**
+     * Warns the user when the next increment would hit the item's max
+     * available quantity
+     */
     const handleMaxAvailaiblity = (item: ItemDetails, quantity: number) => {
         if (quantity + 1 === item.quantity) {
             dispatch(
@@ -196,11 +207,14 @@ export const MenuContainer = () => {
             );
         }
     };
+
     return (
         <StyledContainer maxWidth="md">
             <Box mb={3}>
                 <StyledMenuTopBox mb={2}>
-                    <CustomHeading>{restaurant?.name || 'Restaurant Name'}</CustomHeading>
+                    <ClampedTypography title={restaurant?.name}>
+                        {restaurant?.name || 'Restaurant Name'}
+                    </ClampedTypography>
 
                     {role === ROLE.ADMIN && (
                         <Stack direction="row" spacing={1.5}>
@@ -253,15 +267,19 @@ export const MenuContainer = () => {
                                 {
                                     icon: <MicroIcon />,
                                     value: item.price,
+                                    showTooltip: false,
                                 },
-                                { value: item.category },
-                                { value: item.cuisine },
+
+                                { value: item.category, showTooltip: true },
+                                { value: item.cuisine, showTooltip: true },
                                 {
                                     value: `Available: ${item.quantity}`,
+                                    showTooltip: false,
                                 },
                                 {
                                     icon: <Star color="success" />,
                                     value: `${item.rating}`,
+                                    showTooltip: false,
                                 },
                             ]}
                             action={
