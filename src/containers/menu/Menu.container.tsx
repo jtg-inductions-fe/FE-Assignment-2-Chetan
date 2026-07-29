@@ -58,6 +58,7 @@ export const MenuContainer = () => {
     const token = localStorage.getItem('accessToken');
     const restaurant = location.state as RestaurantBasicDetails;
 
+
     const { restaurantId } = useParams();
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
 
@@ -190,6 +191,7 @@ export const MenuContainer = () => {
         });
     };
 
+   
     return (
         <StyledContainer maxWidth="md">
             <Box mb={3}>
