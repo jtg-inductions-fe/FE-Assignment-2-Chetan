@@ -1,8 +1,4 @@
 export const formatCurrency = (amount: number): string => {
-    if (amount >= 1000000) {
-        return `₹${(amount / 1000000).toFixed(1)} Cr`;
-    }
-
     if (amount >= 100000) {
         return `₹${(amount / 100000).toFixed(1)} L`;
     }
