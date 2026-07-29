@@ -63,8 +63,6 @@ export const MenuContainer = () => {
     const token = localStorage.getItem('accessToken');
     const restaurant = location.state as RestaurantBasicDetails;
 
-
-
     const { restaurantId } = useParams();
     const { data, isLoading, error } = useGetMenuItemsQuery(restaurantId ?? '');
 
@@ -233,11 +231,6 @@ export const MenuContainer = () => {
                     alt={restaurant?.name || 'Restaurant Image'}
                 />
             </Box>
-
-                <StyledImage
-                    src={restaurant?.image || img}
-                    alt={restaurant?.name || 'Restaurant Image'}
-                />
 
             {menuItems.length === 0 ? (
                 <EmptyState
