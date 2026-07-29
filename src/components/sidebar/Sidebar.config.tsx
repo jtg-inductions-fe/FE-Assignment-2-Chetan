@@ -9,10 +9,16 @@ export const SIDEBAR_ADMIN_LIST = [
         icon: <Home />,
     },
     {
+        label: 'Profile',
+        path: ROUTES.DASHBOARD.UPDATE_PROFILE,
+        icon: <Person2 />,
+    },
+    {
         label: 'Restaurants',
         path: ROUTES.DASHBOARD.RESTAURANTS.ROOT,
         icon: <Restaurant />,
     },
+
     {
         label: 'Analytics',
         path: ROUTES.DASHBOARD.RESTAURANTS.ROOT,

@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { ROUTES } from '@constants';
 import { MainLayout, PublicLayout } from '@layouts';
-import { Dashboard, Home, Login, NotFound, Signup } from '@pages';
+import { Dashboard, Home, Login, Menu, NotFound, Signup } from '@pages';
 
 import { GuestRoute } from './Guest.route';
 import { ProtectedRoute } from './Protected.route';
@@ -11,6 +11,8 @@ export const AppRoutes = () => (
     <Routes>
         <Route element={<PublicLayout />}>
             <Route path={ROUTES.HOME} element={<Home />} />
+            <Route path="restaurants/:restaurantId/menu" element={<Menu />} />
+
             <Route element={<GuestRoute />}>
                 <Route path={ROUTES.AUTH.SIGNUP} element={<Signup />} />
                 <Route path={ROUTES.AUTH.LOGIN} element={<Login />} />

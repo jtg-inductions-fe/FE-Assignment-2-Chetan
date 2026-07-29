@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import { Container } from '@mui/material';
+
 import { Header, Sidebar } from '@components';
 
 export const MainLayout = () => {
@@ -19,7 +21,9 @@ export const MainLayout = () => {
         <>
             <Header onMenuClick={toggleSidebar} />
             <Sidebar open={sidebarOpen} onClose={handleCloseSidebar} />
-            <Outlet />
+            <Container>
+                <Outlet />
+            </Container>
         </>
     );
 };

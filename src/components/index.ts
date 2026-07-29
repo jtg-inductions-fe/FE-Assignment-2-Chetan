@@ -7,3 +7,4 @@ export * from './card';
 export * from './loading ';
 export * from './emptyState';
 export * from './searchBar';
+export * from './quantitySelector';
