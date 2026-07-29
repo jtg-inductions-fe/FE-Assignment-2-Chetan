@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import type { FieldValues, Path } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
@@ -17,7 +19,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import type { AuthFormProps } from './Form.types';
+import type { FormProps } from './Form.types';
 
 export const Form = <T extends FieldValues>({
     title,
@@ -27,22 +29,29 @@ export const Form = <T extends FieldValues>({
     bottomLinkText,
     bottomLinkTo,
     onSubmit,
-}: AuthFormProps<T>) => {
+    defaultValues,
+    formId,
+}: FormProps<T>) => {
     const {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
-    } = useForm<T>();
+    } = useForm<T>({ defaultValues });
 
     const handleFormSubmit = handleSubmit((data) => {
         void onSubmit(data);
     });
 
+    useEffect(() => {
+        reset(defaultValues);
+    }, [defaultValues, reset]);
+
     return (
-        <Box component="form" onSubmit={(e) => void handleFormSubmit(e)}>
+        <Box component="form" id={formId} marginTop={2} onSubmit={(e) => void handleFormSubmit(e)}>
             <Stack spacing={2}>
-                <Typography variant="h2">{title}</Typography>
+                {title && <Typography variant="h2">{title}</Typography>}
 
                 {fields.map((field) => {
                     const nameKey = field.name as Path<T>;
@@ -91,16 +100,20 @@ export const Form = <T extends FieldValues>({
                     );
                 })}
 
-                <Button type="submit" variant="contained">
-                    {buttonText}
-                </Button>
+                {buttonText && (
+                    <Button type="submit" variant="contained">
+                        {buttonText}
+                    </Button>
+                )}
 
-                <Typography textAlign="center">
-                    {bottomText}{' '}
-                    <Link component={RouterLink} to={bottomLinkTo}>
-                        {bottomLinkText}
-                    </Link>
-                </Typography>
+                {bottomText && bottomLinkText && bottomLinkTo && (
+                    <Typography textAlign="center">
+                        {bottomText}{' '}
+                        <Link component={RouterLink} to={bottomLinkTo}>
+                            {bottomLinkText}
+                        </Link>
+                    </Typography>
+                )}
             </Stack>
         </Box>
     );

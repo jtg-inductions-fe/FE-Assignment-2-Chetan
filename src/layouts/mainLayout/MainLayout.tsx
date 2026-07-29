@@ -2,9 +2,11 @@ import { useState } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 
-import { Header, Sidebar } from '@components';
+import { Footer, Header, Sidebar } from '@components';
+
+import { StyledBox, StyledLayoutContainer } from './MainLayout.styles';
 
 export const MainLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,12 +20,16 @@ export const MainLayout = () => {
     };
 
     return (
-        <>
+        <Box display={'flex'} flexDirection={'column'} minHeight={'100vh'}>
             <Header onMenuClick={toggleSidebar} />
             <Sidebar open={sidebarOpen} onClose={handleCloseSidebar} />
-            <Container maxWidth="xl">
+
+            <StyledLayoutContainer>
                 <Outlet />
-            </Container>
-        </>
+            </StyledLayoutContainer>
+            <StyledBox>
+                <Footer />
+            </StyledBox>
+        </Box>
     );
 };

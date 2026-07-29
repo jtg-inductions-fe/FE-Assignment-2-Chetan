@@ -1,4 +1,5 @@
 import { ROLE } from '@constants';
+import { RestaurantsResponse } from '@containers';
 
 export interface BaseUser {
     name: string;
@@ -15,6 +16,6 @@ export interface User extends BaseUser {
     readonly role: typeof ROLE.ADMIN | typeof ROLE.USER;
 }
 
-export interface UserResponse extends BaseUser {
+export interface UserResponse extends BaseUser, RestaurantsResponse {
     id: string;
 }

@@ -9,6 +9,7 @@ export const ListContainer = styled(Box)({
 export const ItemText = styled(ListItemText)(({ theme }) => ({
     paddingLeft: theme.typography.pxToRem(8),
 }));
+
 export const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
     color: COLORS.COMMON.LIGHT,
     padding: theme.spacing(1.5, 3),
@@ -35,5 +36,6 @@ export const StyledDrawer = styled(Drawer)(({ theme }) => ({
         top: theme.typography.pxToRem(68),
         backgroundColor: COLORS.PRIMARY.MAIN,
         color: COLORS.COMMON.LIGHT,
+        bottom: theme.typography.pxToRem(68),
     },
 }));

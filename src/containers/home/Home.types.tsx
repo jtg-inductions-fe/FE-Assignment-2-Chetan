@@ -12,5 +12,5 @@ export interface RestaurantDetails extends RestaurantBasicDetails {
 }
 
 export interface RestaurantsResponse {
-    restaurants: RestaurantDetails[];
+    restaurants?: RestaurantDetails[];
 }

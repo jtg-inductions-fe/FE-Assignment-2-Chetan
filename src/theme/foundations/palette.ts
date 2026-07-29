@@ -38,7 +38,7 @@ export const palette: PaletteOptions = {
         black: COLORS.COMMON.DARK,
     },
 
-    divider: COLORS.DIVIDER,
+    divider: COLORS.DIVIDER.MAIN,
 
     action: {
         active: COLORS.PRIMARY.MAIN,
