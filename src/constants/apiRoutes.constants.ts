@@ -9,6 +9,7 @@ export const API_ROUTES = {
         UPDATE: (userId: string) => `/users/${userId}`,
     },
     RESTAURANTS: {
+        ROOT: '/restaurants',
         GET_MENU: (restaurantId: string) => `/restaurants/${restaurantId}/items`,
         PLACE_ORDER: (restaurantId: string) => `/restaurants/${restaurantId}/orders`,
 

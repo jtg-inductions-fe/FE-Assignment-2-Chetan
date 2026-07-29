@@ -47,7 +47,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
     };
 
     return (
-        <StyledAppBar position="static">
+        <StyledAppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     {onMenuClick && (
@@ -56,7 +56,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
                         </MenuIconButton>
                     )}
                     <LogoImage src={logo} />
-                    <LogoText variant="h4" noWrap href={ROUTES.DASHBOARD.ROOT}>
+                    <LogoText variant="h4" noWrap href={ROUTES.HOME}>
                         SwiftBite
                     </LogoText>
 

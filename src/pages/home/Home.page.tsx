@@ -1,1 +1,3 @@
-export const Home = () => <h1>Hello World</h1>;
+import { HomeContainer } from '@containers';
+
+export const Home = () => <HomeContainer />;

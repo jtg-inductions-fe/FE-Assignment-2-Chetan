@@ -10,9 +10,6 @@ export const LogoImage = styled('img')(({ theme }) => ({
     width: '100%',
     maxWidth: theme.typography.pxToRem(68),
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-        display: 'flex',
-    },
 }));
 
 export const LogoText = styled(Link)(({ theme }) => ({

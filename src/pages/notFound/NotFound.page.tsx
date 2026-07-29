@@ -12,7 +12,7 @@ export const NotFound = () => {
         <Stack justifyContent="center" alignItems="center" p="2" minHeight="80vh">
             <ErrorImage src={notFoundImage} alt="404 Not Found" />
 
-            <Button variant="contained" onClick={() => void navigate(ROUTES.DASHBOARD.ROOT)}>
+            <Button variant="contained" onClick={() => void navigate(ROUTES.HOME)}>
                 Go Home
             </Button>
         </Stack>

@@ -18,7 +18,7 @@ export const AppSnackbar = () => {
             autoHideDuration={autoHideDuration}
             onClose={handleClose}
             anchorOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'center',
             }}
         >
