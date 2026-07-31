@@ -7,7 +7,7 @@ import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { showSnackbar } from '@slices';
 import { useAppDispatch } from '@store';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage, logout } from '@utils';
 
 type ApiError = FetchBaseQueryError | SerializedError | undefined;
 
@@ -19,7 +19,6 @@ type ApiError = FetchBaseQueryError | SerializedError | undefined;
 export const useApiErrorHandler = (...errors: ApiError[]) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
     const currentError = errors.find((err) => !!err);
 
     useEffect(() => {
@@ -36,7 +35,7 @@ export const useApiErrorHandler = (...errors: ApiError[]) => {
             'status' in currentError && currentError.status === HTTP_STATUS_CODES.UNAUTHORIZED;
 
         if (isAuthError) {
-            localStorage.removeItem('accessToken');
+            logout(dispatch);
             void navigate(ROUTES.AUTH.LOGIN, { replace: true });
         }
     }, [currentError, dispatch, navigate]);

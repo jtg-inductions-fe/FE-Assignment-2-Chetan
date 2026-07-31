@@ -16,7 +16,8 @@ export const store = configureStore({
             .concat(analyticsApi.middleware),
 });
 
-export const useAppDispatch = useDispatch.withTypes<typeof store.dispatch>();
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<ReturnType<typeof store.getState>>();
 
 store.subscribe(() => {

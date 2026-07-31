@@ -13,7 +13,7 @@ import { authApi, useGetUserQuery, usePlaceOrderMutation } from '@services';
 import { clearCart, showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
 import { theme } from '@theme';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage, logout } from '@utils';
 
 import {
     StyledBillContainer,
@@ -32,7 +32,7 @@ export const CartContainer = () => {
     const dispatch = useAppDispatch();
     const items = useAppSelector((state) => state.cart.items);
     const { id, accessToken } = useAppSelector((state) => state.auth);
-    const [placeOrder, { isLoading, error }] = usePlaceOrderMutation();
+    const [placeOrder, { isLoading }] = usePlaceOrderMutation();
     const {
         data: user,
         isLoading: isUserLoading,
@@ -41,7 +41,7 @@ export const CartContainer = () => {
 
     const restaurant = (location.state as RestaurantBasicDetails) ?? {};
 
-    useApiErrorHandler(error, userError);
+    useApiErrorHandler(userError);
 
     if (isLoading || isUserLoading) return <Loading />;
 
@@ -104,6 +104,8 @@ export const CartContainer = () => {
                     severity: 'error',
                 }),
             );
+            logout(dispatch);
+            void navigate(ROUTES.AUTH.LOGIN, { replace: true });
         }
     };
 

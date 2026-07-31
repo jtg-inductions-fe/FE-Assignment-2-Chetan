@@ -7,9 +7,8 @@ import { Avatar, Container, Toolbar, Tooltip, Typography } from '@mui/material';
 
 import logo from '@assets/images/logo.svg';
 import { ROLE, ROUTES } from '@constants';
-import { analyticsApi, authApi, menuItemsApi, ordersApi, restaurantsApi } from '@services';
-import { clearCart, removeAuth } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
+import { logout } from '@utils';
 
 import { SETTINGS_OPTIONS } from './Header.config';
 import {
@@ -37,14 +36,7 @@ export const Header = () => {
     };
 
     const handleLogout = () => {
-        dispatch(analyticsApi.util.resetApiState());
-        localStorage.removeItem('accessToken');
-        dispatch(removeAuth());
-        dispatch(clearCart());
-        dispatch(authApi.util.resetApiState());
-        dispatch(ordersApi.util.resetApiState());
-        dispatch(restaurantsApi.util.resetApiState());
-        dispatch(menuItemsApi.util.resetApiState());
+        logout(dispatch);
         void navigate(ROUTES.HOME);
     };
 

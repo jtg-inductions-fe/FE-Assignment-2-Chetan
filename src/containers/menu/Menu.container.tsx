@@ -31,7 +31,7 @@ import {
 } from '@services';
 import { addItem, clearCart, decrementItem, incrementItem, showSnackbar } from '@slices';
 import { useAppDispatch, useAppSelector } from '@store';
-import { getErrorMessage } from '@utils';
+import { getErrorMessage, logout } from '@utils';
 
 import {
     MicroIcon,
@@ -155,6 +155,8 @@ export const MenuContainer = () => {
                     severity: 'error',
                 }),
             );
+            logout(dispatch);
+            void navigate(ROUTES.AUTH.LOGIN, { replace: true });
         }
     };
 
@@ -184,6 +186,8 @@ export const MenuContainer = () => {
                     severity: 'error',
                 }),
             );
+            logout(dispatch);
+            void navigate(ROUTES.AUTH.LOGIN, { replace: true });
         }
     };
 

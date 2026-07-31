@@ -1,10 +1,7 @@
-import { styled, Tooltip, Typography } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
-import { ClampedTypographyProps } from './ClampedTypography.styles';
-
-const StyledTypography = styled(Typography)<ClampedTypographyProps>(({ theme, lines = 1 }) => ({
-    ...theme.mixins.lineClamp(lines),
-}));
+import { StyledTypography } from './ClampedTypography.styles';
+import { ClampedTypographyProps } from './ClampedTypography.types';
 
 export const ClampedTypography = ({
     lines = 1,
